@@ -1072,44 +1072,116 @@
     }
   </style>
 
+<div id="toast" class="toast">Produto adicionado ao carrinho com sucesso!</div>
 
-  <div id="toast" class="toast">Produto adicionado ao carrinho com sucesso!</div>
+<script>
+  // Função para exibir mensagem na tela
+  function showToast(message) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.classList.add('show');
 
-  <script>
-    function showToast(message) {
-      const toast = document.getElementById('toast');
-      toast.textContent = message; // atualiza a mensagem
-      toast.classList.add('show');
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 3000);
+  }
 
-      setTimeout(() => {
-        toast.classList.remove('show');
-      }, 3000); // desaparece após 2,5s
-    }
-    const toggleBtn = document.getElementById('toggle-categories');
-    const categories = document.getElementById('categories');
+  const toggleBtn = document.getElementById('toggle-categories');
+  const categories = document.getElementById('categories');
 
+  if (toggleBtn) {
     toggleBtn.addEventListener('click', () => {
       categories.classList.toggle('show');
     });
+  }
 
+  // Função que verifica se a loja está aberta
+  function isStoreOpen() {
+    const agora = new Date();
+    const diaSemana = agora.getDay(); // 0 = Domingo, 6 = Sábado
+    const hora = agora.getHours();
+    const minuto = agora.getMinutes();
+    const minutosTotais = hora * 60 + minuto;
 
-    // exemplo: em algum lugar do seu JS (configuração)
-    let storeOpen = false; // ou true quando a loja abrir
+    const abertura = 18 * 60 + 30; // 18:30
+    const fechamento = 22 * 60 + 20; // 22:20
 
-    document.addEventListener('click', (e) => {
-      const button = e.target.closest('.add-to-cart');
-      if (!button) return;
+    // Aberto de segunda (1) a sábado (6)
+    const diaValido = diaSemana >= 1 && diaSemana <= 6;
+    const horarioValido = minutosTotais >= abertura && minutosTotais <= fechamento;
 
-      if (storeOpen) {
-        showToast("Produto adicionado ao carrinho com sucesso!");
-        // código para adicionar ao carrinho...
-      } else {
-        showToast("Estamos fechados. Tente novamente dentro do horário de funcionamento.");
-        // ou apenas não mostrar nada
+    return diaValido && horarioValido;
+  }
+
+  // Verifica clique nos botões de adicionar ao carrinho
+  document.addEventListener('click', (e) => {
+    const button = e.target.closest('.add-to-cart');
+    if (!button) return;
+
+    if (isStoreOpen()) {
+      showToast(" Produto adicionado ao carrinho com sucesso!");
+      // aqui vai o código para adicionar ao carrinho...
+    } else {
+      showToast("Estamos fechados. Tente novamente dentro do horário de funcionamento.");
+    }
+  });
+</script>
+
+<style>
+/* Toast responsivo e centralizado */
+    .toast {
+      position: fixed;
+      bottom: 70px;
+      /* fica acima do rodapé/carrinho */
+      left: 50%;
+      transform: translateX(-50%) translateY(30px);
+      background: linear-gradient(135deg, #dcd7d7, #ff6600);
+      color: #2e2e2e;
+      padding: 14px 26px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+      font-size: 16px;
+      font-weight: 500;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.4s ease;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 60%;
+      /* ocupa até 90% da largura da tela */
+      max-width: 400px;
+      /* mas não passa de 400px — bom pro desktop */
+      text-align: center;
+      /* texto centralizado dentro do toast */
+    }
+/* Para celulares pequenos */
+
+    /* Quando aparecer */
+    .toast.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Tema alternativo: loja fechada */
+    .toast.closed {
+      background: linear-gradient(135deg, #e74c3c, #ff6b6b);
+      color: #fff;
+    }
+
+    /* Ajuste fino para telas pequenas */
+    @media (max-width: 480px) {
+      .toast {
+        bottom: 50px;
+        /* um pouco mais alto no celular */
+        font-size: 14px;
+        /* texto menor */
+        padding: 12px 18px;
       }
-    });
-
-  </script>
+    }
+</style>
 
 
   <script>
