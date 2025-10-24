@@ -482,27 +482,53 @@
       <style>
 
         
-    /* Toast base */
-    .toast {
-      position: fixed;
-      bottom: 70px; /* acima do rodapé/carrinho no celular */
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #ffffff;
-      color: black;
-      padding: 14px 24px;
-      border-radius: 8px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      font-size: 16px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.4s;   
-      z-index: 9999;
-    }
-    .toast.show {
-      opacity: 1;
-      pointer-events: auto;
-    }
+/* Toast responsivo e centralizado */
+.toast {
+  position: fixed;
+  bottom: 70px; /* fica acima do rodapé/carrinho */
+  left: 50%;
+  transform: translateX(-50%) translateY(30px);
+  background: linear-gradient(135deg, #ffffff, #ff6600);
+  color: #2e2e2e;
+  padding: 14px 26px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  font-size: 16px;
+  font-weight: 500;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.4s ease;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 60%;          /* ocupa até 90% da largura da tela */
+  max-width: 400px;    /* mas não passa de 400px — bom pro desktop */
+  text-align: center;  /* texto centralizado dentro do toast */
+}
+
+/* Quando aparecer */
+.toast.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Tema alternativo: loja fechada */
+.toast.closed {
+  background: linear-gradient(135deg, #e74c3c, #ff6b6b);
+  color: #fff;
+}
+
+/* Ajuste fino para telas pequenas */
+@media (max-width: 480px) {
+  .toast {
+    bottom: 50px;      /* um pouco mais alto no celular */
+    font-size: 14px;   /* texto menor */
+    padding: 12px 18px;
+  }
+}
+
 
     .categories {
       display: none;
