@@ -6,6 +6,49 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <title>𝑽í𝒗𝒆𝒓𝒆𝒔 𝑩𝒖𝒓𝒈𝒖𝒆𝒓</title>
   <style>
+    .thumb img[src*="agua"],
+.thumb img[src*="aguagas"],
+.thumb img[src*="refrigerante"],
+.thumb img[src*="guarana"],
+.thumb img[src*="cocazero"],
+.thumb img[src*="cerveja"],
+.thumb img[src*="suco"] {
+  object-fit: contain;
+  width: 100%;
+  height: 180px;
+  background-color: transparent;
+  padding: 5px;
+  transition: height 0.3s ease, padding 0.3s ease;
+}
+
+/* Em telas menores (celulares e tablets), as imagens ficam MAIORES */
+@media (max-width: 768px) {
+  .thumb img[src*="agua"],
+  .thumb img[src*="aguagas"],
+  .thumb img[src*="refrigerante"],
+  .thumb img[src*="guarana"],
+  .thumb img[src*="cocazero"],
+  .thumb img[src*="cerveja"],
+  .thumb img[src*="suco"] {
+    height: 220px; /* aumenta o tamanho */
+    padding: 6px;
+  }
+}
+
+/* Em telas bem pequenas (ex: iPhones SE, Androids compactos) */
+@media (max-width: 480px) {
+  .thumb img[src*="agua"],
+  .thumb img[src*="aguagas"],
+  .thumb img[src*="refrigerante"],
+  .thumb img[src*="guarana"],
+  .thumb img[src*="cocazero"],
+  .thumb img[src*="cerveja"],
+  .thumb img[src*="suco"] {
+    height: 250px; /* ainda maior */
+    padding: 8px;
+  }
+}
+
     :root { --orange:#ff6600; --black:#111; --dark:#222; --white:#fff; --red:#ff3b3b; --green:#25d366; }
     body{margin:0;font-family:'Inter',sans-serif;background:var(--black);color:var(--white);}
     header{background:var(--black);border-bottom:2px solid var(--orange);padding:12px 16px;}
@@ -70,8 +113,234 @@
     /* Add-obs modal (when adding item) */
     .add-obs-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:90;padding:12px;}
     .add-obs-modal.open{display:flex;}
-    .add-obs-card{width:100%;max-width:520px;background:var(--dark);padding:14px;border-radius:12px;box-shadow:0 12px 30px rgba(0,0,0,0.4);}
-    .add-obs-card h3{margin:0 0 8px 0;color:var(--orange);}
+    .add-obs-card {
+  width: 90%;
+  max-width: 520px;
+  background: var(--dark);
+  padding: 16px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 90vh; /* Altura máxima da tela */
+  overflow: hidden;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Lista de adicionais com scroll interno */
+.adicionais-list, #extrasList {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  padding-right: 6px;
+  max-height: 50vh; /* Limite para não ultrapassar o modal */
+}
+
+/* Responsivo para celulares */
+@media (max-width: 480px) {
+  .add-obs-card {
+    width: 90%;
+    padding: 12px;
+    gap: 10px;
+  }
+  .add-obs-card h3 {
+    font-size: 1.1rem;
+  }
+  .concluir-btn, #addObsConfirm {
+    font-size: 0.95rem;
+    padding: 10px;
+  }
+  #addObsCancel {
+    padding: 8px 10px;
+    font-size: 0.95rem;
+  }
+}
+.add-obs-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(6px);
+  z-index: 999;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.add-obs-modal.open {
+  display: flex;
+}
+
+.add-obs-card {
+  width: 100%;
+  max-width: 480px;
+  background: #1e1e1e;
+  color: #fff;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.add-obs-card h3 {
+  margin: 0;
+  color: #ff6600;
+  text-align: center;
+}
+
+.price-info {
+  font-size: 0.9rem;
+  color: #ccc;
+  text-align: center;
+}
+
+.qty-controls {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.qty-controls input {
+  width: 60px;
+  text-align: center;
+  padding: 6px;
+  border-radius: 6px;
+  border: none;
+  background: #2b2b2b;
+  color: #fff;
+}
+
+.extras-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 180px;
+  overflow-y: auto;
+}
+
+.extras-list label {
+  background: #2b2b2b;
+  border-radius: 8px;
+  padding: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.extras-list label:hover {
+  background: #3a3a3a;
+}
+
+#itemObs {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  resize: none;
+  height: 80px;
+  background: #2b2b2b;
+  color: #fff;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 12px;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.footer-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  border: none;
+}
+
+.btn.remove {
+  background: transparent;
+  border: 1px solid #aaa;
+  color: #aaa;
+}
+
+.btn.remove:hover {
+  border-color: #fff;
+  color: #fff;
+}
+
+.btn.confirm {
+  background: #ff6600;
+  color: #fff;
+  font-weight: bold;
+}
+
+.btn.confirm:hover {
+  background: #ff8533;
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+  .add-obs-card {
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .add-obs-card h3 {
+    font-size: 1.2rem;
+  }
+
+  #itemObs {
+    height: 70px;
+    font-size: 0.9rem;
+  }
+
+  .btn {
+    padding: 8px 10px;
+    font-size: 0.9rem;
+  }
+
+  .footer-buttons {
+    flex-direction: column;
+    width: 100%;
+  }
+}
+@media (max-width: 760px) {
+  .cart {
+    position: fixed;
+    bottom: 0;
+    left: 50%;              /* posição central */
+    transform: translateX(-50%); /* ajusta para o centro exato */
+    width: 95%;             /* largura do carrinho */
+    max-width: 400px;       /* opcional: limitar largura em celulares grandes */
+    margin: 0;
+    border-radius: 12px 12px 0 0; /* cantos arredondados só em cima */
+    box-shadow: 0 -4px 20px rgba(0,0,0,0.5);
+    z-index: 90;
+    padding: 12px;
+  }
+
+  .cart h3 {
+    display: none; /* opcional */
+  }
+
+  .cart-list,
+  .totals {
+    max-height: 200px;
+    overflow-y: auto;
+  }
+}
+
+
     .add-obs-row{display:flex;gap:8px;margin-top:10px;}
     .small{font-size:0.9rem;color:#ccc;}
     .obs-preview{font-size:0.9rem;color:#ddd;margin-top:8px;background:#111;padding:8px;border-radius:8px;}
@@ -102,14 +371,14 @@
 
 <div class="controls" style="max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:6px;padding:0 10px;flex-wrap:wrap;">
   <!-- Botão ☰ -->
-   <button id="toggle-categories" 
+   <button id="toggle-categories"
   style=" color:#ffff; background:#ff6600;border:1px solid #ff6600;border-radius:6px;padding:8px 10px;cursor:pointer;font-size:18px;margin-left:auto; margin-top:6px;">
   ☰
 </button>
 
   <!-- Barra de pesquisa -->
   <div class="search-row" style="flex:1;position:relative;min-width:150px;">
-    <input type="search" id="search" placeholder="Pesquisar no cardápio" 
+    <input type="search" id="search" placeholder="Pesquisar no cardápio"
       style="width:100%;padding:12px 50px 12px 12px;font-size:16px;border:1px solid #ff6600;border-radius:8px;">
     <button id="clear-search" title="Limpar pesquisa"
       style=" color:#ffff;position:absolute;right:10px;top:50%;transform:translateY(-50%);background:#ff6600;border:none;padding:6px 10px;border-radius:6px;font-size:14px;cursor:pointer;margin-top: 3px;">
@@ -119,92 +388,12 @@
 </div>
 
 <!-- Categorias ocultas -->
-<div class="categories" id="categories" 
-  style="display:none;flex-wrap:wrap;gap:6px;justify-content:center;margin:10px auto 0;max-width:1200px;padding:0 10px;">
-  <button class="cat-btn active" data-cat="Todos">Todos</button>
+<div class="categories" id="categories">
   <button class="cat-btn" data-cat="Lanches">Lanches</button>
   <button class="cat-btn" data-cat="Bebidas">Bebidas</button>
   <button class="cat-btn" data-cat="Porções">Porções</button>
   <button class="cat-btn" data-cat="Sobremesa">Sobremesa</button>
 </div>
-
-<style>
-  .cat-btn {
-    color: rgb(255, 247, 247);
-    background: #ff6600;
-    border: 1px solid #ff6600;
-    border-radius: 6px;
-    padding: 6px 10px;
-    cursor: pointer;
-    transition: 0.2s;
-    font-size: 13px;
-  }
-/* Imagens das bebidas (tamanho padrão - telas grandes) */
-.thumb img[src*="agua"],
-.thumb img[src*="aguagas"],
-.thumb img[src*="refrigerante"],
-.thumb img[src*="guarana"],
-.thumb img[src*="cocazero"],
-.thumb img[src*="cerveja"],
-.thumb img[src*="suco"] {
-  object-fit: contain;
-  width: 100%;
-  height: 180px;
-  background-color: transparent;
-  padding: 5px;
-  transition: height 0.3s ease, padding 0.3s ease;
-}
-
-/* Em telas menores (celulares e tablets), as imagens ficam MAIORES */
-@media (max-width: 768px) {
-  .thumb img[src*="agua"],
-  .thumb img[src*="aguagas"],
-  .thumb img[src*="refrigerante"],
-  .thumb img[src*="guarana"],
-  .thumb img[src*="cocazero"],
-  .thumb img[src*="cerveja"],
-  .thumb img[src*="suco"] {
-    height: 220px; /* aumenta o tamanho */
-    padding: 6px;
-  }
-}
-
-/* Em telas bem pequenas (ex: iPhones SE, Androids compactos) */
-@media (max-width: 480px) {
-  .thumb img[src*="agua"],
-  .thumb img[src*="aguagas"],
-  .thumb img[src*="refrigerante"],
-  .thumb img[src*="guarana"],
-  .thumb img[src*="cocazero"],
-  .thumb img[src*="cerveja"],
-  .thumb img[src*="suco"] {
-    height: 250px; /* ainda maior */
-    padding: 8px;
-  }
-}
-
-  .cat-btn:hover { background:#ff6600; }
-  .cat-btn.active { background:#333;color:white;border-color:#333; }
-
-  /* Responsivo */
-  @media (max-width: 600px) {
-    .controls { flex-wrap:wrap; gap:6px; }
-    #toggle-categories { font-size:16px; padding:6px 8px; }
-    .search-row input { font-size:14px; padding:10px 50px 10px 12px; }
-    .cat-btn { flex:1 1 45%; font-size:12px; padding:5px 8px; }
-  }
-
-  @media (max-width: 400px) {
-    .cat-btn { flex:1 1 100%; font-size:11px; padding:4px 6px; }
-  }
-</style>
-
-<script>
-  document.getElementById('toggle-categories').addEventListener('click', function() {
-    const catDiv = document.getElementById('categories');
-    catDiv.style.display = catDiv.style.display === 'flex' ? 'none' : 'flex';
-  });
-</script>
 
   <main class="container">
     <section>
@@ -273,36 +462,36 @@
   </div>
 
   <!-- Modal para adicionar observação e adicionais ao item -->
-  <div class="add-obs-modal" id="addObsModal" aria-hidden="true">
-    <div class="add-obs-card">
-      <h3 id="addObsTitle">Personalizar item</h3>
-      <div style="font-size:0.9rem;color:#ccc" id="addObsPriceInfo">Escolha adicionais e observações.</div>
+ <div class="add-obs-modal" id="addObsModal" aria-hidden="true">
+  <div class="add-obs-card">
+    <h3 id="addObsTitle">Personalizar item</h3>
+    <div id="addObsPriceInfo" class="price-info">Escolha adicionais e observações.</div>
 
-      <div style="margin-top:10px">
-        <label for="itemQty">Quantidade do item:</label>
-        <div style="display:flex;gap:8px;align-items:center;margin-top:6px;">
-          <button class="btn" id="obs-decrease" style="padding:8px 10px;">-</button>
-          <input type="number" id="itemQty" value="1" min="1" style="width:64px;text-align:center;">
-          <button class="btn" id="obs-increase" style="padding:8px 10px;">+</button>
-        </div>
+    <div class="qty-section" style="margin-top:10px;">
+      <label for="itemQty">Quantidade do item:</label>
+      <div class="qty-controls">
+        <button class="btn" id="obs-decrease">-</button>
+        <input type="number" id="itemQty" value="1" min="1">
+        <button class="btn" id="obs-increase">+</button>
+      </div>
+    </div>
 
-        <h4 style="color:#ff6600;margin-top:12px;margin-bottom:6px;">Adicionais</h4>
-        <div id="extrasList" style="display:flex;flex-direction:column;gap:8px;"></div>
+    <h4 class="extras-title">Adicionais</h4>
+    <div id="extrasList" class="extras-list"></div>
 
-        <label for="itemObs" style="margin-top:12px;display:block;">Observações / instruções</label>
-        <textarea id="itemObs" placeholder="Ex: ponto da carne, sem cebola..."></textarea>
-        <div class="obs-preview" id="obsPreview" style="display:none;"></div>
+    <label for="itemObs" class="obs-label">Observações / instruções</label>
+    <textarea id="itemObs" placeholder="Ex: ponto da carne, sem cebola..."></textarea>
+    <div class="obs-preview" id="obsPreview" style="display:none;"></div>
 
-        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:12px;">
-          <strong>Total unitário: <span id="customTotal">R$ 0,00</span></strong>
-          <div style="display:flex;gap:8px;">
-            <button class="btn remove" id="addObsCancel">Cancelar</button>
-            <button class="btn" id="addObsConfirm">Adicionar ao Carrinho</button>
-          </div>
-        </div>
+    <div class="modal-footer">
+      <strong>Total unitário: <span id="customTotal">R$ 0,00</span></strong>
+      <div class="footer-buttons">
+        <button class="btn remove" id="addObsCancel">Cancelar</button>
+        <button class="btn confirm" id="addObsConfirm">Adicionar ao Carrinho</button>
       </div>
     </div>
   </div>
+</div>
 
   <footer id="footer">
     <div class="footer-content">
@@ -313,6 +502,76 @@
 
   <!-- Botão WhatsApp flutuante -->
   <button class="whatsapp-btn" id="whatsapp-btn"><i class="fab fa-whatsapp"></i></button>
+
+  <style>
+/* Toast base */
+.toast {
+  position: fixed;
+  bottom: 70px; /* acima do rodapé/carrinho no celular */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: #fff;
+  padding: 14px 24px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+  font-size: 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s;
+  z-index: 9999;
+}
+.toast.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.categories {
+  display: none;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin: 10px auto 0;
+  max-width: 1200px;
+  padding: 0 10px;
+  transition: all 0.3s ease;
+}
+
+.categories.show {
+  display: flex;
+}
+
+</style>
+
+<div id="toast" class="toast">Produto adicionado ao carrinho com sucesso!</div>
+
+<script>
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message; // atualiza a mensagem
+  toast.classList.add('show');
+  
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, 2500); // desaparece após 2,5s
+}
+const toggleBtn = document.getElementById('toggle-categories');
+const categories = document.getElementById('categories');
+
+toggleBtn.addEventListener('click', () => {
+  categories.classList.toggle('show');
+});
+
+
+// Exemplo: qualquer botão com classe .add-to-cart
+document.addEventListener('click', (e) => {
+  const button = e.target.closest('.add-to-cart');
+  if (button) {
+    showToast("Produto adicionado ao carrinho com sucesso!");
+  }
+});
+</script>
+
 
   <script>
     // --- HORÁRIO (mantive sua lógica) ---
@@ -349,11 +608,11 @@
       { id: 24, name: 'Batata Smile (carinha)', desc: '8 unidades, acompanha molho especial', price: 10.90, img: 'Batata Smile.jpg', badge: '', category: 'Porções' },
       { id: 25, name: 'Anéis de Cebola', desc: '8 unidades, acompanha molho barbecue', price: 9.90, img: 'Anéis de Cebola.jpg', badge: '', category: 'Porções' },
       { id: 26, name: 'Nuggets Chicken Supreme', desc: '6 unidades, acompanha molho especial', price: 11.90, img: 'Nuggets Supreme.jpg', badge: '', category: 'Porções' },
-      { id: 31, name: 'Mini Churros', desc: 'Porção individual com 10 unidades', price: 13.90, img: 'doce1.png', badge: '', category: 'Sobremesa' },
+      { id: 31, name: 'Mini Churros', desc: 'Porção individual com 10 unidades', price: 13.90, img: 'churros.jpg', badge: '', category: 'Sobremesa' },
       { id: 41, name: 'Água', desc: 'Garrafa de água mineral', price: 4.00, img: 'agua.png', badge: '', category: 'Bebidas' },
       { id: 42, name: 'Água com Gás', desc: 'Garrafa de água com gás', price: 4.50, img: 'aguagas.png', badge: '', category: 'Bebidas' },
       { id: 43, name: 'Refrigerante Lata 350ml', desc: 'Coca-Cola, Fanta, Sprite e outros sabores', price: 6.00, img: 'guaranas.png', badge: '', category: 'Bebidas' },
-      { id: 44, name: 'Refrigerante 2L Vencetex', desc: 'Refrigerante Vencetex 2 litros', price: 12.00, img: 'guarana.png', badge: '', category: 'Bebidas' },
+      { id: 44, name: 'Refrigerante 2L Vencetex', desc: 'Refrigerante Vencetex 2 litros', price: 8.00, img: 'guarana.png', badge: '', category: 'Bebidas' },
       { id: 45, name: 'Refrigerante 2L', desc: 'Fanta, Sprite e outros sabores', price: 12.00, img: 'refrigerante.png', badge: '', category: 'Bebidas' },
       { id: 46, name: 'Coca-Cola Zero 2L', desc: 'Refrigerante Coca-Cola Zero 2 litros', price: 15.00, img: 'cocazero.png', badge: '', category: 'Bebidas' },
       { id: 47, name: 'Cerveja Long Neck 330ml', desc: 'Heineken, Budweiser, Bud, Eisenbahn', price: 10.00, img: 'cerveja.png', badge: '', category: 'Bebidas' },
@@ -407,7 +666,6 @@
     let tempItem = null;
 
     // --- Adicionais (com preços que você forneceu) ---
-    // usei nomes claros; ajuste se quiser outros textos
     const adicionais = [
       { id: 'burg150', nome: 'Burguer extra 150g', preco: 8.00 },
       { id: 'bacon', nome: 'Bacon', preco: 6.00 },
@@ -421,7 +679,6 @@
       { id: 'cheddar_cremoso', nome: 'Cheddar cremoso', preco: 8.00 },
       { id: 'salada_completa', nome: 'Salada completa', preco: 5.00 },
       { id: 'burg_galinha', nome: 'Burguer de frango', preco: 6.00 },
-      // molhos — cada um R$5,00 (maionese da casa, BBQ, especial, baconase)
       { id: 'molho_maio', nome: 'Maionese da casa', preco: 5.00 },
       { id: 'molho_bbq', nome: 'Molho BBQ', preco: 5.00 },
       { id: 'molho_especial', nome: 'Molho especial', preco: 5.00 },
@@ -470,9 +727,43 @@
           }
           const id = parseInt(e.currentTarget.dataset.id);
           const item = menuItems.find(m=>m.id === id);
+
+          // === AQUI: se for bebida, adicionar direto ao carrinho sem abrir o modal ===
+ if (item && (item.category === 'Bebidas' || item.category === 'Porções' || item.category === 'Sobremesa')) {
+            addDirectToCart(item);
+            return;
+          }
+
+          // senão, abrir modal de personalização
           openAddObsModal(item);
         });
       });
+    }
+    
+
+    
+    // --- Adiciona bebida diretamente ao carrinho (sem modal) ---
+    function addDirectToCart(item){
+      if(!item) return;
+      // Chave de comparação simples (sem extras/obs)
+      const compareKey = `${item.id}::::`; // extras/vazio/obs vazio
+      const index = cart.findIndex(ci => ci.compareKey === compareKey);
+      if(index > -1){
+        cart[index].qty += 1;
+      } else {
+        cart.push({
+          compareKey,
+          id: item.id,
+          name: item.name,
+          basePrice: item.price,
+          unitPrice: item.price,
+          img: item.img,
+          qty: 1,
+          obs: '',
+          extras: []
+        });
+      }
+      updateCart();
     }
 
     // --- Modal adicionais + observações ---
@@ -481,6 +772,7 @@
       adicionais.forEach(a => extrasSelecionados[a.id] = 0);
     }
 
+    // Render extras list (usada pelo modal)
     function renderExtras(){
       extrasListEl.innerHTML = '';
       adicionais.forEach(extra => {
@@ -562,21 +854,18 @@
 
     addObsCancel.addEventListener('click', (e)=>{ e.preventDefault(); closeAddObsModal(); });
 
-    // Ao confirmar: cria item com extras, unitPrice e adiciona ao cart (mantendo lógica anterior)
+    // Ao confirmar no modal: cria item com extras, unitPrice e adiciona ao cart
     addObsConfirm.addEventListener('click', (e)=>{
       e.preventDefault();
       if(!tempItem) return;
       const qty = parseInt(itemQtyInput.value||1);
       const obs = obsTextarea.value.trim();
 
-      // monta array de extras selecionados legíveis
       const extrasArray = adicionais
         .filter(a => (extrasSelecionados[a.id]||0) > 0)
         .map(a => ({ id: a.id, nome: a.nome, preco: a.preco, qtd: extrasSelecionados[a.id] }));
 
-      const unitPrice = calcularUnitarioComExtras(); // preço unitário já com extras
-      // se já existe item id com mesma obs e mesmo extras (mesmo conteúdo string), somar qty
-      // criamos uma chave de comparação simples
+      const unitPrice = calcularUnitarioComExtras();
       const extrasKey = extrasArray.map(x => `${x.id}:${x.qtd}`).sort().join('|');
       const compareKey = `${tempItem.id}::${obs}::${extrasKey}`;
 
@@ -619,7 +908,6 @@
         total += lineTotal;
         const div = document.createElement('div');
         div.className = 'cart-item';
-        // extras display (if exist)
         let extrasHtml = '';
         if(item.extras && item.extras.length){
           extrasHtml = `<div class="ci-observation">Adicionais: ${item.extras.map(e=>escapeHtml(e.qtd + 'x ' + e.nome)).join(', ')}</div>`;
@@ -628,7 +916,7 @@
           <div class="ci-thumb">${item.img ? `<img src="${item.img}" alt="${item.name}">` : '<span style="color:#ccc">Sem imagem</span>'}</div>
           <div class="ci-meta">
             <div class="ci-name">${escapeHtml(item.name)}</div>
-            <div class="ci-desc">Unit: R$ ${(item.unitPrice||item.basePrice).toFixed(2)} • Qtd: ${item.qty}</div>
+            <div class="ci-desc">Valor: R$ ${(item.unitPrice||item.basePrice).toFixed(2)} • Quantidade: ${item.qty}</div>
             ${extrasHtml}
             ${item.obs ? `<div class="ci-observation">Obs: ${escapeHtml(item.obs)}</div>` : ''}
           </div>
@@ -772,7 +1060,6 @@
     categoriesEl.addEventListener('click', (e)=>{
       const btn = e.target.closest('.cat-btn');
       if(!btn) return;
-      // toggle active class
       document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
       btn.classList.add('active');
       currentCategory = btn.dataset.cat;
