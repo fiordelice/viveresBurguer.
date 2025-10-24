@@ -1,166 +1,531 @@
-    <!DOCTYPE html>
-    <html lang="pt-BR">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-      <title>𝑽í𝒗𝒆𝒓𝒆𝒔 𝑩𝒖𝒓𝒈𝒖𝒆𝒓</title>
-      <style>
-        /* Base (desktop e telas grandes) */
-.thumb img[src*="agua"],
-.thumb img[src*="aguagas"],
-.thumb img[src*="coca"],
-.thumb img[src*="sprite"],
-.thumb img[src*="guarana"],
-.thumb img[src*="cocazero"],
-.thumb img[src*="cerveja"],
-.thumb img[src*="suco"] {
-  object-fit: contain;
-  width: 100%;
-  height: 170px;
-  background-color: transparent;
-  padding: 5px;
-  transition: height 0.3s ease, padding 0.3s ease;
-}
+<!DOCTYPE html>
+<html lang="pt-BR">
 
-/* Tablets e celulares grandes */
-@media (max-width: 768px) {
-  .thumb img[src*="agua"],
-  .thumb img[src*="aguagas"],
-  .thumb img[src*="coca"],
-  .thumb img[src*="cocazero"],
-  .thumb img[src*="cerveja"],
-  .thumb img[src*="suco"] {
-    height: 220px;
-    padding: 6px;
-  }
-}
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <title>𝑽í𝒗𝒆𝒓𝒆𝒔 𝑩𝒖𝒓𝒈𝒖𝒆𝒓</title>
+  <style>
+    /* Base (desktop e telas grandes) */
+    .thumb img[src*="agua"],
+    .thumb img[src*="aguagas"],
+    .thumb img[src*="coca"],
+    .thumb img[src*="sprite"],
+    .thumb img[src*="guarana"],
+    .thumb img[src*="cocazero"],
+    .thumb img[src*="cerveja"],
+    .thumb img[src*="suco"] {
+      object-fit: contain;
+      width: 100%;
+      height: 170px;
+      background-color: transparent;
+      padding: 5px;
+      transition: height 0.3s ease, padding 0.3s ease;
+    }
 
-/* Smartphones médios (ex: iPhone 6.1”) */
-@media (min-width: 414px) and (max-width: 900px) {
-  .thumb img[src*="agua"],
-  .thumb img[src*="aguagas"],
-  .thumb img[src*="coca"],
-  .thumb img[src*="sprite"],
-  .thumb img[src*="guarana"],
-  .thumb img[src*="cocazero"],
-  .thumb img[src*="cerveja"],
-  .thumb img[src*="suco"] {
-    height: 230px;
-    padding: 6px;
-  }
-}
+    /* Tablets e celulares grandes */
+    @media (max-width: 768px) {
 
-/* Smartphones grandes 6.7” */
-@media (min-width: 430px) and (max-width: 932px) {
-  .thumb img[src*="agua"],
-  .thumb img[src*="aguagas"],
-  .thumb img[src*="coca"],
-  .thumb img[src*="sprite"],
-  .thumb img[src*="guarana"],
-  .thumb img[src*="cocazero"],
-  .thumb img[src*="cerveja"],
-  .thumb img[src*="suco"] {
-    height: 260px;
-    padding: 7px;
-  }
-}
+      .thumb img[src*="agua"],
+      .thumb img[src*="aguagas"],
+      .thumb img[src*="coca"],
+      .thumb img[src*="cocazero"],
+      .thumb img[src*="cerveja"],
+      .thumb img[src*="suco"] {
+        height: 220px;
+        padding: 6px;
+      }
+    }
 
-/* Smartphones extra grandes 6.9” */
-@media (min-width: 461px) and (max-width: 500px) {
-  .thumb img[src*="agua"],
-  .thumb img[src*="aguagas"],
-  .thumb img[src*="coca"],
-  .thumb img[src*="sprite"],
-  .thumb img[src*="guarana"],
-  .thumb img[src*="cocazero"],
-  .thumb img[src*="cerveja"],
-  .thumb img[src*="suco"] {
-    height: 240px;
-    padding: 8px;
-  }
-}
+    /* Smartphones médios (ex: iPhone 6.1”) */
+    @media (min-width: 414px) and (max-width: 900px) {
 
-/* Smartphones pequenos (ex: iPhone SE) */
-@media (max-width: 390px) {
-  .thumb img[src*="agua"],
-  .thumb img[src*="aguagas"],
-  .thumb img[src*="coca"],
-  .thumb img[src*="sprite"],
-  .thumb img[src*="guarana"],
-  .thumb img[src*="cocazero"],
-  .thumb img[src*="cerveja"],
-  .thumb img[src*="suco"] {
-    height: 210px;
-    padding: 8px;
-  }
-}
+      .thumb img[src*="agua"],
+      .thumb img[src*="aguagas"],
+      .thumb img[src*="coca"],
+      .thumb img[src*="sprite"],
+      .thumb img[src*="guarana"],
+      .thumb img[src*="cocazero"],
+      .thumb img[src*="cerveja"],
+      .thumb img[src*="suco"] {
+        height: 230px;
+        padding: 6px;
+      }
+    }
 
-        :root { --orange:#ff6600; --black:#111; --dark:#222; --white:#fff; --red:#ff3b3b; --green:#25d366; }
-        body{margin:0;font-family:'Inter',sans-serif;background:var(--black);color:var(--white);}
-        header{background:var(--black);border-bottom:2px solid var(--orange);padding:12px 16px;}
-        .header-content{display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:1200px;margin:0 auto;}
-        .left-header{display:flex;align-items:center;gap:12px;}
-        header .logo{width:48px;height:48px;object-fit:contain;border-radius:8px;}
-        header .site-name{font-size:1.5rem;font-weight:700;color:var(--orange);}
-        /* Search & categories */
-        .controls{max-width:1200px;margin:18px auto 0;padding:0 16px;display:flex;flex-direction:column;gap:10px;}
-        .search-row{display:flex;gap:10px;align-items:center;}
-        .search-row input[type="search"]{flex:1;padding:10px 12px;border-radius:10px;border:1px solid #333;background:#111;color:#fff;font-size:1rem;}
-        .categories{display:flex;gap:8px;flex-wrap:wrap;}
-        .cat-btn{background:transparent;color:#ccc;border:1px solid rgba(255,255,255,0.06);padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:700;}
-        .cat-btn.active{background:var(--orange);color:#111;border-color:var(--orange);}
-        /* Container e layout */
-        .container{max-width:1200px;margin:12px auto;padding:0 16px;display:grid;grid-template-columns:1fr 360px;gap:24px;}
-        .menu{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;}
-        /* Cards */
-        .card{background:var(--dark);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:10px;box-shadow:0 6px 20px rgba(0,0,0,0.2);position:relative;transition:0.3s;}
-        .card:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(0,0,0,0.4);}
-        .thumb{width:100%;aspect-ratio:4/3;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#333;}
-        .thumb img{width:100%;height:100%;object-fit:cover;}
-        .badge{position:absolute;top:8px;left:8px;background:var(--orange);color:#fff;font-size:0.75rem;padding:4px 8px;border-radius:8px;}
-        .name{font-weight:700;color:var(--orange);}
-        .price{font-weight:800;color:var(--orange);}
-        .desc{font-size:0.92rem;color:#ccc;margin-top:6px;}
-        .row{display:flex;justify-content:space-between;align-items:center;margin-top:auto;}
-        .btn{background:var(--orange);color:#fff;border:none;padding:10px 12px;border-radius:10px;cursor:pointer;font-weight:700;transition:0.12s;}
-        .btn:active{transform:translateY(1px);}
-        .btn.remove{background:var(--red);}
-        /* Carrinho */
-        .cart{position:relative;background:var(--black);border-radius:14px;padding:16px;box-shadow:0 6px 20px rgba(0,0,0,0.2);min-height:220px;}
-        .cart h3{margin:0 0 6px 0;color:var(--orange);}
-        .cart-empty{color:#ccc;padding:18px;background:var(--dark);border-radius:10px;text-align:center;}
-        .cart-list{display:flex;flex-direction:column;gap:12px;max-height:420px;overflow:auto;}
-        .cart-item{display:flex;gap:12px;align-items:center;padding:8px;border-radius:10px;background:#333;}
-        .ci-thumb{width:64px;height:64px;border-radius:8px;overflow:hidden;flex-shrink:0;}
-        .ci-thumb img{width:100%;height:100%;object-fit:cover;}
-        .ci-meta{flex:1;}
-        .ci-meta .ci-name{font-weight:700;}
-        .ci-meta .ci-desc{font-size:0.9rem;color:#ccc;}
-        .ci-observation{font-size:0.85rem;color:#ddd;margin-top:6px;background:#1a1a1a;padding:6px;border-radius:6px;}
-        .ci-controls{display:flex;flex-direction:column;align-items:flex-end;gap:6px;}
-        .qty{display:inline-flex;align-items:center;border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,0.2);}
-        .qty button{background:transparent;border:0;padding:8px 10px;cursor:pointer;font-weight:700;color:#fff;}
-        .qty span{display:inline-block;padding:8px 10px;min-width:28px;text-align:center;color:#fff;}
-        .ci-price{font-weight:800;color:var(--orange);}
-        .totals{margin-top:14px;border-top:1px dashed rgba(255,255,255,0.2);padding-top:12px;display:flex;flex-direction:column;gap:10px;}
-        .totals .row{display:flex;justify-content:space-between;align-items:center;}
-        .checkout{margin-top:8px;display:flex;gap:10px;}
-        .checkout .btn{flex:1;}
-        /* Modal geral */
-        .modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.8);z-index:80;padding:16px;}
-        .modal.open{display:flex;}
-        .modal-card{width:100%;max-width:540px;background:var(--dark);border-radius:14px;padding:18px;box-shadow:0 30px 60px rgba(0,0,0,0.25);color:#fff;}
-        .order-list{max-height:260px;overflow:auto;margin-top:10px;display:flex;flex-direction:column;gap:8px;}
-        .order-item{display:flex;align-items:center;gap:8px;}
-        .order-item img{width:48px;height:48px;object-fit:cover;border-radius:6px;}
-        /* Inputs */
-        select,input,textarea{width:100%;padding:10px;border-radius:8px;margin-top:6px;background:#333;border:1px solid #555;color:#fff;box-sizing:border-box;}
-        textarea{min-height:80px;resize:vertical;}
-        /* Add-obs modal (when adding item) */
-        .add-obs-modal{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:90;padding:12px;}
-        .add-obs-modal.open{display:flex;}
-        .add-obs-card {
+    /* Smartphones grandes 6.7” */
+    @media (min-width: 430px) and (max-width: 932px) {
+
+      .thumb img[src*="agua"],
+      .thumb img[src*="aguagas"],
+      .thumb img[src*="coca"],
+      .thumb img[src*="sprite"],
+      .thumb img[src*="guarana"],
+      .thumb img[src*="cocazero"],
+      .thumb img[src*="cerveja"],
+      .thumb img[src*="suco"] {
+        height: 260px;
+        padding: 7px;
+      }
+    }
+
+    /* Smartphones extra grandes 6.9” */
+    @media (min-width: 461px) and (max-width: 500px) {
+
+      .thumb img[src*="agua"],
+      .thumb img[src*="aguagas"],
+      .thumb img[src*="coca"],
+      .thumb img[src*="sprite"],
+      .thumb img[src*="guarana"],
+      .thumb img[src*="cocazero"],
+      .thumb img[src*="cerveja"],
+      .thumb img[src*="suco"] {
+        height: 240px;
+        padding: 8px;
+      }
+    }
+
+    /* Smartphones pequenos (ex: iPhone SE) */
+    @media (max-width: 390px) {
+
+      .thumb img[src*="agua"],
+      .thumb img[src*="aguagas"],
+      .thumb img[src*="coca"],
+      .thumb img[src*="sprite"],
+      .thumb img[src*="guarana"],
+      .thumb img[src*="cocazero"],
+      .thumb img[src*="cerveja"],
+      .thumb img[src*="suco"] {
+        height: 210px;
+        padding: 8px;
+      }
+    }
+
+    :root {
+      --orange: #ff6600;
+      --black: #111;
+      --dark: #222;
+      --white: #fff;
+      --red: #ff3b3b;
+      --green: #25d366;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: var(--white);
+    }
+
+    header {
+      background: var(--black);
+      border-bottom: 2px solid var(--orange);
+      padding: 12px 16px;
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .left-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    header .logo {
+      width: 48px;
+      height: 48px;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+
+    header .site-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--orange);
+    }
+
+    /* Search & categories */
+    .controls {
+      max-width: 1200px;
+      margin: 18px auto 0;
+      padding: 0 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .search-row {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .search-row input[type="search"] {
+      flex: 1;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: 1px solid #333;
+      background: #111;
+      color: #fff;
+      font-size: 1rem;
+    }
+
+    .categories {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .cat-btn {
+      background: transparent;
+      color: #ccc;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 8px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .cat-btn.active {
+      background: var(--orange);
+      color: #111;
+      border-color: var(--orange);
+    }
+
+    /* Container e layout */
+    .container {
+      max-width: 1200px;
+      margin: 12px auto;
+      padding: 0 16px;
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 24px;
+    }
+
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+    }
+
+    /* Cards */
+    .card {
+      background: var(--dark);
+      border-radius: 14px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+      position: relative;
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .thumb {
+      width: 100%;
+      aspect-ratio: 4/3;
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #333;
+    }
+
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .badge {
+      position: absolute;
+      top: 8px;
+      left: 8px;
+      background: var(--orange);
+      color: #fff;
+      font-size: 0.75rem;
+      padding: 4px 8px;
+      border-radius: 8px;
+    }
+
+    .name {
+      font-weight: 700;
+      color: var(--orange);
+    }
+
+    .price {
+      font-weight: 800;
+      color: var(--orange);
+    }
+
+    .desc {
+      font-size: 0.92rem;
+      color: #ccc;
+      margin-top: 6px;
+    }
+
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: auto;
+    }
+
+    .btn {
+      background: var(--orange);
+      color: #fff;
+      border: none;
+      padding: 10px 12px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 700;
+      transition: 0.12s;
+    }
+
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .btn.remove {
+      background: var(--red);
+    }
+
+    /* Carrinho */
+    .cart {
+      position: relative;
+      background: var(--black);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+      min-height: 220px;
+    }
+
+    .cart h3 {
+      margin: 0 0 6px 0;
+      color: var(--orange);
+    }
+
+    .cart-empty {
+      color: #ccc;
+      padding: 18px;
+      background: var(--dark);
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .cart-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 420px;
+      overflow: auto;
+    }
+
+    .cart-item {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      padding: 8px;
+      border-radius: 10px;
+      background: #333;
+    }
+
+    .ci-thumb {
+      width: 64px;
+      height: 64px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .ci-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .ci-meta {
+      flex: 1;
+    }
+
+    .ci-meta .ci-name {
+      font-weight: 700;
+    }
+
+    .ci-meta .ci-desc {
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+
+    .ci-observation {
+      font-size: 0.85rem;
+      color: #ddd;
+      margin-top: 6px;
+      background: #1a1a1a;
+      padding: 6px;
+      border-radius: 6px;
+    }
+
+    .ci-controls {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+    }
+
+    .qty {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .qty button {
+      background: transparent;
+      border: 0;
+      padding: 8px 10px;
+      cursor: pointer;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .qty span {
+      display: inline-block;
+      padding: 8px 10px;
+      min-width: 28px;
+      text-align: center;
+      color: #fff;
+    }
+
+    .ci-price {
+      font-weight: 800;
+      color: var(--orange);
+    }
+
+    .totals {
+      margin-top: 14px;
+      border-top: 1px dashed rgba(255, 255, 255, 0.2);
+      padding-top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .totals .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .checkout {
+      margin-top: 8px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .checkout .btn {
+      flex: 1;
+    }
+
+    /* Modal geral */
+    .modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.8);
+      z-index: 80;
+      padding: 16px;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-card {
+      width: 100%;
+      max-width: 540px;
+      background: var(--dark);
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
+      color: #fff;
+    }
+
+    .order-list {
+      max-height: 260px;
+      overflow: auto;
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .order-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .order-item img {
+      width: 48px;
+      height: 48px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    /* Inputs */
+    select,
+    input,
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      margin-top: 6px;
+      background: #333;
+      border: 1px solid #555;
+      color: #fff;
+      box-sizing: border-box;
+    }
+
+    textarea {
+      min-height: 80px;
+      resize: vertical;
+    }
+
+    /* Add-obs modal (when adding item) */
+    .add-obs-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 90;
+      padding: 12px;
+    }
+
+    .add-obs-modal.open {
+      display: flex;
+    }
+
+    .add-obs-card {
       width: 90%;
       max-width: 520px;
       background: var(--dark);
@@ -169,18 +534,21 @@
       display: flex;
       flex-direction: column;
       gap: 12px;
-      max-height: 90vh; /* Altura máxima da tela */
+      max-height: 90vh;
+      /* Altura máxima da tela */
       overflow: hidden;
       box-sizing: border-box;
       position: relative;
     }
 
     /* Lista de adicionais com scroll interno */
-    .adicionais-list, #extrasList {
+    .adicionais-list,
+    #extrasList {
       flex: 1 1 auto;
       overflow-y: auto;
       padding-right: 6px;
-      max-height: 50vh; /* Limite para não ultrapassar o modal */
+      max-height: 50vh;
+      /* Limite para não ultrapassar o modal */
     }
 
     /* Responsivo para celulares */
@@ -190,23 +558,28 @@
         padding: 12px;
         gap: 10px;
       }
+
       .add-obs-card h3 {
         font-size: 1.1rem;
       }
-      .concluir-btn, #addObsConfirm {
+
+      .concluir-btn,
+      #addObsConfirm {
         font-size: 0.95rem;
         padding: 10px;
       }
+
       #addObsCancel {
         padding: 8px 10px;
         font-size: 0.95rem;
       }
     }
+
     .add-obs-modal {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.7);
+      background: rgba(0, 0, 0, 0.7);
       backdrop-filter: blur(6px);
       z-index: 999;
       align-items: center;
@@ -225,7 +598,7 @@
       color: #fff;
       padding: 20px;
       border-radius: 16px;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
       display: flex;
       flex-direction: column;
       gap: 16px;
@@ -361,220 +734,325 @@
         width: 100%;
       }
     }
-    
 
 
-        .add-obs-row{display:flex;gap:8px;margin-top:10px;}
-        .small{font-size:0.9rem;color:#ccc;}
-        .obs-preview{font-size:0.9rem;color:#ddd;margin-top:8px;background:#111;padding:8px;border-radius:8px;}
-        .extras-row{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center;padding:8px;background:#1a1a1a;border-radius:8px;}
-        .extra-controls{display:flex;gap:6px;align-items:center;}
-        /* Footer */
-        #footer{background:#111;color:var(--orange);padding:16px 20px;text-align:center;font-family:'Inter',sans-serif;font-size:0.95rem;border-top:2px solid var(--orange);}
-        .footer-content{display:flex;flex-direction:column;gap:6px;}
-        .footer-content .site-info{font-weight:700;font-size:1.1rem;}
-        .footer-content .developer{font-weight:400;font-size:0.9rem;color:#ccc;}
-        @media(min-width:480px){.footer-content{flex-direction:row;justify-content:space-between;align-items:center;max-width:1200px;margin:0 auto;}}
-        /* Responsividade */
-        @media(max-width:980px){.container{grid-template-columns:1fr 340px;}}
-        @media(max-width:760px){.container{grid-template-columns:1fr;}.cart{order:2;margin-top:18px;}}
-        /* WhatsApp float */
-        #whatsapp-btn{position:fixed;bottom:20px;right:20px;background:var(--green);color:#fff;border:none;border-radius:50%;width:60px;height:60px;display:flex;align-items:center;justify-content:center;font-size:1.5rem;cursor:pointer;box-shadow:0 6px 20px rgba(0,0,0,0.3);z-index:95;}
-      </style>
-    </head>
-    <body>
-      <header>
-        <div class="header-content">
-          <div class="left-header">
-            <img src="logo.png" alt="Logo Viveres Burger" class="logo">
-            <span class="site-name">𝑽í𝒗𝒆𝒓𝒆𝒔 𝑩𝒖𝒓𝒈𝒖𝒆𝒓</span>
-          </div>
-        </div>
-      </header>
 
-    <div class="controls" style="max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:6px;padding:0 10px;flex-wrap:wrap;">
-      <!-- Botão ☰ -->
-      <button id="toggle-categories"
+    .add-obs-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .small {
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+
+    .obs-preview {
+      font-size: 0.9rem;
+      color: #ddd;
+      margin-top: 8px;
+      background: #111;
+      padding: 8px;
+      border-radius: 8px;
+    }
+
+    .extras-row {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 8px;
+      align-items: center;
+      padding: 8px;
+      background: #1a1a1a;
+      border-radius: 8px;
+    }
+
+    .extra-controls {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+    }
+
+    /* Footer */
+    #footer {
+      background: #111;
+      color: var(--orange);
+      padding: 16px 20px;
+      text-align: center;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      border-top: 2px solid var(--orange);
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .footer-content .site-info {
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .footer-content .developer {
+      font-weight: 400;
+      font-size: 0.9rem;
+      color: #ccc;
+    }
+
+    @media(min-width:480px) {
+      .footer-content {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        max-width: 1200px;
+        margin: 0 auto;
+      }
+    }
+
+    /* Responsividade */
+    @media(max-width:980px) {
+      .container {
+        grid-template-columns: 1fr 340px;
+      }
+    }
+
+    @media(max-width:760px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+
+      .cart {
+        order: 2;
+        margin-top: 18px;
+      }
+    }
+
+    /* WhatsApp float */
+    #whatsapp-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: var(--green);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+      z-index: 95;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="header-content">
+      <div class="left-header">
+        <img src="logo.png" alt="Logo Viveres Burger" class="logo">
+        <span class="site-name">𝑽í𝒗𝒆𝒓𝒆𝒔 𝑩𝒖𝒓𝒈𝒖𝒆𝒓</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="controls"
+    style="max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:6px;padding:0 10px;flex-wrap:wrap;">
+    <!-- Botão ☰ -->
+    <button id="toggle-categories"
       style=" color:#ffff; background:#ff6600;border:1px solid #ff6600;border-radius:6px;padding:8px 10px;cursor:pointer;font-size:18px;margin-left:auto; margin-top:6px;">
       ☰
     </button>
 
-      <!-- Barra de pesquisa -->
-      <div class="search-row" style="flex:1;position:relative;min-width:150px;">
-        <input type="search" id="search" placeholder="Pesquisar no cardápio"
-          style="width:100%;padding:12px 50px 12px 12px;font-size:16px;border:1px solid #ff6600;border-radius:8px;">
-        <button id="clear-search" title="Limpar pesquisa"
-          style=" color:#ffff;position:absolute;right:10px;top:50%;transform:translateY(-50%);background:#ff6600;border:none;padding:6px 10px;border-radius:6px;font-size:14px;cursor:pointer;margin-top: 3px;">
-          Limpar
-        </button>
-      </div>
+    <!-- Barra de pesquisa -->
+    <div class="search-row" style="flex:1;position:relative;min-width:150px;">
+      <input type="search" id="search" placeholder="Pesquisar no cardápio"
+        style="width:100%;padding:12px 50px 12px 12px;font-size:16px;border:1px solid #ff6600;border-radius:8px;">
+      <button id="clear-search" title="Limpar pesquisa"
+        style=" color:#ffff;position:absolute;right:10px;top:50%;transform:translateY(-50%);background:#ff6600;border:none;padding:6px 10px;border-radius:6px;font-size:14px;cursor:pointer;margin-top: 3px;">
+        Limpar
+      </button>
     </div>
+  </div>
 
-    <!-- Categorias ocultas -->
-    <div class="categories" id="categories">
-      <button class="cat-btn" data-cat="Lanches">Lanches</button>
-      <button class="cat-btn" data-cat="Bebidas">Bebidas</button>
-      <button class="cat-btn" data-cat="Porções">Porções</button>
-      <button class="cat-btn" data-cat="Sobremesa">Sobremesa</button>
-    </div>
+  <!-- Categorias ocultas -->
+  <div class="categories" id="categories">
+    <button class="cat-btn" data-cat="Lanches">Lanches</button>
+    <button class="cat-btn" data-cat="Bebidas">Bebidas</button>
+    <button class="cat-btn" data-cat="Porções">Porções</button>
+    <button class="cat-btn" data-cat="Sobremesa">Sobremesa</button>
+  </div>
 
-      <main class="container">
-        <section>
-          <h2 style="margin:0 0 12px 0">Nosso Cardápio</h2>
-          <div class="menu" id="menu"></div>
-        </section>
+  <main class="container">
+    <section>
+      <h2 style="margin:0 0 12px 0">Nosso Cardápio</h2>
+      <div class="menu" id="menu"></div>
+    </section>
 
-        <aside class="cart">
-          <h3>Seu Carrinho</h3>
-          <div id="cart-empty" class="cart-empty">Carrinho vazio</div>
-          <div class="cart-list" id="cart-list" style="display:none"></div>
-          <div class="totals" id="cart-totals" style="display:none">
-            <div class="row"><div>Total</div><div id="total">R$ 0,00</div></div>
-            <div style="margin-top:6px"><label for="payment">Forma de pagamento:</label>
-              <select id="payment">
-                <option value="Dinheiro">Dinheiro</option>
-                <option value="Pix">Pix</option>
-                <option value="Cartão">Cartão</option>
-              </select>
-            </div>
-            <div class="checkout">
-              <button class="btn" id="btn-checkout">Finalizar Pedido</button>
-              <button class="btn remove" id="btn-clear">Limpar</button>
-            </div>
-          </div>
-        </aside>
-      </main>
-
-      <!-- Modal resumo -->
-      <div class="modal" id="modal">
-        <div class="modal-card">
-          <h2>Resumo do Pedido</h2>
-          <div class="order-list" id="order-list"></div>
-
-          <div style="margin-top:12px">
-            <div class="row" style="display:flex;justify-content:space-between;font-weight:800;font-size:1.1rem">
-              <div>Total</div><div id="modal-total">R$ 0,00</div>
-            </div>
-
-            <div style="margin-top:12px;display:flex;gap:8px;flex-direction:column">
-              <label for="delivery-option">Retirada ou Delivery:</label>
-              <select id="delivery-option">
-                <option value="Retirar">Retirar no local</option>
-                <option value="Delivery">Delivery (+R$5,00)</option>
-              </select>
-
-              <div id="card-type-container" style="display:none">
-                <label for="card-type">Se cartão, escolha:</label>
-                <select id="card-type">
-                  <option value="Débito">Débito</option>
-                  <option value="Crédito">Crédito</option>
-                </select>
-              </div>
-
-              <div id="delivery-address-container" style="display:none">
-                <label for="delivery-address">Endereço para entrega:</label>
-                <input type="text" id="delivery-address-bairro" placeholder="Bairro">
-                <input type="text" id="delivery-address-rua" placeholder="Rua">
-                <input type="text" id="delivery-address-num" placeholder="Número">
-              </div>
-
-              <button class="btn" id="confirm-order">Confirmar Pedido</button>
-            </div>
-          </div>
+    <aside class="cart">
+      <h3>Seu Carrinho</h3>
+      <div id="cart-empty" class="cart-empty">Carrinho vazio</div>
+      <div class="cart-list" id="cart-list" style="display:none"></div>
+      <div class="totals" id="cart-totals" style="display:none">
+        <div class="row">
+          <div>Total</div>
+          <div id="total">R$ 0,00</div>
+        </div>
+        <div style="margin-top:6px"><label for="payment">Forma de pagamento:</label>
+          <select id="payment">
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Pix">Pix</option>
+            <option value="Cartão">Cartão</option>
+          </select>
+        </div>
+        <div class="checkout">
+          <button class="btn" id="btn-checkout">Finalizar Pedido</button>
+          <button class="btn remove" id="btn-clear">Limpar</button>
         </div>
       </div>
+    </aside>
+  </main>
 
-      <!-- Modal para adicionar observação e adicionais ao item -->
-    <div class="add-obs-modal" id="addObsModal" aria-hidden="true">
-      <div class="add-obs-card">
-        <h3 id="addObsTitle">Personalizar item</h3>
-        <div id="addObsPriceInfo" class="price-info">Escolha adicionais e observações.</div>
+  <!-- Modal resumo -->
+  <div class="modal" id="modal">
+    <div class="modal-card">
+      <h2>Resumo do Pedido</h2>
+      <div class="order-list" id="order-list"></div>
 
-        <div class="qty-section" style="margin-top:10px;">
-          <label for="itemQty">Quantidade do item:</label>
-          <div class="qty-controls">
-            <button class="btn" id="obs-decrease">-</button>
-            <input type="number" id="itemQty" value="1" min="1">
-            <button class="btn" id="obs-increase">+</button>
-          </div>
+      <div style="margin-top:12px">
+        <div class="row" style="display:flex;justify-content:space-between;font-weight:800;font-size:1.1rem">
+          <div>Total</div>
+          <div id="modal-total">R$ 0,00</div>
         </div>
 
-        <h4 class="extras-title">Adicionais</h4>
-        <div id="extrasList" class="extras-list"></div>
+        <div style="margin-top:12px;display:flex;gap:8px;flex-direction:column">
+          <label for="delivery-option">Retirada ou Delivery:</label>
+          <select id="delivery-option">
+            <option value="Retirar">Retirar no local</option>
+            <option value="Delivery">Delivery (+R$5,00)</option>
+          </select>
 
-        <label for="itemObs" class="obs-label">Observações / instruções</label>
-        <textarea id="itemObs" placeholder="Ex: ponto da carne, sem cebola..."></textarea>
-        <div class="obs-preview" id="obsPreview" style="display:none;"></div>
-
-        <div class="modal-footer">
-          <strong>Total unitário: <span id="customTotal">R$ 0,00</span></strong>
-          <div class="footer-buttons">
-            <button class="btn remove" id="addObsCancel">Cancelar</button>
-            <button class="btn confirm" id="addObsConfirm">Adicionar ao Carrinho</button>
+          <div id="card-type-container" style="display:none">
+            <label for="card-type">Se cartão, escolha:</label>
+            <select id="card-type">
+              <option value="Débito">Débito</option>
+              <option value="Crédito">Crédito</option>
+            </select>
           </div>
+
+          <div id="delivery-address-container" style="display:none">
+            <label for="delivery-address">Endereço para entrega:</label>
+            <input type="text" id="delivery-address-bairro" placeholder="Bairro">
+            <input type="text" id="delivery-address-rua" placeholder="Rua">
+            <input type="text" id="delivery-address-num" placeholder="Número">
+          </div>
+
+          <button class="btn" id="confirm-order">Confirmar Pedido</button>
         </div>
       </div>
     </div>
+  </div>
 
-      <footer id="footer">
-        <div class="footer-content">
-          <span class="site-info">𝑽í𝒗𝒆𝒓𝒆𝒔 𝑩𝒖𝒓𝒈𝒖𝒆𝒓</span>
-          <span class="developer">Desenvolvido por <strong>Gabriella Fiordelice</strong></span>
+  <!-- Modal para adicionar observação e adicionais ao item -->
+  <div class="add-obs-modal" id="addObsModal" aria-hidden="true">
+    <div class="add-obs-card">
+      <h3 id="addObsTitle">Personalizar item</h3>
+      <div id="addObsPriceInfo" class="price-info">Escolha adicionais e observações.</div>
+
+      <div class="qty-section" style="margin-top:10px;">
+        <label for="itemQty">Quantidade do item:</label>
+        <div class="qty-controls">
+          <button class="btn" id="obs-decrease">-</button>
+          <input type="number" id="itemQty" value="1" min="1">
+          <button class="btn" id="obs-increase">+</button>
         </div>
-      </footer>
+      </div>
 
-      <!-- Botão WhatsApp flutuante -->
-      <button class="whatsapp-btn" id="whatsapp-btn"><i class="fab fa-whatsapp"></i></button>
+      <h4 class="extras-title">Adicionais</h4>
+      <div id="extrasList" class="extras-list"></div>
 
-      <style>
+      <label for="itemObs" class="obs-label">Observações / instruções</label>
+      <textarea id="itemObs" placeholder="Ex: ponto da carne, sem cebola..."></textarea>
+      <div class="obs-preview" id="obsPreview" style="display:none;"></div>
 
-        
-/* Toast responsivo e centralizado */
-.toast {
-  position: fixed;
-  bottom: 70px; /* fica acima do rodapé/carrinho */
-  left: 50%;
-  transform: translateX(-50%) translateY(30px);
-  background: linear-gradient(135deg, #dcd7d7, #ff6600);
-  color: #2e2e2e;
-  padding: 14px 26px;
-  border-radius: 12px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
-  font-size: 16px;
-  font-weight: 500;
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.4s ease;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  width: 60%;          /* ocupa até 90% da largura da tela */
-  max-width: 400px;    /* mas não passa de 400px — bom pro desktop */
-  text-align: center;  /* texto centralizado dentro do toast */
-}
+      <div class="modal-footer">
+        <strong>Total unitário: <span id="customTotal">R$ 0,00</span></strong>
+        <div class="footer-buttons">
+          <button class="btn remove" id="addObsCancel">Cancelar</button>
+          <button class="btn confirm" id="addObsConfirm">Adicionar ao Carrinho</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-/* Quando aparecer */
-.toast.show {
-  opacity: 1;
-  pointer-events: auto;
-  transform: translateX(-50%) translateY(0);
-}
+  <footer id="footer">
+    <div class="footer-content">
+      <span class="site-info">𝑽í𝒗𝒆𝒓𝒆𝒔 𝑩𝒖𝒓𝒈𝒖𝒆𝒓</span>
+      <span class="developer">Desenvolvido por <strong>Gabriella Fiordelice</strong></span>
+    </div>
+  </footer>
 
-/* Tema alternativo: loja fechada */
-.toast.closed {
-  background: linear-gradient(135deg, #e74c3c, #ff6b6b);
-  color: #fff;
-}
+  <!-- Botão WhatsApp flutuante -->
+  <button class="whatsapp-btn" id="whatsapp-btn"><i class="fab fa-whatsapp"></i></button>
 
-/* Ajuste fino para telas pequenas */
-@media (max-width: 480px) {
-  .toast {
-    bottom: 50px;      /* um pouco mais alto no celular */
-    font-size: 14px;   /* texto menor */
-    padding: 12px 18px;
-  }
-}
+  <style>
+    /* Toast responsivo e centralizado */
+    .toast {
+      position: fixed;
+      bottom: 70px;
+      /* fica acima do rodapé/carrinho */
+      left: 50%;
+      transform: translateX(-50%) translateY(30px);
+      background: linear-gradient(135deg, #dcd7d7, #ff6600);
+      color: #2e2e2e;
+      padding: 14px 26px;
+      border-radius: 12px;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+      font-size: 16px;
+      font-weight: 500;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.4s ease;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 60%;
+      /* ocupa até 90% da largura da tela */
+      max-width: 400px;
+      /* mas não passa de 400px — bom pro desktop */
+      text-align: center;
+      /* texto centralizado dentro do toast */
+    }
+
+    /* Quando aparecer */
+    .toast.show {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* Tema alternativo: loja fechada */
+    .toast.closed {
+      background: linear-gradient(135deg, #e74c3c, #ff6b6b);
+      color: #fff;
+    }
+
+    /* Ajuste fino para telas pequenas */
+    @media (max-width: 480px) {
+      .toast {
+        bottom: 50px;
+        /* um pouco mais alto no celular */
+        font-size: 14px;
+        /* texto menor */
+        padding: 12px 18px;
+      }
+    }
 
 
     .categories {
@@ -591,21 +1069,17 @@
     .categories.show {
       display: flex;
     }
+  </style>
 
-    
-    
 
-    </style>
-    
+  <div id="toast" class="toast">Produto adicionado ao carrinho com sucesso!</div>
 
-    <div id="toast" class="toast">Produto adicionado ao carrinho com sucesso!</div>
-
-    <script>
+  <script>
     function showToast(message) {
       const toast = document.getElementById('toast');
       toast.textContent = message; // atualiza a mensagem
       toast.classList.add('show');
-      
+
       setTimeout(() => {
         toast.classList.remove('show');
       }, 3000); // desaparece após 2,5s
@@ -618,158 +1092,159 @@
     });
 
 
-  // exemplo: em algum lugar do seu JS (configuração)
-let storeOpen = false; // ou true quando a loja abrir
+    // exemplo: em algum lugar do seu JS (configuração)
+    let storeOpen = false; // ou true quando a loja abrir
 
-document.addEventListener('click', (e) => {
-  const button = e.target.closest('.add-to-cart');
-  if (!button) return;
+    document.addEventListener('click', (e) => {
+      const button = e.target.closest('.add-to-cart');
+      if (!button) return;
 
-  if (storeOpen) {
-    showToast("Produto adicionado ao carrinho com sucesso!");
-    // código para adicionar ao carrinho...
-  } else {
-    showToast("Estamos fechados. Tente novamente dentro do horário de funcionamento.");
-    // ou apenas não mostrar nada
-  }
-});
+      if (storeOpen) {
+        showToast("Produto adicionado ao carrinho com sucesso!");
+        // código para adicionar ao carrinho...
+      } else {
+        showToast("Estamos fechados. Tente novamente dentro do horário de funcionamento.");
+        // ou apenas não mostrar nada
+      }
+    });
 
-    </script>
+  </script>
 
 
-      <script>
-        // --- HORÁRIO (mantive sua lógica) ---
-        function verificarHorarioFuncionamento(){
-          const agora = new Date();
-          const utc = agora.getTime() + (agora.getTimezoneOffset() * 60000);
-          const brasilia = new Date(utc + (3600000 * -3));
-          const diaSemana = brasilia.getDay();
-          const hora = brasilia.getHours();
-          const minuto = brasilia.getMinutes();
-          const aberto = (diaSemana >= 1 && diaSemana <= 6) && ((hora > 18 || (hora === 18 && minuto >= 30)) && (hora < 22 || (hora === 22 && minuto <= 20)));
-          return { aberto, diaSemana };
-        }
-        let statusLoja = verificarHorarioFuncionamento();
-        let lojaAberta = statusLoja.aberto;
-        setInterval(()=>{ statusLoja = verificarHorarioFuncionamento(); lojaAberta = statusLoja.aberto; },60000);
+  <script>
+    // --- HORÁRIO (mantive sua lógica) ---
+    function verificarHorarioFuncionamento() {
+      const agora = new Date();
+      const utc = agora.getTime() + (agora.getTimezoneOffset() * 60000);
+      const brasilia = new Date(utc + (3600000 * -3));
+      const diaSemana = brasilia.getDay();
+      const hora = brasilia.getHours();
+      const minuto = brasilia.getMinutes();
+      const aberto = (diaSemana >= 1 && diaSemana <= 6) && ((hora > 18 || (hora === 18 && minuto >= 30)) && (hora < 22 || (hora === 22 && minuto <= 20)));
+      return { aberto, diaSemana };
+    }
+    let statusLoja = verificarHorarioFuncionamento();
+    let lojaAberta = statusLoja.aberto;
+    setInterval(() => { statusLoja = verificarHorarioFuncionamento(); lojaAberta = statusLoja.aberto; }, 60000);
 
-        // --- MENU (itens) ---
-        const menuItems = [
-          { id: 1, name: 'Víveres Burguer', desc: 'Pão artesanal, burguer 150g, queijo mussarela, maionese da casa', price: 20.00, img: 'Víveres Burguer.jpg', badge: '', category: 'Lanches' },
-          { id: 2, name: 'Víveres Salada', desc: 'Pão artesanal, burguer 150g, queijo mussarela, alface americana, tomate, cebola roxa, maionese da casa', price: 25.00, img: 'Víveres Salada.jpg', badge: '', category: 'Lanches' },
-          { id: 3, name: 'Víveres Bacon', desc: 'Pão artesanal, burguer 150g, bacon, queijo mussarela, alface americana, tomate, cebola roxa, maionese da casa', price: 27.90, img: 'Víveres Bacon.jpg', badge: '', category: 'Lanches' },
-          { id: 4, name: 'Mussaburguer', desc: 'Pão artesanal, burguer 150g, mussarela empanada, picles, alface americana, bacon, maionese da casa', price: 31.90, img: 'Mussaburguer.jpg', badge: '', category: 'Lanches' },
-          { id: 5, name: 'Preferido', desc: 'Pão artesanal, burguer 150g (2x), bacon, queijo cheddar, cebola roxa, maionese da casa', price: 37.00, img: 'Preferido.jpg', badge: 'Preferido', category: 'Lanches' },
-          { id: 6, name: 'G B I', desc: 'Pão artesanal, burguer 150g, bacon, queijo cheddar, maionese da casa', price: 24.90, img: 'GBI.jpg', badge: 'Mais pedido', category: 'Lanches' },
-          { id: 7, name: 'Cheddar Melt', desc: 'Pão artesanal, burguer 150g, cheddar cremoso, picles, farofa de bacon', price: 30.00, img: 'Cheddar Melt.jpg', badge: '', category: 'Lanches' },
-          { id: 8, name: 'Supreme', desc: 'Pão artesanal, burguer 150g, queijo cheddar, onion rings, molho BBQ', price: 29.00, img: 'Supreme.jpg', badge: 'Novo', category: 'Lanches' },
-          { id: 9, name: 'Víveres Crispy', desc: 'Pão artesanal, burguer 150g, queijo mussarela, cebola crispy, alface americana, mel, maionese da casa', price: 32.00, img: 'Víveres Crispy.jpg', badge: '', category: 'Lanches' },
-          { id: 10, name: 'Víveres Chicken', desc: 'Pão artesanal, burguer de frango, queijo mussarela, tomate, picles, alface americana, molho especial', price: 26.90, img: 'Víveres Chicken.jpg', badge: '', category: 'Lanches' },
-          { id: 11, name: 'Víveres Kids', desc: '1 Mini burguer + 1 mini porção de batata smile + 1 Coca-Cola 200ml ou Suco Kapô + brinde', price: 29.90, img: 'Víveres Kids.jpg', badge: '', category: 'Lanches' },
-          { id: 21, name: 'Batata Frita', desc: 'Porção individual de batata frita crocante', price: 8.00, img: 'Batata frita.jpg', badge: '', category: 'Porções' },
-          { id: 22, name: 'Batata Crinkle (ondulada)', desc: 'Porção individual de batata crinkle ondulada', price: 9.00, img: 'Batata Crinkle (ondulada).jpg', badge: '', category: 'Porções' },
-          { id: 23, name: 'Batata Frita c/ Cheddar e Farofa de Bacon', desc: 'Porção individual de batata frita com cheddar e farofa de bacon', price: 13.90, img: 'batata.jpg', badge: '', category: 'Porções' },
-          { id: 24, name: 'Batata Smile (carinha)', desc: '8 unidades, acompanha molho especial', price: 10.90, img: 'Batata Smile.jpg', badge: '', category: 'Porções' },
-          { id: 25, name: 'Anéis de Cebola', desc: '8 unidades, acompanha molho barbecue', price: 9.90, img: 'Anéis de Cebola.jpg', badge: '', category: 'Porções' },
-          { id: 26, name: 'Nuggets Chicken Supreme', desc: '6 unidades, acompanha molho especial', price: 11.90, img: 'Nuggets Supreme.jpg', badge: '', category: 'Porções' },
-          { id: 31, name: 'Mini Churros', desc: 'Porção individual com 10 unidades', price: 13.90, img: 'churros.jpg', badge: '', category: 'Sobremesa' },
-          { id: 41, name: 'Água', desc: 'Garrafa de água mineral', price: 4.00, img: 'agua.png', badge: '', category: 'Bebidas' },
-          { id: 42, name: 'Água com Gás', desc: 'Garrafa de água com gás', price: 4.50, img: 'aguagas.png', badge: '', category: 'Bebidas' },
-          { id: 43, name: 'Refrigerante Lata 350ml', desc: 'Coca-Cola, Fanta, Sprite e outros sabores', price: 6.00, img: 'guaranas.png', badge: '', category: 'Bebidas' },
-          { id: 44, name: 'Refrigerante 2L Vencetex', desc: 'Refrigerante Vencetex 2 litros', price: 8.00, img: 'guarana.png', badge: '', category: 'Bebidas' },
-          { id: 45, name: 'Coca-Cola 2L', desc: 'Refrigerante Coca-Cola 2 litros', price: 12.00, img: 'coca.png', badge: '', category: 'Bebidas' },
-          { id: 45, name: 'Sprite 2L', desc: 'Refrigerante Sprite 2 litros', price: 12.00, img: 'sprite.png', badge: '', category: 'Bebidas' },
-          { id: 46, name: 'Coca-Cola Zero 2L', desc: 'Refrigerante Coca-Cola Zero 2 litros', price: 15.00, img: 'cocazero.png', badge: '', category: 'Bebidas' },
-          { id: 47, name: 'Cerveja Long Neck 330ml', desc: 'Heineken, Budweiser, Bud, Eisenbahn', price: 10.00, img: 'cerveja.png', badge: '', category: 'Bebidas' },
-          { id: 48, name: 'Suco 500ml', desc: 'Sabores: abacaxi com hortelã, acerola com laranja, maracujá, morango e tamarino', price: 10.00, img: 'suco.png', badge: '', category: 'Bebidas' },
-        ];
+    // --- MENU (itens) ---
+    const menuItems = [
+      { id: 1, name: 'Víveres Burguer', desc: 'Pão artesanal, burguer 150g, queijo mussarela, maionese da casa', price: 20.00, img: 'Víveres Burguer.jpg', badge: '', category: 'Lanches' },
+      { id: 2, name: 'Víveres Salada', desc: 'Pão artesanal, burguer 150g, queijo mussarela, alface americana, tomate, cebola roxa, maionese da casa', price: 25.00, img: 'Víveres Salada.jpg', badge: '', category: 'Lanches' },
+      { id: 3, name: 'Víveres Bacon', desc: 'Pão artesanal, burguer 150g, bacon, queijo mussarela, alface americana, tomate, cebola roxa, maionese da casa', price: 27.90, img: 'Víveres Bacon.jpg', badge: '', category: 'Lanches' },
+      { id: 4, name: 'Mussaburguer', desc: 'Pão artesanal, burguer 150g, mussarela empanada, picles, alface americana, bacon, maionese da casa', price: 31.90, img: 'Mussaburguer.jpg', badge: '', category: 'Lanches' },
+      { id: 5, name: 'Preferido', desc: 'Pão artesanal, burguer 150g (2x), bacon, queijo cheddar, cebola roxa, maionese da casa', price: 37.00, img: 'Preferido.jpg', badge: 'Preferido', category: 'Lanches' },
+      { id: 6, name: 'G B I', desc: 'Pão artesanal, burguer 150g, bacon, queijo cheddar, maionese da casa', price: 24.90, img: 'GBI.jpg', badge: 'Mais pedido', category: 'Lanches' },
+      { id: 7, name: 'Cheddar Melt', desc: 'Pão artesanal, burguer 150g, cheddar cremoso, picles, farofa de bacon', price: 30.00, img: 'Cheddar Melt.jpg', badge: '', category: 'Lanches' },
+      { id: 8, name: 'Supreme', desc: 'Pão artesanal, burguer 150g, queijo cheddar, onion rings, molho BBQ', price: 29.00, img: 'Supreme.jpg', badge: 'Novo', category: 'Lanches' },
+      { id: 9, name: 'Víveres Crispy', desc: 'Pão artesanal, burguer 150g, queijo mussarela, cebola crispy, alface americana, mel, maionese da casa', price: 32.00, img: 'Víveres Crispy.jpg', badge: '', category: 'Lanches' },
+      { id: 10, name: 'Víveres Chicken', desc: 'Pão artesanal, burguer de frango, queijo mussarela, tomate, picles, alface americana, molho especial', price: 26.90, img: 'Víveres Chicken.jpg', badge: '', category: 'Lanches' },
+      { id: 11, name: 'Víveres Kids', desc: '1 Mini burguer + 1 mini porção de batata smile + 1 Coca-Cola 200ml ou Suco Kapô + brinde', price: 29.90, img: 'Víveres Kids.jpg', badge: '', category: 'Lanches' },
+      { id: 21, name: 'Batata Frita', desc: 'Porção individual de batata frita crocante', price: 8.00, img: 'Batata frita.jpg', badge: '', category: 'Porções' },
+      { id: 22, name: 'Batata Crinkle (ondulada)', desc: 'Porção individual de batata crinkle ondulada', price: 9.00, img: 'Batata Crinkle (ondulada).jpg', badge: '', category: 'Porções' },
+      { id: 23, name: 'Batata Frita c/ Cheddar e Farofa de Bacon', desc: 'Porção individual de batata frita com cheddar e farofa de bacon', price: 13.90, img: 'batata.jpg', badge: '', category: 'Porções' },
+      { id: 24, name: 'Batata Smile (carinha)', desc: '8 unidades, acompanha molho especial', price: 10.90, img: 'Batata Smile.jpg', badge: '', category: 'Porções' },
+      { id: 25, name: 'Anéis de Cebola', desc: '8 unidades, acompanha molho barbecue', price: 9.90, img: 'Anéis de Cebola.jpg', badge: '', category: 'Porções' },
+      { id: 26, name: 'Nuggets Chicken Supreme', desc: '6 unidades, acompanha molho especial', price: 11.90, img: 'Nuggets Supreme.jpg', badge: '', category: 'Porções' },
+      { id: 31, name: 'Mini Churros', desc: 'Porção individual com 10 unidades', price: 13.90, img: 'churros.jpg', badge: '', category: 'Sobremesa' },
+      { id: 41, name: 'Água', desc: 'Garrafa de água mineral', price: 4.00, img: 'agua.png', badge: '', category: 'Bebidas' },
+      { id: 42, name: 'Água com Gás', desc: 'Garrafa de água com gás', price: 4.50, img: 'aguagas.png', badge: '', category: 'Bebidas' },
+      { id: 43, name: 'Refrigerante Lata 350ml', desc: 'Coca-Cola, Fanta, Sprite e outros sabores', price: 6.00, img: 'guaranas.png', badge: '', category: 'Bebidas' },
+      { id: 44, name: 'Refrigerante 2L Vencetex', desc: 'Refrigerante Vencetex 2 litros', price: 8.00, img: 'guarana.png', badge: '', category: 'Bebidas' },
+      { id: 45, name: 'Coca-Cola 2L', desc: 'Refrigerante Coca-Cola 2 litros', price: 12.00, img: 'coca.png', badge: '', category: 'Bebidas' },
+      { id: 46, name: 'Fanta Laranja 2L', desc: 'Refrigerante Fanta Laranja 2 litros', price: 12.00, img: 'fantal.png', badge: '', category: 'Bebidas' },
+      { id: 47, name: 'Fanta Uva 2L', desc: 'Refrigerante Uva Laranja 2 litros', price: 12.00, img: 'fantau.png', badge: '', category: 'Bebidas' },
+      { id: 48, name: 'Coca-Cola Zero 2L', desc: 'Refrigerante Coca-Cola Zero 2 litros', price: 15.00, img: 'cocazero.png', badge: '', category: 'Bebidas' },
+      { id: 49, name: 'Cerveja Long Neck 330ml', desc: 'Heineken, Budweiser, Bud, Eisenbahn', price: 10.00, img: 'cerveja.png', badge: '', category: 'Bebidas' },
+      { id: 50, name: 'Suco 500ml', desc: 'Sabores: abacaxi com hortelã, acerola com laranja, maracujá, morango e tamarino', price: 10.00, img: 'sucoo.png', badge: '', category: 'Bebidas' },
+    ];
 
-        // Referências DOM
-        const menuEl = document.getElementById('menu');
-        const searchInput = document.getElementById('search');
-        const clearSearchBtn = document.getElementById('clear-search');
-        const categoriesEl = document.getElementById('categories');
-        const cartEmpty = document.getElementById('cart-empty');
-        const cartList = document.getElementById('cart-list');
-        const cartTotals = document.getElementById('cart-totals');
-        const totalEl = document.getElementById('total');
-        const btnClear = document.getElementById('btn-clear');
-        const btnCheckout = document.getElementById('btn-checkout');
-        const modal = document.getElementById('modal');
-        const orderList = document.getElementById('order-list');
-        const modalTotal = document.getElementById('modal-total');
-        const paymentEl = document.getElementById('payment');
-        const cardTypeContainer = document.getElementById('card-type-container');
-        const deliveryEl = document.getElementById('delivery-option');
-        const deliveryAddressContainer = document.getElementById('delivery-address-container');
-        const deliveryBairro = document.getElementById('delivery-address-bairro');
-        const deliveryRua = document.getElementById('delivery-address-rua');
-        const deliveryNum = document.getElementById('delivery-address-num');
-        const whatsappBtn = document.getElementById('whatsapp-btn');
+    // Referências DOM
+    const menuEl = document.getElementById('menu');
+    const searchInput = document.getElementById('search');
+    const clearSearchBtn = document.getElementById('clear-search');
+    const categoriesEl = document.getElementById('categories');
+    const cartEmpty = document.getElementById('cart-empty');
+    const cartList = document.getElementById('cart-list');
+    const cartTotals = document.getElementById('cart-totals');
+    const totalEl = document.getElementById('total');
+    const btnClear = document.getElementById('btn-clear');
+    const btnCheckout = document.getElementById('btn-checkout');
+    const modal = document.getElementById('modal');
+    const orderList = document.getElementById('order-list');
+    const modalTotal = document.getElementById('modal-total');
+    const paymentEl = document.getElementById('payment');
+    const cardTypeContainer = document.getElementById('card-type-container');
+    const deliveryEl = document.getElementById('delivery-option');
+    const deliveryAddressContainer = document.getElementById('delivery-address-container');
+    const deliveryBairro = document.getElementById('delivery-address-bairro');
+    const deliveryRua = document.getElementById('delivery-address-rua');
+    const deliveryNum = document.getElementById('delivery-address-num');
+    const whatsappBtn = document.getElementById('whatsapp-btn');
 
-        // Modal de adicionar observação
-        const addObsModal = document.getElementById('addObsModal');
-        const addObsTitle = document.getElementById('addObsTitle');
-        const itemQtyInput = document.getElementById('itemQty');
-        const obsTextarea = document.getElementById('itemObs');
-        const addObsConfirm = document.getElementById('addObsConfirm');
-        const addObsCancel = document.getElementById('addObsCancel');
-        const obsDecrease = document.getElementById('obs-decrease');
-        const obsIncrease = document.getElementById('obs-increase');
-        const obsPreview = document.getElementById('obsPreview');
-        const extrasListEl = document.getElementById('extrasList');
-        const customTotalEl = document.getElementById('customTotal');
+    // Modal de adicionar observação
+    const addObsModal = document.getElementById('addObsModal');
+    const addObsTitle = document.getElementById('addObsTitle');
+    const itemQtyInput = document.getElementById('itemQty');
+    const obsTextarea = document.getElementById('itemObs');
+    const addObsConfirm = document.getElementById('addObsConfirm');
+    const addObsCancel = document.getElementById('addObsCancel');
+    const obsDecrease = document.getElementById('obs-decrease');
+    const obsIncrease = document.getElementById('obs-increase');
+    const obsPreview = document.getElementById('obsPreview');
+    const extrasListEl = document.getElementById('extrasList');
+    const customTotalEl = document.getElementById('customTotal');
 
-        // Estado do carrinho
-        let cart = [];
+    // Estado do carrinho
+    let cart = [];
 
-        // Estado de filtro/pesquisa
-        let currentCategory = 'Todos';
-        let currentQuery = '';
+    // Estado de filtro/pesquisa
+    let currentCategory = 'Todos';
+    let currentQuery = '';
 
-        // Item temporário sendo adicionado (para modal)
-        let tempItem = null;
+    // Item temporário sendo adicionado (para modal)
+    let tempItem = null;
 
-        // --- Adicionais (com preços que você forneceu) ---
-        const adicionais = [
-          { id: 'burg150', nome: 'Burguer extra 150g', preco: 8.00 },
-          { id: 'bacon', nome: 'Bacon', preco: 6.00 },
-          { id: 'farofa', nome: 'Farofa de bacon', preco: 6.00 },
-          { id: 'picles', nome: 'Picles', preco: 5.00 },
-          { id: 'cebola_crispy', nome: 'Cebola crispy', preco: 5.00 },
-          { id: 'anel_cebola', nome: 'Anel de cebola', preco: 5.00 },
-          { id: 'mussarela_emp', nome: 'Mussarela empanada', preco: 8.00 },
-          { id: 'queijo_muss', nome: 'Queijo mussarela', preco: 5.00 },
-          { id: 'queijo_cheddar', nome: 'Queijo cheddar', preco: 5.00 },
-          { id: 'cheddar_cremoso', nome: 'Cheddar cremoso', preco: 8.00 },
-          { id: 'salada_completa', nome: 'Salada completa', preco: 5.00 },
-          { id: 'burg_galinha', nome: 'Burguer de frango', preco: 6.00 },
-          { id: 'molho_maio', nome: 'Maionese da casa', preco: 5.00 },
-          { id: 'molho_bbq', nome: 'Molho BBQ', preco: 5.00 },
-          { id: 'molho_especial', nome: 'Molho especial', preco: 5.00 },
-          { id: 'molho_baconase', nome: 'Baconase', preco: 5.00 }
-        ];
+    // --- Adicionais (com preços que você forneceu) ---
+    const adicionais = [
+      { id: 'burg150', nome: 'Burguer extra 150g', preco: 8.00 },
+      { id: 'bacon', nome: 'Bacon', preco: 6.00 },
+      { id: 'farofa', nome: 'Farofa de bacon', preco: 6.00 },
+      { id: 'picles', nome: 'Picles', preco: 5.00 },
+      { id: 'cebola_crispy', nome: 'Cebola crispy', preco: 5.00 },
+      { id: 'anel_cebola', nome: 'Anel de cebola', preco: 5.00 },
+      { id: 'mussarela_emp', nome: 'Mussarela empanada', preco: 8.00 },
+      { id: 'queijo_muss', nome: 'Queijo mussarela', preco: 5.00 },
+      { id: 'queijo_cheddar', nome: 'Queijo cheddar', preco: 5.00 },
+      { id: 'cheddar_cremoso', nome: 'Cheddar cremoso', preco: 8.00 },
+      { id: 'salada_completa', nome: 'Salada completa', preco: 5.00 },
+      { id: 'burg_galinha', nome: 'Burguer de frango', preco: 6.00 },
+      { id: 'molho_maio', nome: 'Maionese da casa', preco: 5.00 },
+      { id: 'molho_bbq', nome: 'Molho BBQ', preco: 5.00 },
+      { id: 'molho_especial', nome: 'Molho especial', preco: 5.00 },
+      { id: 'molho_baconase', nome: 'Baconase', preco: 5.00 }
+    ];
 
-        // estado temporário de extras selecionados (id -> qtd)
-        let extrasSelecionados = {};
+    // estado temporário de extras selecionados (id -> qtd)
+    let extrasSelecionados = {};
 
-        // --- Função: renderizar menu com filtros/pesquisa ---
-        function renderMenu(){
-          menuEl.innerHTML = '';
-          const q = currentQuery.trim().toLowerCase();
-          const filtered = menuItems.filter(i=>{
-            const matchCat = (currentCategory === 'Todos') || (i.category === currentCategory);
-            const matchQuery = !q || i.name.toLowerCase().includes(q) || i.desc.toLowerCase().includes(q);
-            return matchCat && matchQuery;
-          });
-          if(filtered.length === 0){
-            menuEl.innerHTML = '<div style="color:#ccc">Nenhum item encontrado.</div>';
-            return;
-          }
-          filtered.forEach(i=>{
-            const card = document.createElement('div');
-            card.className = 'card';
-            card.innerHTML = `
+    // --- Função: renderizar menu com filtros/pesquisa ---
+    function renderMenu() {
+      menuEl.innerHTML = '';
+      const q = currentQuery.trim().toLowerCase();
+      const filtered = menuItems.filter(i => {
+        const matchCat = (currentCategory === 'Todos') || (i.category === currentCategory);
+        const matchQuery = !q || i.name.toLowerCase().includes(q) || i.desc.toLowerCase().includes(q);
+        return matchCat && matchQuery;
+      });
+      if (filtered.length === 0) {
+        menuEl.innerHTML = '<div style="color:#ccc">Nenhum item encontrado.</div>';
+        return;
+      }
+      filtered.forEach(i => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.innerHTML = `
               <div class="thumb">${i.img ? `<img src="${i.img}" alt="${i.name}">` : '<span style="color:#ccc">Sem imagem</span>'}</div>
               ${i.badge ? `<div class="badge">${i.badge}</div>` : ''}
               <div class="name">${i.name}</div>
@@ -780,208 +1255,208 @@ document.addEventListener('click', (e) => {
                 <div style="font-size:0.85rem;color:#ccc">${i.category}</div>
               </div>
             `;
-            menuEl.appendChild(card);
-          });
+        menuEl.appendChild(card);
+      });
 
-          // Depois de renderizar, anexar listeners nos botões "Adicionar"
-          document.querySelectorAll('.add-to-cart').forEach(btn=>{
-            btn.addEventListener('click', (e)=>{
-              if(!lojaAberta){
-                alert('A loja está fechada. Funciona Segunda-Sábado 18:30–22:20');
-                return;
-              }
-              const id = parseInt(e.currentTarget.dataset.id);
-              const item = menuItems.find(m=>m.id === id);
-
-              // === AQUI: se for bebida, adicionar direto ao carrinho sem abrir o modal ===
-    if (item && (item.category === 'Bebidas' || item.category === 'Porções' || item.category === 'Sobremesa')) {
-                addDirectToCart(item);
-                return;
-              }
-
-              // senão, abrir modal de personalização
-              openAddObsModal(item);
-            });
-          });
-        }
-        
-
-        
-        // --- Adiciona bebida diretamente ao carrinho (sem modal) ---
-        function addDirectToCart(item){
-          if(!item) return;
-          // Chave de comparação simples (sem extras/obs)
-          const compareKey = `${item.id}::::`; // extras/vazio/obs vazio
-          const index = cart.findIndex(ci => ci.compareKey === compareKey);
-          if(index > -1){
-            cart[index].qty += 1;
-          } else {
-            cart.push({
-              compareKey,
-              id: item.id,
-              name: item.name,
-              basePrice: item.price,
-              unitPrice: item.price,
-              img: item.img,
-              qty: 1,
-              obs: '',
-              extras: []
-            });
+      // Depois de renderizar, anexar listeners nos botões "Adicionar"
+      document.querySelectorAll('.add-to-cart').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          if (!lojaAberta) {
+            alert('A loja está fechada. Funciona Segunda-Sábado 18:30–22:20');
+            return;
           }
-          updateCart();
-        }
+          const id = parseInt(e.currentTarget.dataset.id);
+          const item = menuItems.find(m => m.id === id);
 
-        // --- Modal adicionais + observações ---
-        function resetExtrasSelecionados(){
-          extrasSelecionados = {};
-          adicionais.forEach(a => extrasSelecionados[a.id] = 0);
-        }
+          // === AQUI: se for bebida, adicionar direto ao carrinho sem abrir o modal ===
+          if (item && (item.category === 'Bebidas' || item.category === 'Porções' || item.category === 'Sobremesa')) {
+            addDirectToCart(item);
+            return;
+          }
 
-        // Render extras list (usada pelo modal)
-        function renderExtras(){
-          extrasListEl.innerHTML = '';
-          adicionais.forEach(extra => {
-            const row = document.createElement('div');
-            row.className = 'extras-row';
-            row.innerHTML = `
+          // senão, abrir modal de personalização
+          openAddObsModal(item);
+        });
+      });
+    }
+
+
+
+    // --- Adiciona bebida diretamente ao carrinho (sem modal) ---
+    function addDirectToCart(item) {
+      if (!item) return;
+      // Chave de comparação simples (sem extras/obs)
+      const compareKey = `${item.id}::::`; // extras/vazio/obs vazio
+      const index = cart.findIndex(ci => ci.compareKey === compareKey);
+      if (index > -1) {
+        cart[index].qty += 1;
+      } else {
+        cart.push({
+          compareKey,
+          id: item.id,
+          name: item.name,
+          basePrice: item.price,
+          unitPrice: item.price,
+          img: item.img,
+          qty: 1,
+          obs: '',
+          extras: []
+        });
+      }
+      updateCart();
+    }
+
+    // --- Modal adicionais + observações ---
+    function resetExtrasSelecionados() {
+      extrasSelecionados = {};
+      adicionais.forEach(a => extrasSelecionados[a.id] = 0);
+    }
+
+    // Render extras list (usada pelo modal)
+    function renderExtras() {
+      extrasListEl.innerHTML = '';
+      adicionais.forEach(extra => {
+        const row = document.createElement('div');
+        row.className = 'extras-row';
+        row.innerHTML = `
               <div style="font-size:0.95rem;color:#ddd">${extra.nome} — R$ ${extra.preco.toFixed(2)}</div>
               <div class="extra-controls" style="min-width:110px;">
                 <button class="btn" data-extra="${extra.id}" data-delta="-1">-</button>
-                <span id="extraQty-${extra.id}" style="min-width:28px;text-align:center;display:inline-block">${extrasSelecionados[extra.id]||0}</span>
+                <span id="extraQty-${extra.id}" style="min-width:28px;text-align:center;display:inline-block">${extrasSelecionados[extra.id] || 0}</span>
                 <button class="btn" data-extra="${extra.id}" data-delta="1">+</button>
               </div>
             `;
-            extrasListEl.appendChild(row);
-          });
+        extrasListEl.appendChild(row);
+      });
 
-          // attach listeners
-          extrasListEl.querySelectorAll('button[data-extra]').forEach(b=>{
-            b.addEventListener('click', (ev)=>{
-              const id = ev.currentTarget.dataset.extra;
-              const delta = parseInt(ev.currentTarget.dataset.delta);
-              alterarExtra(id, delta);
-            });
-          });
-        }
-
-        function alterarExtra(id, delta){
-          extrasSelecionados[id] = Math.max(0, (extrasSelecionados[id]||0) + delta);
-          const span = document.getElementById(`extraQty-${id}`);
-          if(span) span.textContent = extrasSelecionados[id];
-          atualizarCustomTotal();
-        }
-
-        function calcularUnitarioComExtras(){
-          if(!tempItem) return 0;
-          let unit = parseFloat(tempItem.price) || 0;
-          for(const a of adicionais){
-            const q = extrasSelecionados[a.id] || 0;
-            unit += q * a.preco;
-          }
-          return unit;
-        }
-
-        function atualizarCustomTotal(){
-          const unit = calcularUnitarioComExtras();
-          customTotalEl.textContent = `R$ ${unit.toFixed(2)}`;
-          return unit;
-        }
-
-        function openAddObsModal(item){
-          tempItem = item;
-          addObsTitle.textContent = `Personalizar: ${item.name}`;
-          itemQtyInput.value = 1;
-          obsTextarea.value = '';
-          obsPreview.style.display = 'none';
-          resetExtrasSelecionados();
-          renderExtras();
-          atualizarCustomTotal();
-          addObsModal.classList.add('open');
-          addObsModal.setAttribute('aria-hidden','false');
-          setTimeout(()=>obsTextarea.focus(),250);
-        }
-
-        function closeAddObsModal(){
-          tempItem = null;
-          addObsModal.classList.remove('open');
-          addObsModal.setAttribute('aria-hidden','true');
-        }
-
-        obsDecrease.addEventListener('click', ()=>{ let v = parseInt(itemQtyInput.value||1); if(v>1) itemQtyInput.value = v-1; });
-        obsIncrease.addEventListener('click', ()=>{ let v = parseInt(itemQtyInput.value||1); itemQtyInput.value = v+1; });
-        itemQtyInput.addEventListener('input', ()=>{ if(itemQtyInput.value < 1) itemQtyInput.value = 1; });
-
-        obsTextarea.addEventListener('input', ()=>{
-          const txt = obsTextarea.value.trim();
-          if(txt) { obsPreview.style.display = 'block'; obsPreview.textContent = 'Observação: ' + txt; }
-          else { obsPreview.style.display = 'none'; obsPreview.textContent = ''; }
+      // attach listeners
+      extrasListEl.querySelectorAll('button[data-extra]').forEach(b => {
+        b.addEventListener('click', (ev) => {
+          const id = ev.currentTarget.dataset.extra;
+          const delta = parseInt(ev.currentTarget.dataset.delta);
+          alterarExtra(id, delta);
         });
+      });
+    }
 
-        addObsCancel.addEventListener('click', (e)=>{ e.preventDefault(); closeAddObsModal(); });
+    function alterarExtra(id, delta) {
+      extrasSelecionados[id] = Math.max(0, (extrasSelecionados[id] || 0) + delta);
+      const span = document.getElementById(`extraQty-${id}`);
+      if (span) span.textContent = extrasSelecionados[id];
+      atualizarCustomTotal();
+    }
 
-        // Ao confirmar no modal: cria item com extras, unitPrice e adiciona ao cart
-        addObsConfirm.addEventListener('click', (e)=>{
-          e.preventDefault();
-          if(!tempItem) return;
-          const qty = parseInt(itemQtyInput.value||1);
-          const obs = obsTextarea.value.trim();
+    function calcularUnitarioComExtras() {
+      if (!tempItem) return 0;
+      let unit = parseFloat(tempItem.price) || 0;
+      for (const a of adicionais) {
+        const q = extrasSelecionados[a.id] || 0;
+        unit += q * a.preco;
+      }
+      return unit;
+    }
 
-          const extrasArray = adicionais
-            .filter(a => (extrasSelecionados[a.id]||0) > 0)
-            .map(a => ({ id: a.id, nome: a.nome, preco: a.preco, qtd: extrasSelecionados[a.id] }));
+    function atualizarCustomTotal() {
+      const unit = calcularUnitarioComExtras();
+      customTotalEl.textContent = `R$ ${unit.toFixed(2)}`;
+      return unit;
+    }
 
-          const unitPrice = calcularUnitarioComExtras();
-          const extrasKey = extrasArray.map(x => `${x.id}:${x.qtd}`).sort().join('|');
-          const compareKey = `${tempItem.id}::${obs}::${extrasKey}`;
+    function openAddObsModal(item) {
+      tempItem = item;
+      addObsTitle.textContent = `Personalizar: ${item.name}`;
+      itemQtyInput.value = 1;
+      obsTextarea.value = '';
+      obsPreview.style.display = 'none';
+      resetExtrasSelecionados();
+      renderExtras();
+      atualizarCustomTotal();
+      addObsModal.classList.add('open');
+      addObsModal.setAttribute('aria-hidden', 'false');
+      setTimeout(() => obsTextarea.focus(), 250);
+    }
 
-          const index = cart.findIndex(ci => ci.compareKey === compareKey);
-          if(index > -1){
-            cart[index].qty += qty;
-          } else {
-            cart.push({
-              compareKey,
-              id: tempItem.id,
-              name: tempItem.name,
-              basePrice: tempItem.price,
-              unitPrice: unitPrice,
-              img: tempItem.img,
-              qty,
-              obs,
-              extras: extrasArray
-            });
-          }
+    function closeAddObsModal() {
+      tempItem = null;
+      addObsModal.classList.remove('open');
+      addObsModal.setAttribute('aria-hidden', 'true');
+    }
 
-          updateCart();
-          closeAddObsModal();
+    obsDecrease.addEventListener('click', () => { let v = parseInt(itemQtyInput.value || 1); if (v > 1) itemQtyInput.value = v - 1; });
+    obsIncrease.addEventListener('click', () => { let v = parseInt(itemQtyInput.value || 1); itemQtyInput.value = v + 1; });
+    itemQtyInput.addEventListener('input', () => { if (itemQtyInput.value < 1) itemQtyInput.value = 1; });
+
+    obsTextarea.addEventListener('input', () => {
+      const txt = obsTextarea.value.trim();
+      if (txt) { obsPreview.style.display = 'block'; obsPreview.textContent = 'Observação: ' + txt; }
+      else { obsPreview.style.display = 'none'; obsPreview.textContent = ''; }
+    });
+
+    addObsCancel.addEventListener('click', (e) => { e.preventDefault(); closeAddObsModal(); });
+
+    // Ao confirmar no modal: cria item com extras, unitPrice e adiciona ao cart
+    addObsConfirm.addEventListener('click', (e) => {
+      e.preventDefault();
+      if (!tempItem) return;
+      const qty = parseInt(itemQtyInput.value || 1);
+      const obs = obsTextarea.value.trim();
+
+      const extrasArray = adicionais
+        .filter(a => (extrasSelecionados[a.id] || 0) > 0)
+        .map(a => ({ id: a.id, nome: a.nome, preco: a.preco, qtd: extrasSelecionados[a.id] }));
+
+      const unitPrice = calcularUnitarioComExtras();
+      const extrasKey = extrasArray.map(x => `${x.id}:${x.qtd}`).sort().join('|');
+      const compareKey = `${tempItem.id}::${obs}::${extrasKey}`;
+
+      const index = cart.findIndex(ci => ci.compareKey === compareKey);
+      if (index > -1) {
+        cart[index].qty += qty;
+      } else {
+        cart.push({
+          compareKey,
+          id: tempItem.id,
+          name: tempItem.name,
+          basePrice: tempItem.price,
+          unitPrice: unitPrice,
+          img: tempItem.img,
+          qty,
+          obs,
+          extras: extrasArray
         });
+      }
 
-        // --- Atualizar carrinho na UI ---
-        function updateCart(){
-          if(cart.length === 0){
-            cartEmpty.style.display = 'block';
-            cartList.style.display = 'none';
-            cartTotals.style.display = 'none';
-            return;
-          }
-          cartEmpty.style.display = 'none';
-          cartList.style.display = 'flex';
-          cartTotals.style.display = 'flex';
-          cartList.innerHTML = '';
-          let total = 0;
-          cart.forEach((item, idx) => {
-            const lineTotal = (item.unitPrice || item.basePrice) * item.qty;
-            total += lineTotal;
-            const div = document.createElement('div');
-            div.className = 'cart-item';
-            let extrasHtml = '';
-            if(item.extras && item.extras.length){
-              extrasHtml = `<div class="ci-observation">Adicionais: ${item.extras.map(e=>escapeHtml(e.qtd + 'x ' + e.nome)).join(', ')}</div>`;
-            }
-            div.innerHTML = `
+      updateCart();
+      closeAddObsModal();
+    });
+
+    // --- Atualizar carrinho na UI ---
+    function updateCart() {
+      if (cart.length === 0) {
+        cartEmpty.style.display = 'block';
+        cartList.style.display = 'none';
+        cartTotals.style.display = 'none';
+        return;
+      }
+      cartEmpty.style.display = 'none';
+      cartList.style.display = 'flex';
+      cartTotals.style.display = 'flex';
+      cartList.innerHTML = '';
+      let total = 0;
+      cart.forEach((item, idx) => {
+        const lineTotal = (item.unitPrice || item.basePrice) * item.qty;
+        total += lineTotal;
+        const div = document.createElement('div');
+        div.className = 'cart-item';
+        let extrasHtml = '';
+        if (item.extras && item.extras.length) {
+          extrasHtml = `<div class="ci-observation">Adicionais: ${item.extras.map(e => escapeHtml(e.qtd + 'x ' + e.nome)).join(', ')}</div>`;
+        }
+        div.innerHTML = `
               <div class="ci-thumb">${item.img ? `<img src="${item.img}" alt="${item.name}">` : '<span style="color:#ccc">Sem imagem</span>'}</div>
               <div class="ci-meta">
                 <div class="ci-name">${escapeHtml(item.name)}</div>
-                <div class="ci-desc">Valor: R$ ${(item.unitPrice||item.basePrice).toFixed(2)} • Quantidade: ${item.qty}</div>
+                <div class="ci-desc">Valor: R$ ${(item.unitPrice || item.basePrice).toFixed(2)} • Quantidade: ${item.qty}</div>
                 ${extrasHtml}
                 ${item.obs ? `<div class="ci-observation">Obs: ${escapeHtml(item.obs)}</div>` : ''}
               </div>
@@ -995,171 +1470,172 @@ document.addEventListener('click', (e) => {
                 <button class="btn remove remove-item" data-idx="${idx}" style="margin-top:8px">Remover</button>
               </div>
             `;
-            cartList.appendChild(div);
-          });
-          totalEl.textContent = 'R$ ' + total.toFixed(2);
+        cartList.appendChild(div);
+      });
+      totalEl.textContent = 'R$ ' + total.toFixed(2);
 
-          // attach listeners for +/- and remove
-          document.querySelectorAll('.minus').forEach(b=>{
-            b.addEventListener('click', (e)=>{
-              const i = parseInt(e.currentTarget.dataset.idx);
-              if(cart[i].qty > 1) cart[i].qty--;
-              else cart.splice(i,1);
-              updateCart();
-            });
-          });
-          document.querySelectorAll('.plus').forEach(b=>{
-            b.addEventListener('click', (e)=>{
-              const i = parseInt(e.currentTarget.dataset.idx);
-              cart[i].qty++;
-              updateCart();
-            });
-          });
-          document.querySelectorAll('.remove-item').forEach(b=>{
-            b.addEventListener('click', (e)=>{
-              const i = parseInt(e.currentTarget.dataset.idx);
-              cart.splice(i,1);
-              updateCart();
-            });
-          });
-        }
+      // attach listeners for +/- and remove
+      document.querySelectorAll('.minus').forEach(b => {
+        b.addEventListener('click', (e) => {
+          const i = parseInt(e.currentTarget.dataset.idx);
+          if (cart[i].qty > 1) cart[i].qty--;
+          else cart.splice(i, 1);
+          updateCart();
+        });
+      });
+      document.querySelectorAll('.plus').forEach(b => {
+        b.addEventListener('click', (e) => {
+          const i = parseInt(e.currentTarget.dataset.idx);
+          cart[i].qty++;
+          updateCart();
+        });
+      });
+      document.querySelectorAll('.remove-item').forEach(b => {
+        b.addEventListener('click', (e) => {
+          const i = parseInt(e.currentTarget.dataset.idx);
+          cart.splice(i, 1);
+          updateCart();
+        });
+      });
+    }
 
-        // --- Limpar carrinho ---
-        btnClear.addEventListener('click', ()=>{ cart = []; updateCart(); });
+    // --- Limpar carrinho ---
+    btnClear.addEventListener('click', () => { cart = []; updateCart(); });
 
-        // --- Checkout: abrir modal resumo ---
-        btnCheckout.addEventListener('click', ()=>{
-          if(cart.length === 0){ alert('Carrinho vazio'); return; }
-          orderList.innerHTML = '';
-          let total = 0;
-          cart.forEach(i=>{
-            const lineTotal = (i.unitPrice || i.basePrice) * i.qty;
-            total += lineTotal;
-            const div = document.createElement('div');
-            div.className = 'order-item';
-            div.innerHTML = `
+    // --- Checkout: abrir modal resumo ---
+    btnCheckout.addEventListener('click', () => {
+      if (cart.length === 0) { alert('Carrinho vazio'); return; }
+      orderList.innerHTML = '';
+      let total = 0;
+      cart.forEach(i => {
+        const lineTotal = (i.unitPrice || i.basePrice) * i.qty;
+        total += lineTotal;
+        const div = document.createElement('div');
+        div.className = 'order-item';
+        div.innerHTML = `
               ${i.img ? `<img src="${i.img}" alt="${i.name}">` : ''}
               <div style="flex:1">
                 <div style="font-weight:700">${escapeHtml(i.name)} x${i.qty}</div>
                 <div style="color:#ccc">R$ ${lineTotal.toFixed(2)}</div>
-                ${i.extras && i.extras.length ? `<div style="margin-top:6px;color:#ddd;font-size:0.9rem">Adicionais: ${i.extras.map(e=>escapeHtml(e.qtd + 'x ' + e.nome)).join(', ')}</div>` : ''}
+                ${i.extras && i.extras.length ? `<div style="margin-top:6px;color:#ddd;font-size:0.9rem">Adicionais: ${i.extras.map(e => escapeHtml(e.qtd + 'x ' + e.nome)).join(', ')}</div>` : ''}
                 ${i.obs ? `<div style="margin-top:6px;color:#ddd;font-size:0.9rem">Obs: ${escapeHtml(i.obs)}</div>` : ''}
               </div>
             `;
-            orderList.appendChild(div);
-          });
-          modalTotal.textContent = 'R$ ' + total.toFixed(2);
-          modal.classList.add('open');
-        });
+        orderList.appendChild(div);
+      });
+      modalTotal.textContent = 'R$ ' + total.toFixed(2);
+      modal.classList.add('open');
+    });
 
-        // fechar modal resumo ao clicar fora (simples)
-        modal.addEventListener('click', (e)=>{ if(e.target === modal) modal.classList.remove('open'); });
+    // fechar modal resumo ao clicar fora (simples)
+    modal.addEventListener('click', (e) => { if (e.target === modal) modal.classList.remove('open'); });
 
-        // forma de pagamento mostra container cartão
-        paymentEl.addEventListener('change', ()=>{
-          cardTypeContainer.style.display = paymentEl.value === 'Cartão' ? 'block' : 'none';
-        });
+    // forma de pagamento mostra container cartão
+    paymentEl.addEventListener('change', () => {
+      cardTypeContainer.style.display = paymentEl.value === 'Cartão' ? 'block' : 'none';
+    });
 
-        // delivery
-        deliveryEl.addEventListener('change', ()=>{
-          deliveryAddressContainer.style.display = deliveryEl.value === 'Delivery' ? 'block' : 'none';
-        });
+    // delivery
+    deliveryEl.addEventListener('change', () => {
+      deliveryAddressContainer.style.display = deliveryEl.value === 'Delivery' ? 'block' : 'none';
+    });
 
-        // confirmar pedido -> abrir WhatsApp com mensagem
-        document.getElementById('confirm-order').addEventListener('click', ()=>{
-          if(cart.length === 0){ alert('Carrinho vazio'); return; }
-          let total = parseFloat(cart.reduce((a,c)=>a + ((c.unitPrice||c.basePrice) * c.qty),0).toFixed(2));
-          const payment = paymentEl.value;
-          const cardType = payment === 'Cartão' ? document.getElementById('card-type').value : '';
-          const deliveryOption = deliveryEl.value;
-          let deliveryAddress = '';
-          if(deliveryOption === 'Delivery'){
-            deliveryAddress = `Bairro: ${deliveryBairro.value}\nRua: ${deliveryRua.value}\nNúmero: ${deliveryNum.value}`;
-            if(!deliveryBairro.value || !deliveryRua.value || !deliveryNum.value){ alert('Preencha o endereço'); return; }
-            total += 5; // taxa
-          }
-          let client = prompt('Digite seu nome completo:') || 'Cliente';
-          client = client.trim() || 'Cliente';
+    // confirmar pedido -> abrir WhatsApp com mensagem
+    document.getElementById('confirm-order').addEventListener('click', () => {
+      if (cart.length === 0) { alert('Carrinho vazio'); return; }
+      let total = parseFloat(cart.reduce((a, c) => a + ((c.unitPrice || c.basePrice) * c.qty), 0).toFixed(2));
+      const payment = paymentEl.value;
+      const cardType = payment === 'Cartão' ? document.getElementById('card-type').value : '';
+      const deliveryOption = deliveryEl.value;
+      let deliveryAddress = '';
+      if (deliveryOption === 'Delivery') {
+        deliveryAddress = `Bairro: ${deliveryBairro.value}\nRua: ${deliveryRua.value}\nNúmero: ${deliveryNum.value}`;
+        if (!deliveryBairro.value || !deliveryRua.value || !deliveryNum.value) { alert('Preencha o endereço'); return; }
+        total += 5; // taxa
+      }
+      let client = prompt('Digite seu nome completo:') || 'Cliente';
+      client = client.trim() || 'Cliente';
 
-          let message = `Olá, aqui é ${client}.\n\nPedido:\n`;
-          cart.forEach(i=>{
-            const lineTotal = ((i.unitPrice||i.basePrice) * i.qty).toFixed(2);
-            message += `- ${i.name} x${i.qty} — R$ ${lineTotal}\n`;
-            if(i.extras && i.extras.length){
-              message += `  Adicionais: ${i.extras.map(e=>`${e.qtd}x ${e.nome}`).join(', ')}\n`;
-            }
-            if(i.obs) message += `  Obs: ${i.obs}\n`;
-          });
-          if(deliveryOption === 'Delivery'){ message += `Taxa de Delivery: R$ 5,00\n`; }
-          message += `Total: R$ ${total.toFixed(2)}\n`;
-          message += `Forma de pagamento: ${payment} ${cardType ? `(${cardType})` : ''}\n`;
-          if(deliveryOption === 'Delivery'){ message += `Endereço para entrega:\n${deliveryAddress}\n`; }
-
-          const whatsappNumber = "5518991616645";
-          const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-          window.open(url,'_blank');
-
-          // limpar após enviar
-          cart = [];
-          updateCart();
-          modal.classList.remove('open');
-        });
-
-        // Botão WhatsApp flutuante (abre conversa)
-        whatsappBtn.addEventListener('click', ()=>{
-          const whatsappNumber = "5518991616645";
-          window.open(`https://wa.me/${whatsappNumber}`, '_blank');
-        });
-
-        // --- Pesquisa e categorias ---
-        searchInput.addEventListener('input', (e)=>{
-          currentQuery = e.target.value;
-          renderMenu();
-        });
-        clearSearchBtn.addEventListener('click', ()=>{
-          searchInput.value = '';
-          currentQuery = '';
-          renderMenu();
-        });
-
-        categoriesEl.addEventListener('click', (e)=>{
-          const btn = e.target.closest('.cat-btn');
-          if(!btn) return;
-          document.querySelectorAll('.cat-btn').forEach(b=>b.classList.remove('active'));
-          btn.classList.add('active');
-          currentCategory = btn.dataset.cat;
-          renderMenu();
-        });
-
-        // --- Util: escape para evitar injeção de HTML via observações ---
-        function escapeHtml(unsafe) {
-          return String(unsafe || '')
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
+      let message = `Olá, aqui é ${client}.\n\nPedido:\n`;
+      cart.forEach(i => {
+        const lineTotal = ((i.unitPrice || i.basePrice) * i.qty).toFixed(2);
+        message += `- ${i.name} x${i.qty} — R$ ${lineTotal}\n`;
+        if (i.extras && i.extras.length) {
+          message += `  Adicionais: ${i.extras.map(e => `${e.qtd}x ${e.nome}`).join(', ')}\n`;
         }
+        if (i.obs) message += `  Obs: ${i.obs}\n`;
+      });
+      if (deliveryOption === 'Delivery') { message += `Taxa de Delivery: R$ 5,00\n`; }
+      message += `Total: R$ ${total.toFixed(2)}\n`;
+      message += `Forma de pagamento: ${payment} ${cardType ? `(${cardType})` : ''}\n`;
+      if (deliveryOption === 'Delivery') { message += `Endereço para entrega:\n${deliveryAddress}\n`; }
 
-        // --- Inicialização ---
-        renderMenu();
-        updateCart();
+      const whatsappNumber = "5518991616645";
+      const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
 
-        // Small UX: fechar add-obs modal com ESC / clicar fora
-        addObsModal.addEventListener('click', (e)=>{ if(e.target === addObsModal) closeAddObsModal(); });
-        document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape'){ if(addObsModal.classList.contains('open')) closeAddObsModal(); if(modal.classList.contains('open')) modal.classList.remove('open'); } });
-      </script>
-    </body>
+      // limpar após enviar
+      cart = [];
+      updateCart();
+      modal.classList.remove('open');
+    });
 
-  <div id="meu-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center;">
-    <div style="background:#fff; padding:20px; border-radius:8px; text-align:center;">
-      <p>Deseja adicionar este lanche ao carrinho?</p>
-      <button id="modal-sim">Sim</button>
-      <button id="modal-cancelar">Cancelar</button>
-    </div>
+    // Botão WhatsApp flutuante (abre conversa)
+    whatsappBtn.addEventListener('click', () => {
+      const whatsappNumber = "5518991616645";
+      window.open(`https://wa.me/${whatsappNumber}`, '_blank');
+    });
+
+    // --- Pesquisa e categorias ---
+    searchInput.addEventListener('input', (e) => {
+      currentQuery = e.target.value;
+      renderMenu();
+    });
+    clearSearchBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      currentQuery = '';
+      renderMenu();
+    });
+
+    categoriesEl.addEventListener('click', (e) => {
+      const btn = e.target.closest('.cat-btn');
+      if (!btn) return;
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentCategory = btn.dataset.cat;
+      renderMenu();
+    });
+
+    // --- Util: escape para evitar injeção de HTML via observações ---
+    function escapeHtml(unsafe) {
+      return String(unsafe || '')
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    // --- Inicialização ---
+    renderMenu();
+    updateCart();
+
+    // Small UX: fechar add-obs modal com ESC / clicar fora
+    addObsModal.addEventListener('click', (e) => { if (e.target === addObsModal) closeAddObsModal(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { if (addObsModal.classList.contains('open')) closeAddObsModal(); if (modal.classList.contains('open')) modal.classList.remove('open'); } });
+  </script>
+</body>
+
+<div id="meu-modal"
+  style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center;">
+  <div style="background:#fff; padding:20px; border-radius:8px; text-align:center;">
+    <p>Deseja adicionar este lanche ao carrinho?</p>
+    <button id="modal-sim">Sim</button>
+    <button id="modal-cancelar">Cancelar</button>
   </div>
+</div>
 
-  <script>
+<script>
   const meuModal = document.getElementById('meu-modal');
   const btnSim = document.getElementById('modal-sim');
   const btnCancelar = document.getElementById('modal-cancelar');
@@ -1178,6 +1654,6 @@ document.addEventListener('click', (e) => {
   btnCancelar.addEventListener('click', () => {
     modal.style.display = 'none';
   });
-  </script>
+</script>
 
-    </html>
+</html>
