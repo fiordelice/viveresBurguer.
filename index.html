@@ -6,48 +6,95 @@
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
       <title>𝑽í𝒗𝒆𝒓𝒆𝒔 𝑩𝒖𝒓𝒈𝒖𝒆𝒓</title>
       <style>
-        .thumb img[src*="agua"],
-    .thumb img[src*="aguagas"],
-    .thumb img[src*="refrigerante"],
-    .thumb img[src*="guarana"],
-    .thumb img[src*="cocazero"],
-    .thumb img[src*="cerveja"],
-    .thumb img[src*="suco"] {
-      object-fit: contain;
-      width: 100%;
-      height: 180px;
-      background-color: transparent;
-      padding: 5px;
-      transition: height 0.3s ease, padding 0.3s ease;
-    }
+        /* Base (desktop e telas grandes) */
+.thumb img[src*="agua"],
+.thumb img[src*="aguagas"],
+.thumb img[src*="coca"],
+.thumb img[src*="sprite"],
+.thumb img[src*="guarana"],
+.thumb img[src*="cocazero"],
+.thumb img[src*="cerveja"],
+.thumb img[src*="suco"] {
+  object-fit: contain;
+  width: 100%;
+  height: 170px;
+  background-color: transparent;
+  padding: 5px;
+  transition: height 0.3s ease, padding 0.3s ease;
+}
 
-    /* Em telas menores (celulares e tablets), as imagens ficam MAIORES */
-    @media (max-width: 768px) {
-      .thumb img[src*="agua"],
-      .thumb img[src*="aguagas"],
-      .thumb img[src*="refrigerante"],
-      .thumb img[src*="guarana"],
-      .thumb img[src*="cocazero"],
-      .thumb img[src*="cerveja"],
-      .thumb img[src*="suco"] {
-        height: 220px; /* aumenta o tamanho */
-        padding: 6px;
-      }
-    }
+/* Tablets e celulares grandes */
+@media (max-width: 768px) {
+  .thumb img[src*="agua"],
+  .thumb img[src*="aguagas"],
+  .thumb img[src*="coca"],
+  .thumb img[src*="cocazero"],
+  .thumb img[src*="cerveja"],
+  .thumb img[src*="suco"] {
+    height: 220px;
+    padding: 6px;
+  }
+}
 
-    /* Em telas bem pequenas (ex: iPhones SE, Androids compactos) */
-    @media (max-width: 480px) {
-      .thumb img[src*="agua"],
-      .thumb img[src*="aguagas"],
-      .thumb img[src*="refrigerante"],
-      .thumb img[src*="guarana"],
-      .thumb img[src*="cocazero"],
-      .thumb img[src*="cerveja"],
-      .thumb img[src*="suco"] {
-        height: 250px; /* ainda maior */
-        padding: 8px;
-      }
-    }
+/* Smartphones médios (ex: iPhone 6.1”) */
+@media (min-width: 414px) and (max-width: 900px) {
+  .thumb img[src*="agua"],
+  .thumb img[src*="aguagas"],
+  .thumb img[src*="coca"],
+  .thumb img[src*="sprite"],
+  .thumb img[src*="guarana"],
+  .thumb img[src*="cocazero"],
+  .thumb img[src*="cerveja"],
+  .thumb img[src*="suco"] {
+    height: 230px;
+    padding: 6px;
+  }
+}
+
+/* Smartphones grandes 6.7” */
+@media (min-width: 430px) and (max-width: 932px) {
+  .thumb img[src*="agua"],
+  .thumb img[src*="aguagas"],
+  .thumb img[src*="coca"],
+  .thumb img[src*="sprite"],
+  .thumb img[src*="guarana"],
+  .thumb img[src*="cocazero"],
+  .thumb img[src*="cerveja"],
+  .thumb img[src*="suco"] {
+    height: 260px;
+    padding: 7px;
+  }
+}
+
+/* Smartphones extra grandes 6.9” */
+@media (min-width: 461px) and (max-width: 500px) {
+  .thumb img[src*="agua"],
+  .thumb img[src*="aguagas"],
+  .thumb img[src*="coca"],
+  .thumb img[src*="sprite"],
+  .thumb img[src*="guarana"],
+  .thumb img[src*="cocazero"],
+  .thumb img[src*="cerveja"],
+  .thumb img[src*="suco"] {
+    height: 240px;
+    padding: 8px;
+  }
+}
+
+/* Smartphones pequenos (ex: iPhone SE) */
+@media (max-width: 390px) {
+  .thumb img[src*="agua"],
+  .thumb img[src*="aguagas"],
+  .thumb img[src*="coca"],
+  .thumb img[src*="sprite"],
+  .thumb img[src*="guarana"],
+  .thumb img[src*="cocazero"],
+  .thumb img[src*="cerveja"],
+  .thumb img[src*="suco"] {
+    height: 210px;
+    padding: 8px;
+  }
+}
 
         :root { --orange:#ff6600; --black:#111; --dark:#222; --white:#fff; --red:#ff3b3b; --green:#25d366; }
         body{margin:0;font-family:'Inter',sans-serif;background:var(--black);color:var(--white);}
@@ -630,7 +677,8 @@ document.addEventListener('click', (e) => {
           { id: 42, name: 'Água com Gás', desc: 'Garrafa de água com gás', price: 4.50, img: 'aguagas.png', badge: '', category: 'Bebidas' },
           { id: 43, name: 'Refrigerante Lata 350ml', desc: 'Coca-Cola, Fanta, Sprite e outros sabores', price: 6.00, img: 'guaranas.png', badge: '', category: 'Bebidas' },
           { id: 44, name: 'Refrigerante 2L Vencetex', desc: 'Refrigerante Vencetex 2 litros', price: 8.00, img: 'guarana.png', badge: '', category: 'Bebidas' },
-          { id: 45, name: 'Refrigerante 2L', desc: 'Fanta, Sprite e Coca-Cola', price: 12.00, img: 'refrigerante.png', badge: '', category: 'Bebidas' },
+          { id: 45, name: 'Coca-Cola 2L', desc: 'Refrigerante Coca-Cola 2 litros', price: 12.00, img: 'coca.png', badge: '', category: 'Bebidas' },
+          { id: 45, name: 'Sprite 2L', desc: 'Refrigerante Sprite 2 litros', price: 12.00, img: 'sprite.png', badge: '', category: 'Bebidas' },
           { id: 46, name: 'Coca-Cola Zero 2L', desc: 'Refrigerante Coca-Cola Zero 2 litros', price: 15.00, img: 'cocazero.png', badge: '', category: 'Bebidas' },
           { id: 47, name: 'Cerveja Long Neck 330ml', desc: 'Heineken, Budweiser, Bud, Eisenbahn', price: 10.00, img: 'cerveja.png', badge: '', category: 'Bebidas' },
           { id: 48, name: 'Suco 500ml', desc: 'Sabores: abacaxi com hortelã, acerola com laranja, maracujá, morango e tamarino', price: 10.00, img: 'suco.png', badge: '', category: 'Bebidas' },
