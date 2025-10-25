@@ -894,28 +894,116 @@
       <div class="menu" id="menu"></div>
     </section>
 
-    <aside class="cart">
-      <h3>Seu Carrinho</h3>
-      <div id="cart-empty" class="cart-empty">Carrinho vazio</div>
-      <div class="cart-list" id="cart-list" style="display:none"></div>
-      <div class="totals" id="cart-totals" style="display:none">
-        <div class="row">
-          <div>Total</div>
-          <div id="total">R$ 0,00</div>
-        </div>
-        <div style="margin-top:6px">
-  <label for="payment">Forma de pagamento:</label>
-  <select id="payment" onchange="toggleTroco()">
-    <option value="">Selecione...</option>
-    <option value="Dinheiro">Dinheiro</option>
-    <option value="Pix">Pix</option>
-    <option value="Cartão">Cartão</option>
-  </select>
-</div>
+<aside class="cart">
+  <h3>Seu Carrinho</h3>
+  <div id="cart-empty" class="cart-empty">Carrinho vazio</div>
+  <div class="cart-list" id="cart-list" style="display:none"></div>
+  <div class="totals" id="cart-totals" style="display:none">
+    <div class="row">
+      <div>Total</div>
+      <div id="total">R$ 0,00</div>
+    </div>
 
-<div id="pixLinkContainer" style="margin-top:6px; display:none;">
-  <a id="pixLink" href="#" target="_blank">Gerar PIX</a>
-</div>
+    <div style="margin-top:6px">
+      <label for="payment">Forma de pagamento:</label>
+      <select id="payment">
+        <option value="">Selecione...</option>
+        <option value="Dinheiro">Dinheiro</option>
+        <option value="Pix">Pix</option>
+        <option value="Cartão">Cartão</option>
+      </select>
+    </div>
+
+    <div id="pixLinkContainer" style="margin-top:6px; display:none;">
+      <a id="pixLink" href="#" target="_blank"></a>
+    </div>
+
+    <div class="checkout">
+      <button class="btn" id="btn-checkout">Finalizar Pedido</button>
+      <button class="btn remove" id="btn-clear">Limpar</button>
+    </div>
+  </div>
+</aside>
+
+
+
+
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+  const contador = document.getElementById("cart-count");
+  const carrinhoEl = document.getElementById("cart-list");
+  const cartTotals = document.getElementById("cart-totals");
+  const paymentSelect = document.getElementById("payment");
+  const pixContainer = document.getElementById("pixLinkContainer");
+  const finalizarBtn = document.getElementById("btn-checkout");
+  const limparBtn = document.getElementById("btn-clear");
+
+  let carrinho = [];
+
+  // Inicialmente, botão desabilitado
+  finalizarBtn.disabled = true;
+
+  // Função que verifica se o botão pode ser habilitado
+  function verificarBotao() {
+    finalizarBtn.disabled = carrinho.length === 0 || !paymentSelect.value;
+  }
+
+  // Adicionar itens ao carrinho
+  document.querySelectorAll('.add-to-cart').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.dataset.nomeProduto || "Produto";
+      carrinho.push(item);
+      atualizarCarrinho();
+      verificarBotao();
+    });
+  });
+
+  // Mostrar/esconder Pix automaticamente
+  paymentSelect.addEventListener("change", () => {
+    pixContainer.style.display = paymentSelect.value === "Pix" ? "block" : "none";
+    verificarBotao();
+  });
+
+  // Finalizar pedido
+  finalizarBtn.addEventListener("click", () => {
+    if (carrinho.length === 0 || !paymentSelect.value) return; // não avança se não selecionou
+
+    // Zera carrinho e resetar seleção
+    carrinho = [];
+    paymentSelect.value = "";
+    pixContainer.style.display = "none";
+    atualizarCarrinho();
+    verificarBotao();
+  });
+
+  // Limpar carrinho
+  limparBtn.addEventListener("click", () => {
+    carrinho = [];
+    paymentSelect.value = "";
+    pixContainer.style.display = "none";
+    atualizarCarrinho();
+    verificarBotao();
+  });
+
+  // Atualiza contador e visual do carrinho
+  function atualizarCarrinho() {
+    contador.textContent = carrinho.length;
+    carrinhoEl.style.display = carrinho.length > 0 ? "block" : "none";
+    cartTotals.style.display = carrinho.length > 0 ? "block" : "none";
+
+    carrinhoEl.innerHTML = "";
+    carrinho.forEach(item => {
+      const div = document.createElement("div");
+      div.textContent = item;
+      carrinhoEl.appendChild(div);
+    });
+  }
+});
+
+
+</script>
+
+
 
 <script>
 // Função chamada quando muda o select
@@ -933,6 +1021,7 @@ function toggleTroco() {
     pixContainer.style.display = "none";
   }
 }
+
 
 // Função que gera link do Pix
 function gerarPix() {
@@ -974,13 +1063,7 @@ function gerarPix() {
   }
 </script>
 
-        <div class="checkout">
-          <button class="btn" id="btn-checkout">Finalizar Pedido</button>
-          <button class="btn remove" id="btn-clear">Limpar</button>
-        </div>
-      </div>
-    </aside>
-  </main>
+     
 
   <!-- Modal resumo -->
   <div class="modal" id="modal">
@@ -1053,7 +1136,7 @@ function gerarPix() {
       </div>
     </div>
   </div>
-
+</main>
   <footer id="footer">
     <div class="footer-content">
       <span class="site-info">𝑽í𝒗𝒆𝒓𝒆𝒔 𝑩𝒖𝒓𝒈𝒖𝒆𝒓</span>
@@ -1071,23 +1154,48 @@ function gerarPix() {
 </button>
 
 <script>
-// Espera o DOM carregar para garantir que os botões existam
 window.addEventListener('DOMContentLoaded', () => {
-  // Seleciona todos os botões "Adicionar" já existentes
-  const botoes = document.querySelectorAll('.add-to-cart');
+  const contador = document.getElementById("cart-count");
+  const finalizarBtn = document.getElementById("finalizarPedido");
+  const carrinhoEl = document.getElementById("carrinho"); // container dos itens visuais
 
-  botoes.forEach(btn => {
+  let carrinho = []; // array que vai guardar os itens do carrinho
+
+  // Adicionar item
+  document.querySelectorAll('.add-to-cart').forEach(btn => {
     btn.addEventListener('click', () => {
-      const contador = document.getElementById("cart-count");
-      let quantidade = parseInt(contador.textContent) || 0;
-      quantidade += 1;
-      contador.textContent = quantidade;
+      const item = btn.dataset.nomeProduto || "Produto";
+      carrinho.push(item); // adiciona no array
+      atualizarCarrinho();
     });
   });
-});
 
-document.getElementById("scrollToBottom").addEventListener("click", () => {
-  window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
+  // Finalizar pedido
+  if (finalizarBtn) {
+    finalizarBtn.addEventListener("click", () => {
+      if (carrinho.length > 0) {
+        alert("Pedido enviado via WhatsApp!");
+        carrinho = []; // limpa o array do carrinho
+        atualizarCarrinho(); // atualiza contador e DOM
+      } else {
+        alert("O carrinho está vazio!");
+      }
+    });
+  }
+
+  // Função que atualiza contador e visual do carrinho
+  function atualizarCarrinho() {
+    contador.textContent = carrinho.length;
+
+    if (carrinhoEl) {
+      carrinhoEl.innerHTML = ""; // limpa o DOM
+      carrinho.forEach(item => {
+        const div = document.createElement("div");
+        div.textContent = item;
+        carrinhoEl.appendChild(div);
+      });
+    }
+  }
 });
 
 </script>
@@ -1095,6 +1203,14 @@ document.getElementById("scrollToBottom").addEventListener("click", () => {
 
 
 <style>
+
+  .btn:disabled {
+  background: #ccc !important;
+  cursor: not-allowed;
+  color: #666;
+  box-shadow: none;
+}
+
   #scrollToBottom {
   position: fixed;
   bottom: 85px;
@@ -1209,6 +1325,29 @@ document.getElementById("scrollToBottom").addEventListener("click", () => {
     .categories.show {
       display: flex;
     }
+
+    /* Layout principal */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; /* ocupa toda altura da tela */
+  margin: 0;
+}
+
+/* Main ocupa o espaço disponível */
+main {
+  flex: 1;
+}
+
+/* Footer fixo no final */
+footer {
+  flex-shrink: 0; /* garante que não encolha */
+  background-color: #222;
+  color: white;
+  padding: 12px 16px;
+  text-align: center;
+}
+
   </style>
 
 <div id="toast" class="toast">Produto adicionado ao carrinho com sucesso!</div>
