@@ -1050,17 +1050,36 @@ function gerarPix() {
 
 <script>
   function toggleTroco() {
-    const pagamento = document.getElementById("payment").value;
-    const trocoDiv = document.getElementById("trocoDiv");
-    
-    // Mostra o campo de troco apenas se a opção for "Dinheiro"
-    if (pagamento === "Dinheiro") {
-      trocoDiv.style.display = "block";
-    } else {
-      trocoDiv.style.display = "none";
-      document.getElementById("troco").value = ""; // limpa o campo
-    }
+  const payment = document.getElementById('payment').value;
+  const pixContainer = document.getElementById('pixLinkContainer');
+  
+  if (payment === "Dinheiro") {
+    pixContainer.style.display = "none";
+    // Aqui você pode mostrar o campo "troco"
+  } else if (payment === "Pix") {
+    pixContainer.style.display = "block";
+    gerarPix();
+  } else {
+    pixContainer.style.display = "none";
   }
+}
+
+// Função que gera link do Pix
+function gerarPix() {
+  const chavePix = "5518991616645"; // sua chave
+  const contador = parseInt(document.getElementById("cart-count").textContent) || 0;
+  const valor = (contador * 10).toFixed(2); // Exemplo: cada item R$10,00 (substitua pelo total real)
+  
+  // Cria link Pix padrão para pagamento
+  // Formato: https://pix.example.com?chave=CHAVE&valor=VALOR
+  // Aqui vamos usar link Pix padrão do Banco Central (geralmente QR Code pode ser gerado via URL)
+  
+  // Exemplo simples (Pix Copia e Cola, pode variar dependendo do banco)
+  const pixUrl = `https://api.whatsapp.com/send?text=Pix%20no%20valor%20de%20R$${valor}%20para%20a%20chave%20${chavePix}`;
+  
+  document.getElementById("pixLink").href = pixUrl;
+  document.getElementById("pixLink").textContent = `Pagar R$ ${valor} via Pix`;
+}
 </script>
 
      
@@ -1418,7 +1437,7 @@ footer {
       /* fica acima do rodapé/carrinho */
       left: 50%;
       transform: translateX(-50%) translateY(30px);
-      background: linear-gradient(135deg, #dcd7d7, #ff6600);
+      background: linear-gradient(135deg, #dcd7d7, #ff6600ea);
       color: #2e2e2e;
       padding: 14px 26px;
       border-radius: 12px;
@@ -1457,7 +1476,7 @@ footer {
     /* Ajuste fino para telas pequenas */
     @media (max-width: 480px) {
       .toast {
-        bottom: 50px;
+        bottom: 2px;
         /* um pouco mais alto no celular */
         font-size: 14px;
         /* texto menor */
