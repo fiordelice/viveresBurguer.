@@ -903,13 +903,77 @@
           <div>Total</div>
           <div id="total">R$ 0,00</div>
         </div>
-        <div style="margin-top:6px"><label for="payment">Forma de pagamento:</label>
-          <select id="payment">
-            <option value="Dinheiro">Dinheiro</option>
-            <option value="Pix">Pix</option>
-            <option value="Cartão">Cartão</option>
-          </select>
-        </div>
+        <div style="margin-top:6px">
+  <label for="payment">Forma de pagamento:</label>
+  <select id="payment" onchange="toggleTroco()">
+    <option value="">Selecione...</option>
+    <option value="Dinheiro">Dinheiro</option>
+    <option value="Pix">Pix</option>
+    <option value="Cartão">Cartão</option>
+  </select>
+</div>
+
+<div id="pixLinkContainer" style="margin-top:6px; display:none;">
+  <a id="pixLink" href="#" target="_blank">Gerar PIX</a>
+</div>
+
+<script>
+// Função chamada quando muda o select
+function toggleTroco() {
+  const payment = document.getElementById('payment').value;
+  const pixContainer = document.getElementById('pixLinkContainer');
+  
+  if (payment === "Dinheiro") {
+    pixContainer.style.display = "none";
+    // Aqui você pode mostrar o campo "troco"
+  } else if (payment === "Pix") {
+    pixContainer.style.display = "block";
+    gerarPix();
+  } else {
+    pixContainer.style.display = "none";
+  }
+}
+
+// Função que gera link do Pix
+function gerarPix() {
+  const chavePix = "5518991616645"; // sua chave
+  const contador = parseInt(document.getElementById("cart-count").textContent) || 0;
+  const valor = (contador * 10).toFixed(2); // Exemplo: cada item R$10,00 (substitua pelo total real)
+  
+  // Cria link Pix padrão para pagamento
+  // Formato: https://pix.example.com?chave=CHAVE&valor=VALOR
+  // Aqui vamos usar link Pix padrão do Banco Central (geralmente QR Code pode ser gerado via URL)
+  
+  // Exemplo simples (Pix Copia e Cola, pode variar dependendo do banco)
+  const pixUrl = `https://api.whatsapp.com/send?text=Pix%20no%20valor%20de%20R$${valor}%20para%20a%20chave%20${chavePix}`;
+  
+  document.getElementById("pixLink").href = pixUrl;
+  document.getElementById("pixLink").textContent = `Pagar R$ ${valor} via Pix`;
+}
+</script>
+
+
+<!-- Campo do troco (começa escondido) -->
+<div id="trocoDiv" style="display:none; margin-top:6px;">
+  <label for="troco">Precisa de troco? Para quanto?</label>
+  <input type="text" id="troco" placeholder="Ex: R$ 50,00">
+</div>
+
+<script>
+  function toggleTroco() {
+    const pagamento = document.getElementById("payment").value;
+    const trocoDiv = document.getElementById("trocoDiv");
+    
+    // Mostra o campo de troco apenas se a opção for "Dinheiro"
+    if (pagamento === "Dinheiro") {
+      trocoDiv.style.display = "block";
+    } else {
+      trocoDiv.style.display = "none";
+      document.getElementById("troco").value = ""; // limpa o campo
+    }
+  }
+</script>
+
         <div class="checkout">
           <button class="btn" id="btn-checkout">Finalizar Pedido</button>
           <button class="btn remove" id="btn-clear">Limpar</button>
@@ -999,6 +1063,81 @@
 
   <!-- Botão WhatsApp flutuante -->
   <button class="whatsapp-btn" id="whatsapp-btn"><i class="fab fa-whatsapp"></i></button>
+
+  <!-- BOTÃO FLUTUANTE -->
+<button id="scrollToBottom" title="Ir para o final">
+  <i class="fa fa-shopping-cart"></i>
+  <span id="cart-count">0</span>
+</button>
+
+<script>
+// Espera o DOM carregar para garantir que os botões existam
+window.addEventListener('DOMContentLoaded', () => {
+  // Seleciona todos os botões "Adicionar" já existentes
+  const botoes = document.querySelectorAll('.add-to-cart');
+
+  botoes.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const contador = document.getElementById("cart-count");
+      let quantidade = parseInt(contador.textContent) || 0;
+      quantidade += 1;
+      contador.textContent = quantidade;
+    });
+  });
+});
+
+document.getElementById("scrollToBottom").addEventListener("click", () => {
+  window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
+});
+
+</script>
+
+
+
+<style>
+  #scrollToBottom {
+  position: fixed;
+  bottom: 85px;
+  right: 20px;
+  background: #ff6600;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 55px;
+  height: 55px;
+  cursor: pointer;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.3s;
+  z-index: 1000;
+}
+#scrollToBottom:hover { background: #e65c00; transform: scale(1.1); }
+#scrollToBottom i { pointer-events: none; }
+#cart-count {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: #ff0000;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  box-shadow: 0 0 6px rgba(0,0,0,0.3);
+}
+
+</style>
+
+<!-- Link do ícone (adiciona no <head> do seu HTML caso ainda não tenha) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 
   <style>
     /* Toast responsivo e centralizado */
@@ -1113,6 +1252,8 @@
     return diaValido && horarioValido;
   }
 
+  
+
   // Verifica clique nos botões de adicionar ao carrinho
   document.addEventListener('click', (e) => {
     const button = e.target.closest('.add-to-cart');
@@ -1204,7 +1345,7 @@
     const menuItems = [
       { id: 1, name: 'Víveres Burguer', desc: 'Pão artesanal, burguer 150g, queijo mussarela, maionese da casa', price: 20.00, img: 'Víveres Burguer.jpg', badge: '', category: 'Lanches' },
       { id: 2, name: 'Víveres Salada', desc: 'Pão artesanal, burguer 150g, queijo mussarela, alface americana, tomate, cebola roxa, maionese da casa', price: 25.00, img: 'Víveres Salada.jpg', badge: '', category: 'Lanches' },
-      { id: 3, name: 'Víveres Bacon', desc: 'Pão artesanal, burguer 150g, bacon, queijo mussarela, alface americana, tomate, cebola roxa, maionese da casa', price: 27.90, img: 'Víveres Bacon.jpg', badge: '', category: 'Lanches' },
+      { id: 3, name: 'Víveres Bacon', desc: 'Pão artesanal, burguer 150g, bacon, queijo mussarela, alface americana, tomate, cebola roxa, maionese da casa', price: 27.90, img: 'Víveres Salada.jpg', badge: '', category: 'Lanches' },
       { id: 4, name: 'Mussaburguer', desc: 'Pão artesanal, burguer 150g, mussarela empanada, picles, alface americana, bacon, maionese da casa', price: 31.90, img: 'Mussaburguer.jpg', badge: '', category: 'Lanches' },
       { id: 5, name: 'Preferido', desc: 'Pão artesanal, burguer 150g (2x), bacon, queijo cheddar, cebola roxa, maionese da casa', price: 37.00, img: 'Preferido.jpg', badge: 'Preferido', category: 'Lanches' },
       { id: 6, name: 'G B I', desc: 'Pão artesanal, burguer 150g, bacon, queijo cheddar, maionese da casa', price: 24.90, img: 'GBI.jpg', badge: 'Mais pedido', category: 'Lanches' },
@@ -1212,9 +1353,9 @@
       { id: 8, name: 'Supreme', desc: 'Pão artesanal, burguer 150g, queijo cheddar, onion rings, molho BBQ', price: 29.00, img: 'Supreme.jpg', badge: 'Novo', category: 'Lanches' },
       { id: 9, name: 'Víveres Crispy', desc: 'Pão artesanal, burguer 150g, queijo mussarela, cebola crispy, alface americana, mel, maionese da casa', price: 32.00, img: 'Víveres Crispy.jpg', badge: '', category: 'Lanches' },
       { id: 10, name: 'Víveres Chicken', desc: 'Pão artesanal, burguer de frango, queijo mussarela, tomate, picles, alface americana, molho especial', price: 26.90, img: 'Víveres Chicken.jpg', badge: '', category: 'Lanches' },
-      { id: 11, name: 'Víveres Kids', desc: '1 Mini burguer + 1 mini porção de batata smile + 1 Coca-Cola 200ml ou Suco Kapô + brinde', price: 29.90, img: 'Víveres Kids.jpg', badge: '', category: 'Lanches' },
+      { id: 11, name: 'Víveres Kids', desc: '1 Mini burguer + 1 mini porção de batata smile + 1 Coca-Cola 200ml ou Suco Kapô + brinde', price: 29.90, img: 'kids.jpg', badge: '', category: 'Lanches' },
       { id: 21, name: 'Batata Frita', desc: 'Porção individual de batata frita crocante', price: 8.00, img: 'Batata frita.jpg', badge: '', category: 'Porções' },
-      { id: 22, name: 'Batata Crinkle (ondulada)', desc: 'Porção individual de batata crinkle ondulada', price: 9.00, img: 'Batata Crinkle (ondulada).jpg', badge: '', category: 'Porções' },
+      { id: 22, name: 'Batata Crinkle (ondulada)', desc: 'Porção individual de batata crinkle ondulada', price: 9.00, img: 'batataon.jpg', badge: '', category: 'Porções' },
       { id: 23, name: 'Batata Frita c/ Cheddar e Farofa de Bacon', desc: 'Porção individual de batata frita com cheddar e farofa de bacon', price: 13.90, img: 'batata.jpg', badge: '', category: 'Porções' },
       { id: 24, name: 'Batata Smile (carinha)', desc: '8 unidades, acompanha molho especial', price: 10.90, img: 'Batata Smile.jpg', badge: '', category: 'Porções' },
       { id: 25, name: 'Anéis de Cebola', desc: '8 unidades, acompanha molho barbecue', price: 9.90, img: 'Anéis de Cebola.jpg', badge: '', category: 'Porções' },
@@ -1293,7 +1434,6 @@
       { id: 'cheddar_cremoso', nome: 'Cheddar cremoso', preco: 8.00 },
       { id: 'salada_completa', nome: 'Salada completa', preco: 5.00 },
       { id: 'burg_galinha', nome: 'Burguer de frango', preco: 6.00 },
-      { id: 'molho_maio', nome: 'Maionese da casa', preco: 5.00 },
       { id: 'molho_bbq', nome: 'Molho BBQ', preco: 5.00 },
       { id: 'molho_especial', nome: 'Molho especial', preco: 5.00 },
       { id: 'molho_baconase', nome: 'Baconase', preco: 5.00 }
@@ -1609,6 +1749,8 @@
       cardTypeContainer.style.display = paymentEl.value === 'Cartão' ? 'block' : 'none';
     });
 
+    
+
     // delivery
     deliveryEl.addEventListener('change', () => {
       deliveryAddressContainer.style.display = deliveryEl.value === 'Delivery' ? 'block' : 'none';
@@ -1678,6 +1820,7 @@
       btn.classList.add('active');
       currentCategory = btn.dataset.cat;
       renderMenu();
+
     });
 
     // --- Util: escape para evitar injeção de HTML via observações ---
