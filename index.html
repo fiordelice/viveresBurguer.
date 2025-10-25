@@ -1292,11 +1292,6 @@ if (scrollToTopBtn) {
   z-index: 1000;
 }
 
-#scrollToTop:hover {
-  transform: translateY(-4px) scale(1.1);
-  box-shadow: 0 10px 25px rgba(255, 102, 0, 0.5);
-  background: linear-gradient(135deg, #ff7b00, #ffaa33);
-}
 
 #scrollToTop i {
   animation: floatArrow 1.5s infinite ease-in-out;
@@ -1339,12 +1334,6 @@ if (scrollToTopBtn) {
 }
 
 /* animação leve na setinha */
-@keyframes floatArrow {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-4px); }
-}
-
-
 
   #scrollToBottom {
   position: fixed;
@@ -1364,7 +1353,6 @@ if (scrollToTopBtn) {
   transition: 0.3s;
   z-index: 1000;
 }
-#scrollToBottom:hover { background: #e65c00; transform: scale(1.1); }
 #scrollToBottom i { pointer-events: none; }
 #cart-count {
   position: absolute;
