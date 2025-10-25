@@ -1170,6 +1170,9 @@ window.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  document.getElementById("scrollToBottom").addEventListener("click", () => {
+  window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
+});
   // Finalizar pedido
   if (finalizarBtn) {
     finalizarBtn.addEventListener("click", () => {
