@@ -12,7 +12,7 @@
     .thumb img[src*="aguagas"],
     .thumb img[src*="coca"],
     .thumb img[src*="sprite"],
-    .thumb img[src*="guarana"],
+    .thumb img[src*="vece"],
     .thumb img[src*="cocazero"],
     .thumb img[src*="cerveja"],
     .thumb img[src*="suco"] {
@@ -45,7 +45,7 @@
       .thumb img[src*="aguagas"],
       .thumb img[src*="coca"],
       .thumb img[src*="sprite"],
-      .thumb img[src*="guarana"],
+      .thumb img[src*="vece"],
       .thumb img[src*="cocazero"],
       .thumb img[src*="cerveja"],
       .thumb img[src*="suco"] {
@@ -61,7 +61,7 @@
       .thumb img[src*="aguagas"],
       .thumb img[src*="coca"],
       .thumb img[src*="sprite"],
-      .thumb img[src*="guarana"],
+      .thumb img[src*="vece"],
       .thumb img[src*="cocazero"],
       .thumb img[src*="cerveja"],
       .thumb img[src*="suco"] {
@@ -77,7 +77,7 @@
       .thumb img[src*="aguagas"],
       .thumb img[src*="coca"],
       .thumb img[src*="sprite"],
-      .thumb img[src*="guarana"],
+      .thumb img[src*="vece"],
       .thumb img[src*="cocazero"],
       .thumb img[src*="cerveja"],
       .thumb img[src*="suco"] {
@@ -93,7 +93,7 @@
       .thumb img[src*="aguagas"],
       .thumb img[src*="coca"],
       .thumb img[src*="sprite"],
-      .thumb img[src*="guarana"],
+      .thumb img[src*="vece"],
       .thumb img[src*="cocazero"],
       .thumb img[src*="cerveja"],
       .thumb img[src*="suco"] {
@@ -934,6 +934,12 @@
       </select>
     </div>
 
+    <div id="trocoDiv" style="display:none; margin-top:6px;">
+  <label for="troco">Precisa de troco? Para quanto?</label>
+  <input type="text" id="troco" placeholder="Ex: R$ 50,00">
+ </div>
+
+
     <div id="pixLinkContainer" style="margin-top:6px; display:none;">
       <a id="pixLink" href="#" target="_blank"></a>
     </div>
@@ -1634,7 +1640,7 @@ if (toggleBtn) {
       { id: 41, name: 'Água', desc: 'Garrafa de água mineral', price: 4.00, img: 'agua.png', badge: '', category: 'Bebidas' },
       { id: 42, name: 'Água com Gás', desc: 'Garrafa de água com gás', price: 4.50, img: 'aguagas.png', badge: '', category: 'Bebidas' },
       { id: 43, name: 'Refrigerante Lata 350ml', desc: 'Coca-Cola, Fanta, Sprite e outros sabores', price: 6.00, img: 'guaranas.png', badge: '', category: 'Bebidas' },
-      { id: 44, name: 'Refrigerante Vencetex 2L ', desc: 'Refrigerante Vencetex 2 litros', price: 8.00, img: 'guarana.png', badge: '', category: 'Bebidas' },
+      { id: 44, name: 'Refrigerante Vencetex 2L ', desc: 'Refrigerante Vencetex 2 litros', price: 8.00, img: 'vece.png', badge: '', category: 'Bebidas' },
       { id: 44, name: 'Refrigerante Sprite 2L', desc: 'Refrigerante Sprite 2 litros', price: 12.00, img: 'sprite.png', badge: '', category: 'Bebidas' },
       { id: 45, name: 'Coca-Cola 2L', desc: 'Refrigerante Coca-Cola 2 litros', price: 12.00, img: 'coca.png', badge: '', category: 'Bebidas' },
       { id: 46, name: 'Fanta Laranja 2L', desc: 'Refrigerante Fanta Laranja 2 litros', price: 12.00, img: 'fantal.png', badge: '', category: 'Bebidas' },
@@ -2054,7 +2060,14 @@ if (toggleBtn) {
       if (deliveryOption === 'Delivery') { message += `Taxa de Delivery: R$ 5,00\n`; }
       message += `Total: R$ ${total.toFixed(2)}\n`;
       message += `Forma de pagamento: ${payment} ${cardType ? `(${cardType})` : ''}\n`;
-      if (deliveryOption === 'Delivery') { message += `Endereço para entrega:\n${deliveryAddress}\n`; }
+    if (deliveryOption === 'Delivery') { message += `Endereço para entrega:\n${deliveryAddress}\n`; }
+
+// --- AQUI ADICIONAR TROCO ---
+if (payment === 'Dinheiro') {
+  const troco = document.getElementById('troco').value.trim();
+  if (troco) message += `Troco para: R$ ${troco}\n`;
+}
+// Enviar para WhatsApp
 
       const whatsappNumber = "5518991616645";
       const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
@@ -2065,6 +2078,15 @@ if (toggleBtn) {
       updateCart();
       modal.classList.remove('open');
     });
+
+    // Se o pagamento for em dinheiro, adicionar troco
+if (payment === 'Dinheiro') {
+  const troco = document.getElementById('troco').value.trim();
+  if (troco) {
+    message += `Troco para: R$ ${troco}\n`;
+  }
+}
+
 
     // Botão WhatsApp flutuante (abre conversa)
     whatsappBtn.addEventListener('click', () => {
