@@ -923,16 +923,24 @@
       <div>Total</div>
       <div id="total">R$ 0,00</div>
     </div>
+<div style="margin-top:6px">
+    <label for="payment">Forma de pagamento:</label>
+<select id="payment">
+  <option value="">Selecione...</option>
+  <option value="Dinheiro">Dinheiro</option>
+  <option value="Cartão">Cartão</option>
+  <option value="Pix">Pix</option>
+</select>
+</div>
 
-    <div style="margin-top:6px">
-      <label for="payment">Forma de pagamento:</label>
-      <select id="payment">
-        <option value="">Selecione...</option>
-        <option value="Dinheiro">Dinheiro</option>
-        <option value="Pix">Pix</option>
-        <option value="Cartão">Cartão</option>
-      </select>
-    </div>
+<div id="card-type-container" style="display:none">
+  <label for="card-type">Tipo de cartão:</label>
+  <select id="card-type">
+    <option value="">Selecione...</option>
+    <option value="Crédito">Crédito</option>
+    <option value="Débito">Débito</option>
+  </select>
+</div>
 
     <div id="trocoDiv" style="display:none; margin-top:6px;">
   <label for="troco">Precisa de troco? Para quanto?</label>
@@ -955,6 +963,50 @@
 
 
 <script>
+  window.addEventListener('DOMContentLoaded', () => {
+  const btnCheckout = document.getElementById('btn-checkout');
+  const paymentEl = document.getElementById('payment');
+  const cardTypeEl = document.getElementById('card-type');
+
+  // inicia desativado
+  btnCheckout.disabled = true;
+  btnCheckout.style.opacity = '0.5';
+
+  function atualizarBotaoCheckout() {
+    let habilitar = false;
+
+    if (paymentEl.value) {
+      if (paymentEl.value === 'Cartão') {
+        // se for cartão, precisa selecionar tipo
+        habilitar = cardTypeEl && cardTypeEl.value;
+      } else {
+        // dinheiro ou pix
+        habilitar = true;
+      }
+    }
+
+    btnCheckout.disabled = !habilitar;
+    btnCheckout.style.opacity = habilitar ? '1' : '0.5';
+  }
+
+  // listeners para atualizar sempre que mudar
+  paymentEl.addEventListener('change', atualizarBotaoCheckout);
+  if (cardTypeEl) cardTypeEl.addEventListener('change', atualizarBotaoCheckout);
+
+  // inicializa
+  atualizarBotaoCheckout();
+});
+
+
+  btnConfirmOrder.addEventListener('click', () => {
+  const payment = document.getElementById('payment').value || 'Não informado';
+  const cardTypeEl = document.getElementById('card-type');
+  const cardType = (payment === 'Cartão' && cardTypeEl) ? cardTypeEl.value : '';
+  
+  let message = '';
+  message += `Forma de pagamento: ${payment}${cardType ? ` (${cardType})` : ''}\n`;
+});
+
 window.addEventListener('DOMContentLoaded', () => {
   const contador = document.getElementById("cart-count");
   const carrinhoEl = document.getElementById("cart-list");
@@ -1049,66 +1101,10 @@ function toggleTroco() {
 }
 
 
-// Função que gera link do Pix
-function gerarPix() {
-  const chavePix = "5518991616645"; // sua chave
-  const contador = parseInt(document.getElementById("cart-count").textContent) || 0;
-  const valor = (contador * 10).toFixed(2); // Exemplo: cada item R$10,00 (substitua pelo total real)
-  
-  // Cria link Pix padrão para pagamento
-  // Formato: https://pix.example.com?chave=CHAVE&valor=VALOR
-  // Aqui vamos usar link Pix padrão do Banco Central (geralmente QR Code pode ser gerado via URL)
-  
-  // Exemplo simples (Pix Copia e Cola, pode variar dependendo do banco)
-  const pixUrl = `https://api.whatsapp.com/send?text=Pix%20no%20valor%20de%20R$${valor}%20para%20a%20chave%20${chavePix}`;
-  
-  document.getElementById("pixLink").href = pixUrl;
-  document.getElementById("pixLink").textContent = `Pagar R$ ${valor} via Pix`;
-}
+
+
 </script>
 
-
-<!-- Campo do troco (começa escondido) -->
-<div id="trocoDiv" style="display:none; margin-top:6px;">
-  <label for="troco">Precisa de troco? Para quanto?</label>
-  <input type="text" id="troco" placeholder="Ex: R$ 50,00">
-</div>
-
-<script>
-  function toggleTroco() {
-  const payment = document.getElementById('payment').value;
-  const pixContainer = document.getElementById('pixLinkContainer');
-  
-  if (payment === "Dinheiro") {
-    pixContainer.style.display = "none";
-    // Aqui você pode mostrar o campo "troco"
-  } else if (payment === "Pix") {
-    pixContainer.style.display = "block";
-    gerarPix();
-  } else {
-    pixContainer.style.display = "none";
-  }
-}
-
-// Função que gera link do Pix
-function gerarPix() {
-  const chavePix = "5518991616645"; // sua chave
-  const contador = parseInt(document.getElementById("cart-count").textContent) || 0;
-  const valor = (contador * 10).toFixed(2); // Exemplo: cada item R$10,00 (substitua pelo total real)
-  
-  // Cria link Pix padrão para pagamento
-  // Formato: https://pix.example.com?chave=CHAVE&valor=VALOR
-  // Aqui vamos usar link Pix padrão do Banco Central (geralmente QR Code pode ser gerado via URL)
-  
-  // Exemplo simples (Pix Copia e Cola, pode variar dependendo do banco)
-  const pixUrl = `https://api.whatsapp.com/send?text=Pix%20no%20valor%20de%20R$${valor}%20para%20a%20chave%20${chavePix}`;
-  
-  document.getElementById("pixLink").href = pixUrl;
-  document.getElementById("pixLink").textContent = `Pagar R$ ${valor} via Pix`;
-}
-</script>
-
-     
 
   <!-- Modal resumo -->
   <div class="modal" id="modal">
@@ -1671,6 +1667,7 @@ if (toggleBtn) {
     const deliveryBairro = document.getElementById('delivery-address-bairro');
     const deliveryRua = document.getElementById('delivery-address-rua');
     const deliveryNum = document.getElementById('delivery-address-num');
+    const deliveryPon = document.getElementById('delivery-address-pon');
     const whatsappBtn = document.getElementById('whatsapp-btn');
 
     // Modal de adicionar observação
@@ -2027,58 +2024,95 @@ if (toggleBtn) {
 
     
 
-    // delivery
-    deliveryEl.addEventListener('change', () => {
-      deliveryAddressContainer.style.display = deliveryEl.value === 'Delivery' ? 'block' : 'none';
-    });
+ document.getElementById('confirm-order').addEventListener('click', () => {
+  if (cart.length === 0) { 
+    alert('Carrinho vazio'); 
+    return; 
+  }
 
-    // confirmar pedido -> abrir WhatsApp com mensagem
-    document.getElementById('confirm-order').addEventListener('click', () => {
-      if (cart.length === 0) { alert('Carrinho vazio'); return; }
-      let total = parseFloat(cart.reduce((a, c) => a + ((c.unitPrice || c.basePrice) * c.qty), 0).toFixed(2));
-      const payment = paymentEl.value;
-      const cardType = payment === 'Cartão' ? document.getElementById('card-type').value : '';
-      const deliveryOption = deliveryEl.value;
-      let deliveryAddress = '';
-      if (deliveryOption === 'Delivery') {
-        deliveryAddress = `Bairro: ${deliveryBairro.value}\nRua: ${deliveryRua.value}\nNúmero: ${deliveryNum.value}`;
-        if (!deliveryBairro.value || !deliveryRua.value || !deliveryNum.value) { alert('Preencha o endereço'); return; }
-        total += 5; // taxa
-      }
-      let client = prompt('Digite seu nome completo:') || 'Cliente';
-      client = client.trim() || 'Cliente';
+  let total = parseFloat(cart.reduce((a, c) => a + ((c.unitPrice || c.basePrice) * c.qty), 0).toFixed(2));
 
-      let message = `Olá, aqui é ${client}.\n\nPedido:\n`;
-      cart.forEach(i => {
-        const lineTotal = ((i.unitPrice || i.basePrice) * i.qty).toFixed(2);
-        message += `- ${i.name} x${i.qty} — R$ ${lineTotal}\n`;
-        if (i.extras && i.extras.length) {
-          message += `  Adicionais: ${i.extras.map(e => `${e.qtd}x ${e.nome}`).join(', ')}\n`;
-        }
-        if (i.obs) message += `  Obs: ${i.obs}\n`;
-      });
-      if (deliveryOption === 'Delivery') { message += `Taxa de Delivery: R$ 5,00\n`; }
-      message += `Total: R$ ${total.toFixed(2)}\n`;
-      message += `Forma de pagamento: ${payment} ${cardType ? `(${cardType})` : ''}\n`;
-    if (deliveryOption === 'Delivery') { message += `Endereço para entrega:\n${deliveryAddress}\n`; }
+  const payment = document.getElementById('payment').value || 'Não informado';
+  const cardTypeEl = document.getElementById('card-type');
+  const cardType = (payment === 'Cartão' && cardTypeEl) ? cardTypeEl.value : '';
+  const deliveryOption = deliveryEl.value;
 
-// --- AQUI ADICIONAR TROCO ---
-if (payment === 'Dinheiro') {
-  const troco = document.getElementById('troco').value.trim();
-  if (troco) message += `Troco para: R$ ${troco}\n`;
+  let deliveryAddress = '';
+  if (deliveryOption === 'Delivery') {
+    deliveryAddress = `Bairro: ${deliveryBairro.value}\nRua: ${deliveryRua.value}\nNúmero: ${deliveryNum.value}`;
+    if (deliveryPon.value) deliveryAddress += `\nPonto de Referência: ${deliveryPon.value}`;
+
+    if (!deliveryBairro.value || !deliveryRua.value || !deliveryNum.value) {
+      alert('Preencha o endereço completo (bairro, rua e número)');
+      return;
+    }
+
+    total += 5; // taxa de delivery
+  }
+
+  let client = prompt('Digite seu nome completo:')?.trim() || 'Cliente';
+
+  let message = `Olá, aqui é ${client}.\n\nPedido:\n`;
+  cart.forEach(i => {
+    const lineTotal = ((i.unitPrice || i.basePrice) * i.qty).toFixed(2);
+    message += `- ${i.name} x${i.qty} — R$ ${lineTotal}\n`;
+    if (i.extras && i.extras.length) {
+      message += `  Adicionais: ${i.extras.map(e => `${e.qtd}x ${e.nome}`).join(', ')}\n`;
+    }
+    if (i.obs) message += `  Obs: ${i.obs}\n`;
+  });
+
+  if (deliveryOption === 'Delivery') {
+    message += `Taxa de Delivery: R$ 5,00\n`;
+  }
+
+  message += `Total: R$ ${total.toFixed(2)}\n`;
+  message += `Forma de pagamento: ${payment}${cardType ? ` (${cardType})` : ''}\n`;
+
+  // Troco ou Pix
+  if (payment === 'Dinheiro') {
+  let precisaTroco = confirm('Você precisa de troco?');
+  if (precisaTroco) {
+    let troco = prompt('Para quanto precisa de troco?');
+    if (troco) message += `Troco para: R$ ${troco}\n`;
+  }
+}  else if (payment === 'Pix') {
+  const pixKey = "5518991616645";
+  const valorStr = total.toFixed(2).replace('.', ','); // ex: "10,50" para exibição
+  // Texto simples para o cliente copiar (funciona para colar no "Pix - Copia e Cola" do app do banco)
+  const pixText = `Chave PIX: ${pixKey} | Valor: R$ ${valorStr}`;
+
+  // Gera um QR em imagem (API pública que cria QR a partir de texto).
+  // OBS: o conteúdo do QR aqui é apenas uma instrução legível; para gerar BRCode oficial é preciso um gerador de payload Pix.
+  const qrData = encodeURIComponent(`PIX PAYMENT\nChave: ${pixKey}\nValor: R$ ${valorStr}`);
+  const pixQrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${qrData}`;
+
+  // Mostra alerta claro com instruções e link copiável
+  alert(
+    `Pague via Pix:\n\n${pixText}\n\nClique no link do QR (abre imagem) ou copie o texto acima e cole no seu app bancário em "Pix → Copia e Cola".\n\nLink do QR:\n${pixQrUrl}\n\nApós pagar, envie o comprovante pelo WhatsApp.`
+  );
+
+  // Adiciona informação na mensagem que será enviada para a loja
+  message += `\nPagamento via Pix:\n${pixText}\nLink do QR (copiar/abrir para pagar): ${pixQrUrl}\n(Aguarde enviar o comprovante pelo WhatsApp)\n`;
 }
-// Enviar para WhatsApp
 
-      const whatsappNumber = "5518991616645";
-      const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-      window.open(url, '_blank');
 
-      // limpar após enviar
-      cart = [];
-      updateCart();
-      modal.classList.remove('open');
-    });
+  if (deliveryOption === 'Delivery') {
+    message += `Endereço para entrega:\n${deliveryAddress}\n`;
+  }
 
+  const whatsappNumber = "5518991616645";
+  const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+  window.open(url, '_blank');
+
+  // Limpar carrinho e fechar modal
+  cart = [];
+  updateCart();
+  modal.classList.remove('open');
+});
+
+
+  
     // Se o pagamento for em dinheiro, adicionar troco
 if (payment === 'Dinheiro') {
   const troco = document.getElementById('troco').value.trim();
