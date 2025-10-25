@@ -848,6 +848,16 @@
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
       z-index: 95;
     }
+    .controls {
+  display: flex;
+  align-items: center;
+}
+#toggle-categories {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+
   </style>
 </head>
 
@@ -864,11 +874,21 @@
   <div class="controls"
     style="max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:6px;padding:0 10px;flex-wrap:wrap;">
     <!-- Botão ☰ -->
-    <button id="toggle-categories"
-      style=" color:#ffff; background:#ff6600;border:1px solid #ff6600;border-radius:6px;padding:8px 10px;cursor:pointer;font-size:18px;margin-left:auto; margin-top:6px;">
-      ☰
-    </button>
 
+<div class="controls">
+  <button id="toggle-categories"
+    style="color:#fff; background:#ff6600; border:1px solid #ff6600;
+           border-radius:6px; padding:8px 10px; cursor:pointer;
+           font-size:18px; margin-left:auto; margin-top:6px;">
+    ☰
+  </button>
+</div>
+
+
+  <!-- conteúdo das categorias -->
+
+
+  
     <!-- Barra de pesquisa -->
     <div class="search-row" style="flex:1;position:relative;min-width:150px;">
       <input type="search" id="search" placeholder="Pesquisar no cardápio"
@@ -1116,6 +1136,7 @@ function gerarPix() {
             <input type="text" id="delivery-address-bairro" placeholder="Bairro">
             <input type="text" id="delivery-address-rua" placeholder="Rua">
             <input type="text" id="delivery-address-num" placeholder="Número">
+            <input type="text" id="delivery-address-pon" placeholder="Ponto de Referência">
           </div>
 
           <button class="btn" id="confirm-order">Confirmar Pedido</button>
@@ -1172,6 +1193,11 @@ function gerarPix() {
   <span id="cart-count">0</span>
 </button>
 
+<button id="scrollToTop" title="Voltar ao topo">
+  <i class="fa-solid fa-chevron-up"></i>
+</button>
+
+
 <script>
 window.addEventListener('DOMContentLoaded', () => {
   const contador = document.getElementById("cart-count");
@@ -1220,6 +1246,20 @@ window.addEventListener('DOMContentLoaded', () => {
   }
 });
 
+// Botão "Voltar ao topo"
+const scrollToTopBtn = document.getElementById("scrollToTop");
+
+if (scrollToTopBtn) {
+  scrollToTopBtn.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+}
+
+
+
 </script>
 
 
@@ -1232,17 +1272,54 @@ window.addEventListener('DOMContentLoaded', () => {
   color: #666;
   box-shadow: none;
 }
+#scrollToTop {
+  position: fixed;
+  bottom: 750px;
+  right: 8px;
+  background: linear-gradient(135deg, #ff6600, #ff9500);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+  font-size: 23px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
+
+#scrollToTop:hover {
+  transform: translateY(-6px) scale(1.1);
+  box-shadow: 0 10px 25px rgba(255, 102, 0, 0.5);
+  background: linear-gradient(135deg, #ff7b00, #ffaa33);
+}
+
+#scrollToTop i {
+  animation: floatArrow 1.5s infinite ease-in-out;
+}
+
+/* animação leve na setinha */
+@keyframes floatArrow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+
 
   #scrollToBottom {
   position: fixed;
   bottom: 85px;
   right: 20px;
-  background: #ff6600;
+  background: #ff7b00;
   color: white;
   border: none;
   border-radius: 50%;
-  width: 55px;
-  height: 55px;
+  width: 58px;
+  height: 58px;
   cursor: pointer;
   font-size: 24px;
   display: flex;
@@ -1257,7 +1334,7 @@ window.addEventListener('DOMContentLoaded', () => {
   position: absolute;
   top: 5px;
   right: 5px;
-  background: #ff0000;
+  background: #ff1515;
   color: white;
   border-radius: 50%;
   width: 20px;
@@ -1386,14 +1463,22 @@ footer {
     }, 3000);
   }
 
-  const toggleBtn = document.getElementById('toggle-categories');
-  const categories = document.getElementById('categories');
+const toggleBtn = document.getElementById('toggle-categories');
+const categories = document.getElementById('categories');
 
-  if (toggleBtn) {
-    toggleBtn.addEventListener('click', () => {
-      categories.classList.toggle('show');
-    });
-  }
+// Exibe automaticamente ao carregar
+if (categories) {
+  categories.classList.add('show');
+}
+
+// Continua permitindo abrir/fechar manualmente
+if (toggleBtn) {
+  toggleBtn.addEventListener('click', () => {
+    categories.classList.toggle('show');
+  });
+}
+
+
 
   // Função que verifica se a loja está aberta
   function isStoreOpen() {
