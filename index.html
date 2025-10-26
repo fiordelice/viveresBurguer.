@@ -1149,6 +1149,63 @@ function toggleTroco() {
     </div>
   </div>
 
+  <script>
+   document.addEventListener('DOMContentLoaded', () => {
+  const deliveryEl = document.getElementById('delivery-option');
+  const deliveryAddressContainer = document.getElementById('delivery-address-container');
+  const deliveryBairro = document.getElementById('delivery-address-bairro');
+  const deliveryRua = document.getElementById('delivery-address-rua');
+  const deliveryNum = document.getElementById('delivery-address-num');
+  const deliveryPon = document.getElementById('delivery-address-pon');
+  const confirmOrderBtn = document.getElementById('confirm-order');
+  const pixKey = "5518991616645";
+
+  // Função para mostrar/esconder o endereço
+  function toggleDeliveryAddress() {
+    if (deliveryEl.value === 'Delivery') {
+      deliveryAddressContainer.style.display = 'block';
+    } else {
+      deliveryAddressContainer.style.display = 'none';
+    }
+  }
+
+  // Atualiza visibilidade no carregamento
+  toggleDeliveryAddress();
+
+  // Atualiza quando o usuário muda a opção
+  deliveryEl.addEventListener('change', toggleDeliveryAddress);
+
+  // Clique em Confirmar Pedido
+  confirmOrderBtn.addEventListener('click', () => {
+    const deliveryOption = deliveryEl.value;
+    let deliveryAddress = '';
+
+    if (deliveryOption === 'Delivery') {
+      if (!deliveryBairro.value || !deliveryRua.value || !deliveryNum.value) {
+        alert('Preencha bairro, rua e número!');
+        return;
+      }
+      deliveryAddress = `Bairro: ${deliveryBairro.value}\nRua: ${deliveryRua.value}\nNúmero: ${deliveryNum.value}`;
+      if (deliveryPon.value) deliveryAddress += `\nPonto de referência: ${deliveryPon.value}`;
+    }
+
+    let message = `Pagamento via Pix:\nChave: ${pixKey}\n`;
+    if (deliveryOption === 'Delivery') message += `Endereço para entrega:\n${deliveryAddress}\n(Aguarde enviar o comprovante pelo WhatsApp)\n`;
+
+    const whatsappNumber = "5518991616645";
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+
+    // Limpar carrinho e fechar modal
+    if (typeof cart !== 'undefined') cart = [];
+    if (typeof updateCart === 'function') updateCart();
+    if (modal) modal.classList.remove('open');
+  });
+});
+
+
+
+  </script>
   <!-- Modal para adicionar observação e adicionais ao item -->
   <div class="add-obs-modal" id="addObsModal" aria-hidden="true">
     <div class="add-obs-card">
