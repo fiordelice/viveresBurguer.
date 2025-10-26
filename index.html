@@ -5,6 +5,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  
   <title>𝑽í𝒗𝒆𝒓𝒆𝒔 𝑩𝒖𝒓𝒈𝒖𝒆𝒓</title>
   <style>
     /* Base (desktop e telas grandes) */
@@ -1541,6 +1543,9 @@ if (toggleBtn) {
 </script>
 
 <style>
+
+ 
+
 /* Toast responsivo e centralizado */
     .toast {
       position: fixed;
@@ -1616,15 +1621,15 @@ if (toggleBtn) {
     // --- MENU (itens) ---
     const menuItems = [
       { id: 1, name: 'Víveres Burguer', desc: 'Pão artesanal, burguer 150g, queijo mussarela, maionese da casa', price: 20.00, img: 'Víveres Burguer.jpg', badge: '', category: 'Lanches' },
+       { id: 6, name: 'G B I', desc: 'Pão artesanal, burguer 150g, bacon, queijo cheddar, maionese da casa', price: 24.90, img: 'GBI.jpg', badge: 'Mais pedido', category: 'Lanches' },
       { id: 2, name: 'Víveres Salada', desc: 'Pão artesanal, burguer 150g, queijo mussarela, alface americana, tomate, cebola roxa, maionese da casa', price: 25.00, img: 'Víveres Salada.jpg', badge: '', category: 'Lanches' },
-      { id: 3, name: 'Víveres Bacon', desc: 'Pão artesanal, burguer 150g, bacon, queijo mussarela, alface americana, tomate, cebola roxa, maionese da casa', price: 27.90, img: 'Víveres Salada.jpg', badge: '', category: 'Lanches' },
-      { id: 4, name: 'Mussaburguer', desc: 'Pão artesanal, burguer 150g, mussarela empanada, picles, alface americana, bacon, maionese da casa', price: 31.90, img: 'Mussaburguer.jpg', badge: '', category: 'Lanches' },
-      { id: 5, name: 'Preferido', desc: 'Pão artesanal, burguer 150g (2x), bacon, queijo cheddar, cebola roxa, maionese da casa', price: 37.00, img: 'Preferido.jpg', badge: 'Preferido', category: 'Lanches' },
-      { id: 6, name: 'G B I', desc: 'Pão artesanal, burguer 150g, bacon, queijo cheddar, maionese da casa', price: 24.90, img: 'GBI.jpg', badge: 'Mais pedido', category: 'Lanches' },
-      { id: 7, name: 'Cheddar Melt', desc: 'Pão artesanal, burguer 150g, cheddar cremoso, picles, farofa de bacon', price: 30.00, img: 'Cheddar Melt.jpg', badge: '', category: 'Lanches' },
-      { id: 8, name: 'Supreme', desc: 'Pão artesanal, burguer 150g, queijo cheddar, onion rings, molho BBQ', price: 29.00, img: 'Supreme.jpg', badge: 'Novo', category: 'Lanches' },
-      { id: 9, name: 'Víveres Crispy', desc: 'Pão artesanal, burguer 150g, queijo mussarela, cebola crispy, alface americana, mel, maionese da casa', price: 32.00, img: 'Víveres Crispy.jpg', badge: '', category: 'Lanches' },
       { id: 10, name: 'Víveres Chicken', desc: 'Pão artesanal, burguer de frango, queijo mussarela, tomate, picles, alface americana, molho especial', price: 26.90, img: 'Víveres Chicken.jpg', badge: '', category: 'Lanches' },
+      { id: 3, name: 'Víveres Bacon', desc: 'Pão artesanal, burguer 150g, bacon, queijo mussarela, alface americana, tomate, cebola roxa, maionese da casa', price: 27.90, img: 'Víveres Salada.jpg', badge: '', category: 'Lanches' },
+      { id: 8, name: 'Supreme', desc: 'Pão artesanal, burguer 150g, queijo cheddar, onion rings, molho BBQ', price: 29.00, img: 'Supreme.jpg', badge: 'Novo', category: 'Lanches' },
+      { id: 7, name: 'Cheddar Melt', desc: 'Pão artesanal, burguer 150g, cheddar cremoso, picles, farofa de bacon', price: 30.00, img: 'Cheddar Melt.jpg', badge: '', category: 'Lanches' },
+      { id: 4, name: 'Mussaburguer', desc: 'Pão artesanal, burguer 150g, mussarela empanada, picles, alface americana, bacon, maionese da casa', price: 31.90, img: 'lan.jpg', badge: '', category: 'Lanches' },
+      { id: 9, name: 'Víveres Crispy', desc: 'Pão artesanal, burguer 150g, queijo mussarela, cebola crispy, alface americana, mel, maionese da casa', price: 32.00, img: 'Víveres Crispy.jpg', badge: '', category: 'Lanches' },
+      { id: 5, name: 'Preferido', desc: 'Pão artesanal, burguer 150g (2x), bacon, queijo cheddar, cebola roxa, maionese da casa', price: 37.00, img: 'Preferido.jpg', badge: 'Preferido', category: 'Lanches' },
       { id: 11, name: 'Víveres Kids', desc: '1 Mini burguer + 1 mini porção de batata smile + 1 Coca-Cola 200ml ou Suco Kapô + brinde', price: 29.90, img: 'kids.jpg', badge: '', category: 'Lanches' },
       { id: 21, name: 'Batata Frita', desc: 'Porção individual de batata frita crocante', price: 8.00, img: 'Batata frita.jpg', badge: '', category: 'Porções' },
       { id: 22, name: 'Batata Crinkle (ondulada)', desc: 'Porção individual de batata crinkle ondulada', price: 9.00, img: 'batataon.jpg', badge: '', category: 'Porções' },
@@ -2024,7 +2029,7 @@ if (toggleBtn) {
 
     
 
- document.getElementById('confirm-order').addEventListener('click', () => {
+document.getElementById('confirm-order').addEventListener('click', () => {
   if (cart.length === 0) { 
     alert('Carrinho vazio'); 
     return; 
@@ -2069,47 +2074,79 @@ if (toggleBtn) {
   message += `Total: R$ ${total.toFixed(2)}\n`;
   message += `Forma de pagamento: ${payment}${cardType ? ` (${cardType})` : ''}\n`;
 
-  // Troco ou Pix
+  // Função para enviar WhatsApp e limpar carrinho
+  const enviarWhats = () => {
+    if (deliveryOption === 'Delivery') {
+      message += `Endereço para entrega:\n${deliveryAddress}\n`;
+    }
+    const whatsappNumber = "5518991616645";
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+
+    cart = [];
+    updateCart();
+    modal.classList.remove('open');
+  };
+
+  // Tratamento de pagamento
   if (payment === 'Dinheiro') {
-  let precisaTroco = confirm('Você precisa de troco?');
-  if (precisaTroco) {
-    let troco = prompt('Para quanto precisa de troco?');
-    if (troco) message += `Troco para: R$ ${troco}\n`;
-  }
-}  else if (payment === 'Pix') {
-  const pixKey = "5518991616645";
-  const valorStr = total.toFixed(2).replace('.', ','); // ex: "10,50" para exibição
-  // Texto simples para o cliente copiar (funciona para colar no "Pix - Copia e Cola" do app do banco)
-  const pixText = `Chave PIX: ${pixKey} | Valor: R$ ${valorStr}`;
+    let precisaTroco = confirm('Você precisa de troco?');
+    if (precisaTroco) {
+      let troco = prompt('Para quanto precisa de troco?');
+      if (troco) message += `Troco para: R$ ${troco}\n`;
+    }
+    enviarWhats();
+  } else if (payment === 'Pix') {
+  const pixKey = "5518991616645"; 
+  const valorStr = total.toFixed(2).replace('.', ',');
+  const pixText = `Chave Pix: ${pixKey}\nValor: R$ ${valorStr}`;
 
-  // Gera um QR em imagem (API pública que cria QR a partir de texto).
-  // OBS: o conteúdo do QR aqui é apenas uma instrução legível; para gerar BRCode oficial é preciso um gerador de payload Pix.
-  const qrData = encodeURIComponent(`PIX PAYMENT\nChave: ${pixKey}\nValor: R$ ${valorStr}`);
-  const pixQrUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${qrData}`;
+  const pixModal = document.createElement('div');
+  pixModal.style = `
+    position: fixed; top:0; left:0; width:100%; height:100%;
+    background: rgba(0,0,0,0.5); display:flex; justify-content:center; align-items:center;
+    z-index: 9999;
+  `;
+  pixModal.innerHTML = `
+    <div style="background:#fff; padding:20px; border-radius:8px; text-align:center; max-width:320px;">
+      <h2>Pague via Pix</h2>
+      <p style="margin:6px 0;">Valor: R$ ${valorStr}</p>
+      <textarea id="pixCopy" style="width:100%; height:40px; text-align:center;" readonly>${pixText}</textarea>
+      <div style="margin:10px 0;">
+        <button id="copyPix" style="background:#00a000;color:#fff;padding:8px 16px;border:none;border-radius:5px;cursor:pointer;">Copiar</button>
+      </div>
+      <button id="continuePix" style="background:#ff6600;color:#fff;padding:10px 20px;border:none;border-radius:5px;cursor:pointer;">Continuar</button>
+    </div>
+  `;
+  document.body.appendChild(pixModal);
 
-  // Mostra alerta claro com instruções e link copiável
-  alert(
-    `Pague via Pix:\n\n${pixText}\n\nClique no link do QR (abre imagem) ou copie o texto acima e cole no seu app bancário em "Pix → Copia e Cola".\n\nLink do QR:\n${pixQrUrl}\n\nApós pagar, envie o comprovante pelo WhatsApp.`
-  );
+  // Copia apenas o número Pix
+  document.getElementById('copyPix').addEventListener('click', () => {
+    navigator.clipboard.writeText(pixKey)
+      .then(() => alert('Número Pix copiado!'))
+      .catch(() => alert('Erro ao copiar número.'));
+  });
 
-  // Adiciona informação na mensagem que será enviada para a loja
-  message += `\nPagamento via Pix:\n${pixText}\nLink do QR (copiar/abrir para pagar): ${pixQrUrl}\n(Aguarde enviar o comprovante pelo WhatsApp)\n`;
+  // Continuar
+  document.getElementById('continuePix').addEventListener('click', () => {
+    document.body.removeChild(pixModal);
+    message += `\nPagamento via Pix:\nChave: ${pixKey} | Valor: R$ ${valorStr}\n(Aguarde enviar o comprovante pelo WhatsApp)\n`;
+    if (deliveryOption === 'Delivery') message += `Endereço para entrega:\n${deliveryAddress}\n`;
+    const whatsappNumber = "5518991616645";
+    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+    cart = [];
+    updateCart();
+    modal.classList.remove('open');
+  });
 }
 
-
-  if (deliveryOption === 'Delivery') {
-    message += `Endereço para entrega:\n${deliveryAddress}\n`;
+   else {
+    // Para Cartão ou outros pagamentos
+    enviarWhats();
   }
-
-  const whatsappNumber = "5518991616645";
-  const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-  window.open(url, '_blank');
-
-  // Limpar carrinho e fechar modal
-  cart = [];
-  updateCart();
-  modal.classList.remove('open');
 });
+
 
 
   
