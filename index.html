@@ -2087,122 +2087,84 @@ if (toggleBtn) {
     
 
 document.getElementById('confirm-order').addEventListener('click', () => {
-  if (cart.length === 0) { 
-    alert('Carrinho vazio'); 
-    return; 
-  }
+  if (!cart.length) return alert('Carrinho vazio');
 
-  let total = parseFloat(cart.reduce((a, c) => a + ((c.unitPrice || c.basePrice) * c.qty), 0).toFixed(2));
+  let total = cart.reduce((acc, i) => acc + ((i.unitPrice||i.basePrice) * i.qty), 0);
 
-  const payment = document.getElementById('payment').value || 'Não informado';
-  const cardTypeEl = document.getElementById('card-type');
-  const cardType = (payment === 'Cartão' && cardTypeEl) ? cardTypeEl.value : '';
+  const payment = paymentEl.value;
+  const cardType = (payment === 'Cartão') ? document.getElementById('card-type').value : '';
   const deliveryOption = deliveryEl.value;
 
   let deliveryAddress = '';
   if (deliveryOption === 'Delivery') {
+    if (!deliveryBairro.value || !deliveryRua.value || !deliveryNum.value) {
+      return alert('Preencha endereço completo');
+    }
     deliveryAddress = `Bairro: ${deliveryBairro.value}\nRua: ${deliveryRua.value}\nNúmero: ${deliveryNum.value}`;
     if (deliveryPon.value) deliveryAddress += `\nPonto de Referência: ${deliveryPon.value}`;
-
-    if (!deliveryBairro.value || !deliveryRua.value || !deliveryNum.value) {
-      alert('Preencha o endereço completo (bairro, rua e número)');
-      return;
-    }
-
     total += 5; // taxa de delivery
   }
 
-  let client = prompt('Digite seu nome completo:')?.trim() || 'Cliente';
-
-  let message = `Olá, aqui é ${client}.\n\nPedido:\n`;
+  let client = prompt('Digite seu nome:') || 'Cliente';
+  let message = `Olá, sou ${client}\n\nPedido:\n`;
   cart.forEach(i => {
-    const lineTotal = ((i.unitPrice || i.basePrice) * i.qty).toFixed(2);
-    message += `- ${i.name} x${i.qty} — R$ ${lineTotal}\n`;
-    if (i.extras && i.extras.length) {
-      message += `  Adicionais: ${i.extras.map(e => `${e.qtd}x ${e.nome}`).join(', ')}\n`;
-    }
+    message += `- ${i.name} x${i.qty} - R$ ${(i.unitPrice||i.basePrice).toFixed(2)}\n`;
+    if (i.extras?.length) message += `  Adicionais: ${i.extras.map(e=>e.qtd+'x '+e.nome).join(', ')}\n`;
     if (i.obs) message += `  Obs: ${i.obs}\n`;
   });
+  if (deliveryOption === 'Delivery') message += `Taxa de delivery: R$ 5,00\n`;
+  message += `Total: R$ ${total.toFixed(2)}\nForma de pagamento: ${payment}${cardType ? ` (${cardType})` : ''}\n`;
 
-  if (deliveryOption === 'Delivery') {
-    message += `Taxa de Delivery: R$ 5,00\n`;
-  }
-
-  message += `Total: R$ ${total.toFixed(2)}\n`;
-  message += `Forma de pagamento: ${payment}${cardType ? ` (${cardType})` : ''}\n`;
-
-  // Função para enviar WhatsApp e limpar carrinho
   const enviarWhats = () => {
-    if (deliveryOption === 'Delivery') {
-      message += `Endereço para entrega:\n${deliveryAddress}\n`;
-    }
-    const whatsappNumber = "5518991616645";
-    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+    if (deliveryOption === 'Delivery') message += `Endereço:\n${deliveryAddress}\n`;
+    const url = `https://wa.me/5518991616645?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
-
     cart = [];
     updateCart();
     modal.classList.remove('open');
   };
 
-  // Tratamento de pagamento
   if (payment === 'Dinheiro') {
-    let precisaTroco = confirm('Você precisa de troco?');
+    const precisaTroco = confirm('Você precisa de troco?');
     if (precisaTroco) {
-      let troco = prompt('Para quanto precisa de troco?');
+      const troco = prompt('Para quanto?');
       if (troco) message += `Troco para: R$ ${troco}\n`;
     }
     enviarWhats();
   } else if (payment === 'Pix') {
-  const pixKey = "5518991616645"; 
-  const valorStr = total.toFixed(2).replace('.', ',');
-  const pixText = `Chave Pix: ${pixKey}\nValor: R$ ${valorStr}`;
-
-  const pixModal = document.createElement('div');
-  pixModal.style = `
-    position: fixed; top:0; left:0; width:100%; height:100%;
-    background: rgba(0,0,0,0.5); display:flex; justify-content:center; align-items:center;
-    z-index: 9999;
-  `;
-  pixModal.innerHTML = `
-    <div style="background:#fff; padding:20px; border-radius:8px; text-align:center; max-width:320px;">
-      <h2>Pague via Pix</h2>
-      <p style="margin:6px 0;">Valor: R$ ${valorStr}</p>
-      <textarea id="pixCopy" style="width:100%; height:40px; text-align:center;" readonly>${pixText}</textarea>
-      <div style="margin:10px 0;">
-        <button id="copyPix" style="background:#00a000;color:#fff;padding:8px 16px;border:none;border-radius:5px;cursor:pointer;">Copiar</button>
+    const pixKey = "5518991616645";
+    const pixText = `Chave Pix: ${pixKey}\nValor: R$ ${total.toFixed(2)}`;
+    const pixModal = document.createElement('div');
+    pixModal.style = `
+      position: fixed; top:0; left:0; width:100%; height:100%;
+      background: rgba(0,0,0,0.5); display:flex; justify-content:center; align-items:center;
+      z-index: 9999;
+    `;
+    pixModal.innerHTML = `
+      <div style="background:#fff;padding:20px;border-radius:8px;text-align:center;max-width:320px;">
+        <h2>Pague via Pix</h2>
+        <textarea readonly style="width:100%;height:40px;text-align:center">${pixText}</textarea>
+        <button id="copyPix">Copiar Pix</button>
+        <button id="continuePix">Continuar</button>
       </div>
-      <button id="continuePix" style="background:#ff6600;color:#fff;padding:10px 20px;border:none;border-radius:5px;cursor:pointer;">Continuar</button>
-    </div>
-  `;
-  document.body.appendChild(pixModal);
+    `;
+    document.body.appendChild(pixModal);
 
-  // Copia apenas o número Pix
-  document.getElementById('copyPix').addEventListener('click', () => {
-    navigator.clipboard.writeText(pixKey)
-      .then(() => alert('Número Pix copiado!'))
-      .catch(() => alert('Erro ao copiar número.'));
-  });
-
-  // Continuar
-  document.getElementById('continuePix').addEventListener('click', () => {
-    document.body.removeChild(pixModal);
-    message += `\nPagamento via Pix:\nChave: ${pixKey} | Valor: R$ ${valorStr}\n(Aguarde enviar o comprovante pelo WhatsApp)\n`;
-    if (deliveryOption === 'Delivery') message += `Endereço para entrega:\n${deliveryAddress}\n`;
-    const whatsappNumber = "5518991616645";
-    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
-    cart = [];
-    updateCart();
-    modal.classList.remove('open');
-  });
-}
-
-   else {
-    // Para Cartão ou outros pagamentos
+    document.getElementById('copyPix').addEventListener('click', () => {
+      navigator.clipboard.writeText(pixKey).then(()=>alert('Pix copiado!'));
+    });
+    document.getElementById('continuePix').addEventListener('click', () => {
+      document.body.removeChild(pixModal);
+      message += `Pagamento via Pix\nChave: ${pixKey}\nValor: R$ ${total.toFixed(2)}\n`;
+      enviarWhats();
+    });
+  } else {
+    // Cartão ou outros
     enviarWhats();
   }
 });
+
+   
 
 
 
