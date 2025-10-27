@@ -992,21 +992,19 @@
   }
 
   // listeners para atualizar sempre que mudar
-  paymentEl.addEventListener('change', atualizarBotaoCheckout);
-  if (cardTypeEl) cardTypeEl.addEventListener('change', atualizarBotaoCheckout);
+if (payment === 'dinheiro') {
+    let precisaTroco = confirm('Você precisa de troco?');
+    if (precisaTroco) {
+        let troco = prompt('Para quanto precisa de troco?');
+        if (troco) message += `Troco para: R$ ${troco}\n`;
+    }
+    enviarWhats(); // função que envia a mensagem para WhatsApp
+} else if (payment === 'pix') {
+    // lógica Pix
+} else {
+    enviarWhats(); // outros pagamentos
+}
 
-  // inicializa
-  atualizarBotaoCheckout();
-});
-
-
-  btnConfirmOrder.addEventListener('click', () => {
-  const payment = document.getElementById('payment').value || 'Não informado';
-  const cardTypeEl = document.getElementById('card-type');
-  const cardType = (payment === 'Cartão' && cardTypeEl) ? cardTypeEl.value : '';
-  
-  let message = '';
-  message += `Forma de pagamento: ${payment}${cardType ? ` (${cardType})` : ''}\n`;
 });
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -1677,46 +1675,36 @@ if (toggleBtn) {
 
     // --- MENU (itens) ---
     const menuItems = [
-  // Clássicos
-  { id: 1, name: 'Víveres Burguer', desc: 'Pão artesanal, burguer 150g, queijo mussarela, maionese da casa', price: 20.00, img: 'Víveres Burguer.jpg', badge: '', category: 'Lanches' },
-  { id: 2, name: 'Víveres Salada', desc: 'Pão artesanal, burguer 150g, queijo mussarela, alface americana, tomate, cebola roxa, maionese da casa', price: 25.00, img: 'Víveres Salada.jpg', badge: '', category: 'Lanches' },
-  { id: 3, name: 'Víveres Bacon', desc: 'Pão artesanal, burguer 150g, bacon, queijo mussarela, alface americana, tomate, cebola roxa, maionese da casa', price: 27.90, img: 'Víveres Salada.jpg', badge: '', category: 'Lanches' },
-
-  // Modernos
-  { id: 4, name: 'Mussaburguer', desc: 'Pão artesanal, burguer 150g, mussarela empanada, picles, alface americana, bacon, maionese da casa', price: 31.90, img: 'lan.jpg', badge: '', category: 'Lanches' },
-  { id: 5, name: 'Preferido', desc: 'Pão artesanal, burguer 150g (2x), bacon, queijo cheddar, cebola roxa, maionese da casa', price: 37.00, img: 'Preferido.jpg', badge: 'Preferido', category: 'Lanches' },
-  { id: 6, name: 'G B I', desc: 'Pão artesanal, burguer 150g, bacon, queijo cheddar, maionese da casa', price: 24.90, img: 'GBI.jpg', badge: 'Mais pedido', category: 'Lanches' },
-  { id: 7, name: 'Cheddar Melt', desc: 'Pão artesanal, burguer 150g, cheddar cremoso, picles, farofa de bacon', price: 30.00, img: 'Cheddar Melt.jpg', badge: '', category: 'Lanches' },
-  { id: 8, name: 'Supreme', desc: 'Pão artesanal, burguer 150g, queijo cheddar, onion rings, molho BBQ', price: 29.00, img: 'Supreme.jpg', badge: 'Novo', category: 'Lanches' },
-  { id: 9, name: 'Víveres Crispy', desc: 'Pão artesanal, burguer 150g, queijo mussarela, cebola crispy, alface americana, mel, maionese da casa', price: 32.00, img: 'Víveres Crispy.jpg', badge: '', category: 'Lanches' },
-  { id: 10, name: 'Víveres Chicken', desc: 'Pão artesanal, burguer de frango, queijo mussarela, tomate, picles, alface americana, molho especial', price: 26.90, img: 'Víveres Chicken.jpg', badge: '', category: 'Lanches' },
-  { id: 11, name: 'Víveres Kids', desc: '1 Mini burguer + 1 mini porção de batata smile + 1 Coca-Cola 200ml ou Suco Kapô + brinde', price: 29.90, img: 'kids.jpg', badge: '', category: 'Lanches' },
-
-  // Porções
-  { id: 21, name: 'Batata Frita', desc: 'Porção individual de batata frita crocante', price: 8.00, img: 'Batata frita.jpg', badge: '', category: 'Porções' },
-  { id: 22, name: 'Batata Crinkle (ondulada)', desc: 'Porção individual de batata crinkle ondulada', price: 9.00, img: 'batataon.jpg', badge: '', category: 'Porções' },
-  { id: 23, name: 'Batata Frita c/ Cheddar e Farofa de Bacon', desc: 'Porção individual de batata frita com cheddar e farofa de bacon', price: 13.90, img: 'batata.jpg', badge: '', category: 'Porções' },
-  { id: 24, name: 'Batata Smile (carinha)', desc: '8 unidades, acompanha molho especial', price: 10.90, img: 'Batata Smile.jpg', badge: '', category: 'Porções' },
-  { id: 25, name: 'Anéis de Cebola', desc: '8 unidades, acompanha molho barbecue', price: 9.90, img: 'Anéis de Cebola.jpg', badge: '', category: 'Porções' },
-  { id: 26, name: 'Nuggets Chicken Supreme', desc: '6 unidades, acompanha molho especial', price: 11.90, img: 'Nuggets Supreme.jpg', badge: '', category: 'Porções' },
-
-  // Sobremesa
-  { id: 31, name: 'Mini Churros', desc: 'Porção individual com 10 unidades', price: 13.90, img: 'churros.jpg', badge: '', category: 'Sobremesa' },
-
-  // Bebidas
-  { id: 41, name: 'Água', desc: 'Garrafa de água mineral', price: 4.00, img: 'agua.png', badge: '', category: 'Bebidas' },
-  { id: 42, name: 'Água com Gás', desc: 'Garrafa de água com gás', price: 4.50, img: 'aguagas.png', badge: '', category: 'Bebidas' },
-  { id: 43, name: 'Refrigerante Lata 350ml', desc: 'Coca-Cola, Fanta, Sprite e outros sabores', price: 6.00, img: 'guaranas.png', badge: '', category: 'Bebidas' },
-  { id: 44, name: 'Refrigerante Vencetex 2L', desc: 'Refrigerante Vencetex 2 litros', price: 8.00, img: 'vece.png', badge: '', category: 'Bebidas' },
-  { id: 45, name: 'Fanta Laranja 2L', desc: 'Refrigerante Fanta Laranja 2 litros', price: 12.00, img: 'fantal.png', badge: '', category: 'Bebidas' },
-  { id: 46, name: 'Fanta Uva 2L', desc: 'Refrigerante Uva Laranja 2 litros', price: 12.00, img: 'fantau.png', badge: '', category: 'Bebidas' },
-  { id: 47, name: 'Sprite 2L', desc: 'Refrigerante Sprite 2 litros', price: 12.00, img: 'sprite.png', badge: '', category: 'Bebidas' },
-  { id: 48, name: 'Coca-Cola 2L', desc: 'Refrigerante Coca-Cola 2 litros', price: 12.00, img: 'coca.png', badge: '', category: 'Bebidas' },
-  { id: 49, name: 'Coca-Cola Zero 2L', desc: 'Refrigerante Coca-Cola Zero 2 litros', price: 15.00, img: 'cocazero.png', badge: '', category: 'Bebidas' },
-  { id: 50, name: 'Cerveja Long Neck 330ml', desc: 'Heineken, Budweiser, Bud, Eisenbahn', price: 10.00, img: 'cerveja.png', badge: '', category: 'Bebidas' },
-  { id: 51, name: 'Suco 500ml', desc: 'Sabores: abacaxi com hortelã, acerola com laranja, maracujá, morango e tamarino', price: 10.00, img: 'suco.png', badge: '', category: 'Bebidas' },
-];
-
+      { id: 1, name: 'Víveres Burguer', desc: 'Pão artesanal, burguer 150g, queijo mussarela, maionese da casa', price: 20.00, img: 'Víveres Burguer.jpg', badge: '', category: 'Lanches' },
+       { id: 6, name: 'G B I', desc: 'Pão artesanal, burguer 150g, bacon, queijo cheddar, maionese da casa', price: 24.90, img: 'GBI.jpg', badge: 'Mais pedido', category: 'Lanches' },
+      { id: 2, name: 'Víveres Salada', desc: 'Pão artesanal, burguer 150g, queijo mussarela, alface americana, tomate, cebola roxa, maionese da casa', price: 25.00, img: 'Víveres Salada.jpg', badge: '', category: 'Lanches' },
+      { id: 10, name: 'Víveres Chicken', desc: 'Pão artesanal, burguer de frango, queijo mussarela, tomate, picles, alface americana, molho especial', price: 26.90, img: 'Víveres Chicken.jpg', badge: '', category: 'Lanches' },
+      { id: 3, name: 'Víveres Bacon', desc: 'Pão artesanal, burguer 150g, bacon, queijo mussarela, alface americana, tomate, cebola roxa, maionese da casa', price: 27.90, img: 'Víveres Salada.jpg', badge: '', category: 'Lanches' },
+      { id: 8, name: 'Supreme', desc: 'Pão artesanal, burguer 150g, queijo cheddar, onion rings, molho BBQ', price: 29.00, img: 'Supreme.jpg', badge: 'Novo', category: 'Lanches' },
+      { id: 7, name: 'Cheddar Melt', desc: 'Pão artesanal, burguer 150g, cheddar cremoso, picles, farofa de bacon', price: 30.00, img: 'Cheddar Melt.jpg', badge: '', category: 'Lanches' },
+      { id: 4, name: 'Mussaburguer', desc: 'Pão artesanal, burguer 150g, mussarela empanada, picles, alface americana, bacon, maionese da casa', price: 31.90, img: 'lan.jpg', badge: '', category: 'Lanches' },
+      { id: 9, name: 'Víveres Crispy', desc: 'Pão artesanal, burguer 150g, queijo mussarela, cebola crispy, alface americana, mel, maionese da casa', price: 32.00, img: 'Víveres Crispy.jpg', badge: '', category: 'Lanches' },
+      { id: 5, name: 'Preferido', desc: 'Pão artesanal, burguer 150g (2x), bacon, queijo cheddar, cebola roxa, maionese da casa', price: 37.00, img: 'Preferido.jpg', badge: 'Preferido', category: 'Lanches' },
+      { id: 11, name: 'Víveres Kids', desc: '1 Mini burguer + 1 mini porção de batata smile + 1 Coca-Cola 200ml ou Suco Kapô + brinde', price: 29.90, img: 'kids.jpg', badge: '', category: 'Lanches' },
+      { id: 21, name: 'Batata Frita', desc: 'Porção individual de batata frita crocante', price: 8.00, img: 'Batata frita.jpg', badge: '', category: 'Porções' },
+      { id: 22, name: 'Batata Crinkle (ondulada)', desc: 'Porção individual de batata crinkle ondulada', price: 9.00, img: 'batataon.jpg', badge: '', category: 'Porções' },
+      { id: 23, name: 'Batata Frita c/ Cheddar e Farofa de Bacon', desc: 'Porção individual de batata frita com cheddar e farofa de bacon', price: 13.90, img: 'batata.jpg', badge: '', category: 'Porções' },
+      { id: 24, name: 'Batata Smile (carinha)', desc: '8 unidades, acompanha molho especial', price: 10.90, img: 'Batata Smile.jpg', badge: '', category: 'Porções' },
+      { id: 25, name: 'Anéis de Cebola', desc: '8 unidades, acompanha molho barbecue', price: 9.90, img: 'Anéis de Cebola.jpg', badge: '', category: 'Porções' },
+      { id: 26, name: 'Nuggets Chicken Supreme', desc: '6 unidades, acompanha molho especial', price: 11.90, img: 'Nuggets Supreme.jpg', badge: '', category: 'Porções' },
+      { id: 31, name: 'Mini Churros', desc: 'Porção individual com 10 unidades', price: 13.90, img: 'churros.jpg', badge: '', category: 'Sobremesa' },
+      { id: 41, name: 'Água', desc: 'Garrafa de água mineral', price: 4.00, img: 'agua.png', badge: '', category: 'Bebidas' },
+      { id: 42, name: 'Água com Gás', desc: 'Garrafa de água com gás', price: 4.50, img: 'aguagas.png', badge: '', category: 'Bebidas' },
+      { id: 43, name: 'Refrigerante Lata 350ml', desc: 'Coca-Cola, Fanta, Sprite e outros sabores', price: 6.00, img: 'guaranas.png', badge: '', category: 'Bebidas' },
+      { id: 44, name: 'Refrigerante Vencetex 2L ', desc: 'Refrigerante Vencetex 2 litros', price: 8.00, img: 'vece.png', badge: '', category: 'Bebidas' },
+      { id: 44, name: 'Refrigerante Sprite 2L', desc: 'Refrigerante Sprite 2 litros', price: 12.00, img: 'sprite.png', badge: '', category: 'Bebidas' },
+      { id: 45, name: 'Coca-Cola 2L', desc: 'Refrigerante Coca-Cola 2 litros', price: 12.00, img: 'coca.png', badge: '', category: 'Bebidas' },
+      { id: 46, name: 'Fanta Laranja 2L', desc: 'Refrigerante Fanta Laranja 2 litros', price: 12.00, img: 'fantal.png', badge: '', category: 'Bebidas' },
+      { id: 47, name: 'Fanta Uva 2L', desc: 'Refrigerante Uva Laranja 2 litros', price: 12.00, img: 'fantau.png', badge: '', category: 'Bebidas' },
+      { id: 48, name: 'Coca-Cola Zero 2L', desc: 'Refrigerante Coca-Cola Zero 2 litros', price: 15.00, img: 'cocazero.png', badge: '', category: 'Bebidas' },
+      { id: 49, name: 'Cerveja Long Neck 330ml', desc: 'Heineken, Budweiser, Bud, Eisenbahn', price: 10.00, img: 'cerveja.png', badge: '', category: 'Bebidas' },
+      { id: 50, name: 'Suco 500ml', desc: 'Sabores: abacaxi com hortelã, acerola com laranja, maracujá, morango e tamarino', price: 10.00, img: 'suco.png', badge: '', category: 'Bebidas' },
+    ];
 
     // Referências DOM
     const menuEl = document.getElementById('menu');
@@ -2266,12 +2254,16 @@ if (payment === 'Dinheiro') {
     // --- Inicialização ---
     renderMenu();
     updateCart();
+document.querySelector('meta[name=viewport]').setAttribute(
+  'content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
+);
 
     // Small UX: fechar add-obs modal com ESC / clicar fora
     addObsModal.addEventListener('click', (e) => { if (e.target === addObsModal) closeAddObsModal(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { if (addObsModal.classList.contains('open')) closeAddObsModal(); if (modal.classList.contains('open')) modal.classList.remove('open'); } });
   </script>
 </body>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <div id="meu-modal"
   style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center;">
@@ -2304,5 +2296,3 @@ if (payment === 'Dinheiro') {
 </script>
 
 </html>
-
-
