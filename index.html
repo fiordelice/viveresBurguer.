@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -2185,7 +2186,11 @@ document.getElementById('confirm-order').addEventListener('click', () => {
   message += `Total: R$ ${total.toFixed(2)}\nForma de pagamento: ${payment}${cardType ? ` (${cardType})` : ''}\n`;
 
   const enviarWhats = () => {
-    if (deliveryOption === 'Delivery') message += `Endereço:\n${deliveryAddress}\n`;
+    if (deliveryOption === 'Delivery') {
+  message += `Endereço:\n${deliveryAddress}\n`;
+} else if (deliveryOption === 'Retirar') {
+  message += `Retirada no local\n`;
+}
     const url = `https://wa.me/5518991616645?text=${encodeURIComponent(message)}`;
     window.open(url, '_blank');
     cart = [];
