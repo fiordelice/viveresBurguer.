@@ -1068,21 +1068,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Atualiza contador e visual do carrinho
   function atualizarCarrinho() {
-    // === Atualização visual do contador do carrinho ===
-if (carrinho.length > 0) {
-  contador.textContent = carrinho.length;
-  contador.style.opacity = '1';
-  contador.style.transform = 'scale(1.2)';
-
-  // animação de "pop"
-  setTimeout(() => {
-    contador.style.transform = 'scale(1)';
-  }, 150);
-} else {
-  contador.textContent = '0';
-  contador.style.opacity = '0';
-}
-
+    contador.textContent = carrinho.length;
     carrinhoEl.style.display = carrinho.length > 0 ? "block" : "none";
     cartTotals.style.display = carrinho.length > 0 ? "block" : "none";
 
@@ -1295,14 +1281,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Função que atualiza contador e visual do carrinho
   function atualizarCarrinho() {
-  if (document.querySelector('.cart').style.display === 'none' || document.querySelector('.cart').offsetParent === null) {
-  contador.textContent = 0; // Se o carrinho estiver fechado, zera o contador
-} else {
-  contador.textContent = carrinho.length; // Senão, mostra normalmente
-}
-contador.textContent = carrinho.length > 0 ? carrinho.length : 0;
-contador.textContent = 0;
-
+    contador.textContent = carrinho.length;
 
     if (carrinhoEl) {
       carrinhoEl.innerHTML = ""; // limpa o DOM
@@ -1334,11 +1313,6 @@ if (scrollToTopBtn) {
 
 
 <style>
-    #cart-count {
-  transition: all 0.25s ease;
-  opacity: 0; /* começa invisível */
-}
-
 
   .btn:disabled {
   background: #ccc !important;
