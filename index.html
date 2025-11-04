@@ -2104,7 +2104,7 @@ function gerarMensagemWhatsApp() {
       if (troco) message += `Troco para: R$ ${troco}\n`;
     }
   } else if (payment === 'Pix') {
-    const pixKey = "5518991616645";
+    const pixKey = "18991616645";
     message += `Pagamento via Pix\nChave: ${pixKey}\nValor: R$ ${total.toFixed(2)}\n`;
   }
 
@@ -2400,5 +2400,6 @@ document.querySelector('meta[name=viewport]').setAttribute(
 </script>
 
 </html>
+
 
 
