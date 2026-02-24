@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -7,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-  
+
   <title>𝑽í𝒗𝒆𝒓𝒆𝒔 𝑩𝒖𝒓𝒈𝒖𝒆𝒓</title>
   <style>
     /* Base (desktop e telas grandes) */
@@ -471,6 +470,104 @@
       color: #fff;
     }
 
+    /* Admin-specific styling (polished, professional) */
+    #adminLoginModal .modal-card {
+      max-width: 420px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    #adminPanel .modal-card {
+      max-width: 760px;
+      padding: 20px;
+      background: linear-gradient(180deg,#141414,#1b1b1b);
+      border: 1px solid rgba(255,255,255,0.04);
+    }
+
+    #adminPanel .modal-card h2,
+    #adminLoginModal .modal-card h2 {
+      margin: 0 0 12px 0;
+      color: var(--orange);
+      font-size: 1.35rem;
+    }
+
+    #adminPanel #adminProducts {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-height: 320px;
+      overflow: auto;
+      padding: 8px;
+      border-radius: 8px;
+      background: #0f0f0f;
+      border: 1px solid rgba(255,255,255,0.02);
+    }
+
+    #adminProducts > div {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 12px;
+      background: linear-gradient(90deg, #111, #161616);
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.02);
+      color: #ddd;
+    }
+
+    #adminProducts > div button {
+      padding: 6px 10px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    #adminProducts > div button.remove {
+      background: linear-gradient(90deg,var(--orange),#ff8533);
+      color: #111;
+    }
+
+    #adminProducts > div button:not(.remove) {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.06);
+      color: #fff;
+    }
+
+    #toggleStoreBtn {
+      background: linear-gradient(90deg,var(--orange),#ff8533);
+      color: #111;
+      border: none;
+      padding: 10px 14px;
+      border-radius: 10px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    #adminPanel .btn.remove {
+      background: transparent;
+      border: 1px solid rgba(255,90,90,0.18);
+      color: #ff9999;
+      padding: 8px 12px;
+      border-radius: 8px;
+    }
+
+    #adminLoginModal input#adminPassword {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: #0e0e0e;
+      color: #fff;
+      box-sizing: border-box;
+      margin: 10px 0 14px 0;
+    }
+
+    /* Ensure admin modals appear above other UI */
+    #adminLoginModal,
+    #adminPanel { z-index: 9999; }
+    /* Hide visible admin button by default (access via secret action) */
+    #adminBtn { display: none; }
+
     .order-list {
       max-height: 260px;
       overflow: auto;
@@ -851,16 +948,17 @@
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
       z-index: 95;
     }
-    .controls {
-  display: flex;
-  align-items: center;
-}
-#toggle-categories {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-}
 
+    .controls {
+      display: flex;
+      align-items: center;
+    }
+
+    #toggle-categories {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+    }
   </style>
 </head>
 
@@ -870,6 +968,16 @@
       <div class="left-header">
         <img src="logo.png" alt="Logo Viveres Burger" class="logo">
         <span class="site-name">𝑽í𝒗𝒆𝒓𝒆𝒔 𝑩𝒖𝒓𝒈𝒖𝒆𝒓</span>
+        <button id="adminBtn" style="
+        margin-left:15px;
+        background:#ff6600;
+        border:none;
+        padding:6px 10px;
+        border-radius:6px;
+        color:#fff;
+        cursor:pointer;">
+        Admin
+      </button>
       </div>
     </div>
   </header>
@@ -878,20 +986,19 @@
     style="max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:6px;padding:0 10px;flex-wrap:wrap;">
     <!-- Botão ☰ -->
 
-<div class="controls">
-  <button id="toggle-categories"
-    style="color:#fff; background:#ff6600; border:1px solid #ff6600;
+    <div class="controls">
+      <button id="toggle-categories" style="color:#fff; background:#ff6600; border:1px solid #ff6600;
            border-radius:6px; padding:8px 10px; cursor:pointer;
            font-size:18px; margin-left:auto; margin-top:6px;">
-    ☰
-  </button>
-</div>
+        ☰
+      </button>
+    </div>
 
 
-  <!-- conteúdo das categorias -->
+    <!-- conteúdo das categorias -->
 
 
-  
+
     <!-- Barra de pesquisa -->
     <div class="search-row" style="flex:1;position:relative;min-width:150px;">
       <input type="search" id="search" placeholder="Pesquisar no cardápio"
@@ -917,314 +1024,314 @@
       <div class="menu" id="menu"></div>
     </section>
 
-<aside class="cart">
-  <h3>Seu Carrinho</h3>
-  <div id="cart-empty" class="cart-empty">Carrinho vazio</div>
-  <div class="cart-list" id="cart-list" style="display:none"></div>
-  <div class="totals" id="cart-totals" style="display:none">
-    <div class="row">
-      <div>Total</div>
-      <div id="total">R$ 0,00</div>
-    </div>
-<div style="margin-top:6px">
-    <label for="payment">Forma de pagamento:</label>
-<select id="payment">
-  <option value="">Selecione...</option>
-  <option value="Dinheiro">Dinheiro</option>
-  <option value="Cartão">Cartão</option>
-  <option value="Pix">Pix</option>
-</select>
-</div>
-
-<div id="card-type-container" style="display:none">
-  <label for="card-type">Tipo de cartão:</label>
-  <select id="card-type">
-    <option value="">Selecione...</option>
-    <option value="Crédito">Crédito</option>
-    <option value="Débito">Débito</option>
-  </select>
-</div>
-
-    <div id="trocoDiv" style="display:none; margin-top:6px;">
-  <label for="troco">Precisa de troco? Para quanto?</label>
-  <input type="text" id="troco" placeholder="Ex: R$ 50,00">
- </div>
-
-
-    <div id="pixLinkContainer" style="margin-top:6px; display:none;">
-      <a id="pixLink" href="#" target="_blank"></a>
-    </div>
-
-    <div class="checkout">
-      <button class="btn" id="btn-checkout">Finalizar Pedido</button>
-      <button class="btn remove" id="btn-clear">Limpar</button>
-    </div>
-  </div>
-</aside>
-
-
-
-
-<script>
-  window.addEventListener('DOMContentLoaded', () => {
-  const btnCheckout = document.getElementById('btn-checkout');
-  const paymentEl = document.getElementById('payment');
-  const cardTypeEl = document.getElementById('card-type');
-
-  // inicia desativado
-  btnCheckout.disabled = true;
-  btnCheckout.style.opacity = '0.5';
-
-  function atualizarBotaoCheckout() {
-    let habilitar = false;
-
-    if (paymentEl.value) {
-      if (paymentEl.value === 'Cartão') {
-        // se for cartão, precisa selecionar tipo
-        habilitar = cardTypeEl && cardTypeEl.value;
-      } else {
-        // dinheiro ou pix
-        habilitar = true;
-      }
-    }
-
-    btnCheckout.disabled = !habilitar;
-    btnCheckout.style.opacity = habilitar ? '1' : '0.5';
-  }
-
-  // listeners para atualizar sempre que mudar
-  paymentEl.addEventListener('change', atualizarBotaoCheckout);
-  if (cardTypeEl) cardTypeEl.addEventListener('change', atualizarBotaoCheckout);
-
-  // inicializa
-  atualizarBotaoCheckout();
-});
-
-
-  btnConfirmOrder.addEventListener('click', () => {
-  const payment = document.getElementById('payment').value || 'Não informado';
-  const cardTypeEl = document.getElementById('card-type');
-  const cardType = (payment === 'Cartão' && cardTypeEl) ? cardTypeEl.value : '';
-  
-  let message = '';
-  message += `Forma de pagamento: ${payment}${cardType ? ` (${cardType})` : ''}\n`;
-});
-
-window.addEventListener('DOMContentLoaded', () => {
-  const contador = document.getElementById("cart-count");
-  const carrinhoEl = document.getElementById("cart-list");
-  const cartTotals = document.getElementById("cart-totals");
-  const paymentSelect = document.getElementById("payment");
-  const pixContainer = document.getElementById("pixLinkContainer");
-  const finalizarBtn = document.getElementById("btn-checkout");
-  const limparBtn = document.getElementById("btn-clear");
-
-  let carrinho = [];
-
-  // Inicialmente, botão desabilitado
-  finalizarBtn.disabled = true;
-
-  // Função que verifica se o botão pode ser habilitado
-  function verificarBotao() {
-    finalizarBtn.disabled = carrinho.length === 0 || !paymentSelect.value;
-  }
-
-  // Adicionar itens ao carrinho
-  document.querySelectorAll('.add-to-cart').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const item = btn.dataset.nomeProduto || "Produto";
-      carrinho.push(item);
-      atualizarCarrinho();
-      verificarBotao();
-    });
-  });
-
-  // Mostrar/esconder Pix automaticamente
-  paymentSelect.addEventListener("change", () => {
-    pixContainer.style.display = paymentSelect.value === "Pix" ? "block" : "none";
-    verificarBotao();
-  });
-
-  // Finalizar pedido
-  finalizarBtn.addEventListener("click", () => {
-    if (carrinho.length === 0 || !paymentSelect.value) return; // não avança se não selecionou
-
-    // Zera carrinho e resetar seleção
-    carrinho = [];
-    paymentSelect.value = "";
-    pixContainer.style.display = "none";
-    atualizarCarrinho();
-    verificarBotao();
-  });
-
-  // Limpar carrinho
-  limparBtn.addEventListener("click", () => {
-    carrinho = [];
-    paymentSelect.value = "";
-    pixContainer.style.display = "none";
-    atualizarCarrinho();
-    verificarBotao();
-  });
-
-  // Atualiza contador e visual do carrinho
-  function atualizarCarrinho() {
-    contador.textContent = carrinho.length;
-    carrinhoEl.style.display = carrinho.length > 0 ? "block" : "none";
-    cartTotals.style.display = carrinho.length > 0 ? "block" : "none";
-
-    carrinhoEl.innerHTML = "";
-    carrinho.forEach(item => {
-      const div = document.createElement("div");
-      div.textContent = item;
-      carrinhoEl.appendChild(div);
-    });
-  }
-});
-
-
-</script>
-
-
-
-<script>
-
-
-
-
-
-</script>
-
-
-  <!-- Modal resumo -->
-  <div class="modal" id="modal">
-    <div class="modal-card">
-      <h2>Resumo do Pedido</h2>
-      <div class="order-list" id="order-list"></div>
-
-      <div style="margin-top:12px">
-        <div class="row" style="display:flex;justify-content:space-between;font-weight:800;font-size:1.1rem">
+    <aside class="cart">
+      <h3>Seu Carrinho</h3>
+      <div id="cart-empty" class="cart-empty">Carrinho vazio</div>
+      <div class="cart-list" id="cart-list" style="display:none"></div>
+      <div class="totals" id="cart-totals" style="display:none">
+        <div class="row">
           <div>Total</div>
-          <div id="modal-total">R$ 0,00</div>
+          <div id="total">R$ 0,00</div>
         </div>
-
-        <div style="margin-top:12px;display:flex;gap:8px;flex-direction:column">
-          <label for="delivery-option">Retirada ou Delivery:</label>
-          <select id="delivery-option">
-            <option value="Retirar">Retirar no local</option>
-            <option value="Delivery">Delivery (+R$5,00)</option>
+        <div style="margin-top:6px">
+          <label for="payment">Forma de pagamento:</label>
+          <select id="payment">
+            <option value="">Selecione...</option>
+            <option value="Dinheiro">Dinheiro</option>
+            <option value="Cartão">Cartão</option>
+            <option value="Pix">Pix</option>
           </select>
+        </div>
 
-          <div id="card-type-container" style="display:none">
-            <label for="card-type">Se cartão, escolha:</label>
-            <select id="card-type">
-              <option value="Débito">Débito</option>
-              <option value="Crédito">Crédito</option>
+        <div id="card-type-container" style="display:none">
+          <label for="card-type">Tipo de cartão:</label>
+          <select id="card-type">
+            <option value="">Selecione...</option>
+            <option value="Crédito">Crédito</option>
+            <option value="Débito">Débito</option>
+          </select>
+        </div>
+
+        <div id="trocoDiv" style="display:none; margin-top:6px;">
+          <label for="troco">Precisa de troco? Para quanto?</label>
+          <input type="text" id="troco" placeholder="Ex: R$ 50,00">
+        </div>
+
+
+        <div id="pixLinkContainer" style="margin-top:6px; display:none;">
+          <a id="pixLink" href="#" target="_blank"></a>
+        </div>
+
+        <div class="checkout">
+          <button class="btn" id="btn-checkout">Finalizar Pedido</button>
+          <button class="btn remove" id="btn-clear">Limpar</button>
+        </div>
+      </div>
+    </aside>
+
+
+
+
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+        const btnCheckout = document.getElementById('btn-checkout');
+        const paymentEl = document.getElementById('payment');
+        const cardTypeEl = document.getElementById('card-type');
+
+        // inicia desativado
+        btnCheckout.disabled = true;
+        btnCheckout.style.opacity = '0.5';
+
+        function atualizarBotaoCheckout() {
+          let habilitar = false;
+
+          if (paymentEl.value) {
+            if (paymentEl.value === 'Cartão') {
+              // se for cartão, precisa selecionar tipo
+              habilitar = cardTypeEl && cardTypeEl.value;
+            } else {
+              // dinheiro ou pix
+              habilitar = true;
+            }
+          }
+
+          btnCheckout.disabled = !habilitar;
+          btnCheckout.style.opacity = habilitar ? '1' : '0.5';
+        }
+
+        // listeners para atualizar sempre que mudar
+        paymentEl.addEventListener('change', atualizarBotaoCheckout);
+        if (cardTypeEl) cardTypeEl.addEventListener('change', atualizarBotaoCheckout);
+
+        // inicializa
+        atualizarBotaoCheckout();
+      });
+
+
+      btnConfirmOrder.addEventListener('click', () => {
+        const payment = document.getElementById('payment').value || 'Não informado';
+        const cardTypeEl = document.getElementById('card-type');
+        const cardType = (payment === 'Cartão' && cardTypeEl) ? cardTypeEl.value : '';
+
+        let message = '';
+        message += `Forma de pagamento: ${payment}${cardType ? ` (${cardType})` : ''}\n`;
+      });
+
+      window.addEventListener('DOMContentLoaded', () => {
+        const contador = document.getElementById("cart-count");
+        const carrinhoEl = document.getElementById("cart-list");
+        const cartTotals = document.getElementById("cart-totals");
+        const paymentSelect = document.getElementById("payment");
+        const pixContainer = document.getElementById("pixLinkContainer");
+        const finalizarBtn = document.getElementById("btn-checkout");
+        const limparBtn = document.getElementById("btn-clear");
+
+        let carrinho = [];
+
+        // Inicialmente, botão desabilitado
+        finalizarBtn.disabled = true;
+
+        // Função que verifica se o botão pode ser habilitado
+        function verificarBotao() {
+          finalizarBtn.disabled = carrinho.length === 0 || !paymentSelect.value;
+        }
+
+        // Adicionar itens ao carrinho
+        document.querySelectorAll('.add-to-cart').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const item = btn.dataset.nomeProduto || "Produto";
+            carrinho.push(item);
+            atualizarCarrinho();
+            verificarBotao();
+          });
+        });
+
+        // Mostrar/esconder Pix automaticamente
+        paymentSelect.addEventListener("change", () => {
+          pixContainer.style.display = paymentSelect.value === "Pix" ? "block" : "none";
+          verificarBotao();
+        });
+
+        // Finalizar pedido
+        finalizarBtn.addEventListener("click", () => {
+          if (carrinho.length === 0 || !paymentSelect.value) return; // não avança se não selecionou
+
+          // Zera carrinho e resetar seleção
+          carrinho = [];
+          paymentSelect.value = "";
+          pixContainer.style.display = "none";
+          atualizarCarrinho();
+          verificarBotao();
+        });
+
+        // Limpar carrinho
+        limparBtn.addEventListener("click", () => {
+          carrinho = [];
+          paymentSelect.value = "";
+          pixContainer.style.display = "none";
+          atualizarCarrinho();
+          verificarBotao();
+        });
+
+        // Atualiza contador e visual do carrinho
+        function atualizarCarrinho() {
+          contador.textContent = carrinho.length;
+          carrinhoEl.style.display = carrinho.length > 0 ? "block" : "none";
+          cartTotals.style.display = carrinho.length > 0 ? "block" : "none";
+
+          carrinhoEl.innerHTML = "";
+          carrinho.forEach(item => {
+            const div = document.createElement("div");
+            div.textContent = item;
+            carrinhoEl.appendChild(div);
+          });
+        }
+      });
+
+
+    </script>
+
+
+
+    <script>
+
+
+
+
+
+    </script>
+
+
+    <!-- Modal resumo -->
+    <div class="modal" id="modal">
+      <div class="modal-card">
+        <h2>Resumo do Pedido</h2>
+        <div class="order-list" id="order-list"></div>
+
+        <div style="margin-top:12px">
+          <div class="row" style="display:flex;justify-content:space-between;font-weight:800;font-size:1.1rem">
+            <div>Total</div>
+            <div id="modal-total">R$ 0,00</div>
+          </div>
+
+          <div style="margin-top:12px;display:flex;gap:8px;flex-direction:column">
+            <label for="delivery-option">Retirada ou Delivery:</label>
+            <select id="delivery-option">
+              <option value="Retirar">Retirar no local</option>
+              <option value="Delivery">Delivery (+R$5,00)</option>
             </select>
-          </div>
 
-          <div id="delivery-address-container" style="display:none">
-            <label for="delivery-address">Endereço para entrega:</label>
-            <input type="text" id="delivery-address-bairro" placeholder="Bairro">
-            <input type="text" id="delivery-address-rua" placeholder="Rua">
-            <input type="text" id="delivery-address-num" placeholder="Número">
-            <input type="text" id="delivery-address-pon" placeholder="Ponto de Referência">
-          </div>
+            <div id="card-type-container" style="display:none">
+              <label for="card-type">Se cartão, escolha:</label>
+              <select id="card-type">
+                <option value="Débito">Débito</option>
+                <option value="Crédito">Crédito</option>
+              </select>
+            </div>
 
-          <button class="btn" id="confirm-order">Confirmar Pedido</button>
+            <div id="delivery-address-container" style="display:none">
+              <label for="delivery-address">Endereço para entrega:</label>
+              <input type="text" id="delivery-address-bairro" placeholder="Bairro">
+              <input type="text" id="delivery-address-rua" placeholder="Rua">
+              <input type="text" id="delivery-address-num" placeholder="Número">
+              <input type="text" id="delivery-address-pon" placeholder="Ponto de Referência">
+            </div>
+
+            <button class="btn" id="confirm-order">Confirmar Pedido</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <script>
-   document.addEventListener('DOMContentLoaded', () => {
-  const deliveryEl = document.getElementById('delivery-option');
-  const deliveryAddressContainer = document.getElementById('delivery-address-container');
-  const deliveryBairro = document.getElementById('delivery-address-bairro');
-  const deliveryRua = document.getElementById('delivery-address-rua');
-  const deliveryNum = document.getElementById('delivery-address-num');
-  const deliveryPon = document.getElementById('delivery-address-pon');
-  const confirmOrderBtn = document.getElementById('confirm-order');
-  const pixKey = "5518991616645";
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const deliveryEl = document.getElementById('delivery-option');
+        const deliveryAddressContainer = document.getElementById('delivery-address-container');
+        const deliveryBairro = document.getElementById('delivery-address-bairro');
+        const deliveryRua = document.getElementById('delivery-address-rua');
+        const deliveryNum = document.getElementById('delivery-address-num');
+        const deliveryPon = document.getElementById('delivery-address-pon');
+        const confirmOrderBtn = document.getElementById('confirm-order');
+        const pixKey = "5518991616645";
 
-  // Função para mostrar/esconder o endereço
-  function toggleDeliveryAddress() {
-    if (deliveryEl.value === 'Delivery') {
-      deliveryAddressContainer.style.display = 'block';
-    } else {
-      deliveryAddressContainer.style.display = 'none';
-    }
-  }
+        // Função para mostrar/esconder o endereço
+        function toggleDeliveryAddress() {
+          if (deliveryEl.value === 'Delivery') {
+            deliveryAddressContainer.style.display = 'block';
+          } else {
+            deliveryAddressContainer.style.display = 'none';
+          }
+        }
 
-  // Atualiza visibilidade no carregamento
-  toggleDeliveryAddress();
+        // Atualiza visibilidade no carregamento
+        toggleDeliveryAddress();
 
-  // Atualiza quando o usuário muda a opção
-  deliveryEl.addEventListener('change', toggleDeliveryAddress);
+        // Atualiza quando o usuário muda a opção
+        deliveryEl.addEventListener('change', toggleDeliveryAddress);
 
-  // Clique em Confirmar Pedido
-  confirmOrderBtn.addEventListener('click', () => {
-    const deliveryOption = deliveryEl.value;
-    let deliveryAddress = '';
+        // Clique em Confirmar Pedido
+        confirmOrderBtn.addEventListener('click', () => {
+          const deliveryOption = deliveryEl.value;
+          let deliveryAddress = '';
 
-    if (deliveryOption === 'Delivery') {
-      if (!deliveryBairro.value || !deliveryRua.value || !deliveryNum.value) {
-        alert('Preencha bairro, rua e número!');
-        return;
-      }
-      deliveryAddress = `Bairro: ${deliveryBairro.value}\nRua: ${deliveryRua.value}\nNúmero: ${deliveryNum.value}`;
-      if (deliveryPon.value) deliveryAddress += `\nPonto de referência: ${deliveryPon.value}`;
-    }
-
-   
-    if (deliveryOption === 'Delivery') message += `Endereço para entrega:\n${deliveryAddress}\n(Aguarde enviar o comprovante pelo WhatsApp)\n`;
-
-    const whatsappNumber = "5518991616645";
-    const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
-
-    // Limpar carrinho e fechar modal
-    if (typeof cart !== 'undefined') cart = [];
-    if (typeof updateCart === 'function') updateCart();
-    if (modal) modal.classList.remove('open');
-  });
-});
+          if (deliveryOption === 'Delivery') {
+            if (!deliveryBairro.value || !deliveryRua.value || !deliveryNum.value) {
+              alert('Preencha bairro, rua e número!');
+              return;
+            }
+            deliveryAddress = `Bairro: ${deliveryBairro.value}\nRua: ${deliveryRua.value}\nNúmero: ${deliveryNum.value}`;
+            if (deliveryPon.value) deliveryAddress += `\nPonto de referência: ${deliveryPon.value}`;
+          }
 
 
+          if (deliveryOption === 'Delivery') message += `Endereço para entrega:\n${deliveryAddress}\n(Aguarde enviar o comprovante pelo WhatsApp)\n`;
 
-  </script>
-  <!-- Modal para adicionar observação e adicionais ao item -->
-  <div class="add-obs-modal" id="addObsModal" aria-hidden="true">
-    <div class="add-obs-card">
-      <h3 id="addObsTitle">Personalizar item</h3>
-      <div id="addObsPriceInfo" class="price-info">Escolha adicionais e observações.</div>
+          const whatsappNumber = "5518991616645";
+          const url = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+          window.open(url, '_blank');
 
-      <div class="qty-section" style="margin-top:10px;">
-        <label for="itemQty">Quantidade do item:</label>
-        <div class="qty-controls">
-          <button class="btn" id="obs-decrease">-</button>
-          <input type="number" id="itemQty" value="1" min="1">
-          <button class="btn" id="obs-increase">+</button>
+          // Limpar carrinho e fechar modal
+          if (typeof cart !== 'undefined') cart = [];
+          if (typeof updateCart === 'function') updateCart();
+          if (modal) modal.classList.remove('open');
+        });
+      });
+
+
+
+    </script>
+    <!-- Modal para adicionar observação e adicionais ao item -->
+    <div class="add-obs-modal" id="addObsModal" aria-hidden="true">
+      <div class="add-obs-card">
+        <h3 id="addObsTitle">Personalizar item</h3>
+        <div id="addObsPriceInfo" class="price-info">Escolha adicionais e observações.</div>
+
+        <div class="qty-section" style="margin-top:10px;">
+          <label for="itemQty">Quantidade do item:</label>
+          <div class="qty-controls">
+            <button class="btn" id="obs-decrease">-</button>
+            <input type="number" id="itemQty" value="1" min="1">
+            <button class="btn" id="obs-increase">+</button>
+          </div>
         </div>
-      </div>
 
-      <h4 class="extras-title">Adicionais</h4>
-      <div id="extrasList" class="extras-list"></div>
+        <h4 class="extras-title">Adicionais</h4>
+        <div id="extrasList" class="extras-list"></div>
 
-      <label for="itemObs" class="obs-label">Observações / instruções</label>
-      <textarea id="itemObs" placeholder="Ex: ponto da carne, sem cebola..."></textarea>
-      <div class="obs-preview" id="obsPreview" style="display:none;"></div>
+        <label for="itemObs" class="obs-label">Observações / instruções</label>
+        <textarea id="itemObs" placeholder="Ex: ponto da carne, sem cebola..."></textarea>
+        <div class="obs-preview" id="obsPreview" style="display:none;"></div>
 
-      <div class="modal-footer">
-        <strong>Total unitário: <span id="customTotal">R$ 0,00</span></strong>
-        <div class="footer-buttons">
-          <button class="btn remove" id="addObsCancel">Cancelar</button>
-          <button class="btn confirm" id="addObsConfirm">Adicionar ao Carrinho</button>
+        <div class="modal-footer">
+          <strong>Total unitário: <span id="customTotal">R$ 0,00</span></strong>
+          <div class="footer-buttons">
+            <button class="btn remove" id="addObsCancel">Cancelar</button>
+            <button class="btn confirm" id="addObsConfirm">Adicionar ao Carrinho</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</main>
+  </main>
   <footer id="footer">
     <div class="footer-content">
       <span class="site-info">𝑽í𝒗𝒆𝒓𝒆𝒔 𝑩𝒖𝒓𝒈𝒖𝒆𝒓</span>
@@ -1236,194 +1343,207 @@ window.addEventListener('DOMContentLoaded', () => {
   <button class="whatsapp-btn" id="whatsapp-btn"><i class="fab fa-whatsapp"></i></button>
 
   <!-- BOTÃO FLUTUANTE -->
-<button id="scrollToBottom" title="Ir para o final">
-  <i class="fa fa-shopping-cart"></i>
-  <span id="cart-count">0</span>
-</button>
+  <button id="scrollToBottom" title="Ir para o final">
+    <i class="fa fa-shopping-cart"></i>
+    <span id="cart-count">0</span>
+  </button>
 
-<button id="scrollToTop" title="Voltar ao topo">
-  <i class="fa-solid fa-chevron-up"></i>
-</button>
+  <button id="scrollToTop" title="Voltar ao topo">
+    <i class="fa-solid fa-chevron-up"></i>
+  </button>
 
 
-<script>
-window.addEventListener('DOMContentLoaded', () => {
-  const contador = document.getElementById("cart-count");
-  const finalizarBtn = document.getElementById("finalizarPedido");
-  const carrinhoEl = document.getElementById("carrinho"); // container dos itens visuais
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const contador = document.getElementById("cart-count");
+      const finalizarBtn = document.getElementById("finalizarPedido");
+      const carrinhoEl = document.getElementById("carrinho"); // container dos itens visuais
 
-  let carrinho = []; // array que vai guardar os itens do carrinho
+      let carrinho = []; // array que vai guardar os itens do carrinho
 
-  // Adicionar item
-  document.querySelectorAll('.add-to-cart').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const item = btn.dataset.nomeProduto || "Produto";
-      carrinho.push(item); // adiciona no array
-      atualizarCarrinho();
-    });
-  });
+      // Adicionar item
+      document.querySelectorAll('.add-to-cart').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const item = btn.dataset.nomeProduto || "Produto";
+          carrinho.push(item); // adiciona no array
+          atualizarCarrinho();
+        });
+      });
 
-  document.getElementById("scrollToBottom").addEventListener("click", () => {
-  window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
-});
-  // Finalizar pedido
-  if (finalizarBtn) {
-    finalizarBtn.addEventListener("click", () => {
-      if (carrinho.length > 0) {
-        alert("Pedido enviado via WhatsApp!");
-        carrinho = []; // limpa o array do carrinho
-        atualizarCarrinho(); // atualiza contador e DOM
-      } else {
-        alert("O carrinho está vazio!");
+      document.getElementById("scrollToBottom").addEventListener("click", () => {
+        window.scrollTo({ top: document.documentElement.scrollHeight, behavior: "smooth" });
+      });
+      // Finalizar pedido
+      if (finalizarBtn) {
+        finalizarBtn.addEventListener("click", () => {
+          if (carrinho.length > 0) {
+            alert("Pedido enviado via WhatsApp!");
+            carrinho = []; // limpa o array do carrinho
+            atualizarCarrinho(); // atualiza contador e DOM
+          } else {
+            alert("O carrinho está vazio!");
+          }
+        });
+      }
+
+      // Função que atualiza contador e visual do carrinho
+      function atualizarCarrinho() {
+        contador.textContent = carrinho.length;
+
+        if (carrinhoEl) {
+          carrinhoEl.innerHTML = ""; // limpa o DOM
+          carrinho.forEach(item => {
+            const div = document.createElement("div");
+            div.textContent = item;
+            carrinhoEl.appendChild(div);
+          });
+        }
       }
     });
-  }
 
-  // Função que atualiza contador e visual do carrinho
-  function atualizarCarrinho() {
-    contador.textContent = carrinho.length;
+    // Botão "Voltar ao topo"
+    const scrollToTopBtn = document.getElementById("scrollToTop");
 
-    if (carrinhoEl) {
-      carrinhoEl.innerHTML = ""; // limpa o DOM
-      carrinho.forEach(item => {
-        const div = document.createElement("div");
-        div.textContent = item;
-        carrinhoEl.appendChild(div);
+    if (scrollToTopBtn) {
+      scrollToTopBtn.addEventListener("click", () => {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
       });
     }
-  }
-});
-
-// Botão "Voltar ao topo"
-const scrollToTopBtn = document.getElementById("scrollToTop");
-
-if (scrollToTopBtn) {
-  scrollToTopBtn.addEventListener("click", () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  });
-}
 
 
 
-</script>
+  </script>
 
 
 
-<style>
+  <style>
+    .btn:disabled {
+      background: #ccc !important;
+      cursor: not-allowed;
+      color: #666;
+      box-shadow: none;
+    }
 
-  .btn:disabled {
-  background: #ccc !important;
-  cursor: not-allowed;
-  color: #666;
-  box-shadow: none;
-}
-#scrollToTop {
-  position: fixed;
-  top: 90px; /* posição padrão para desktop */
-  right: 20px;
-  background: linear-gradient(135deg, #ff6600, #ff9500);
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  width: 42px;
-  height: 42px;
-  cursor: pointer;
-  font-size: 21px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
-  z-index: 1000;
-}
+    #scrollToTop {
+      position: fixed;
+      top: 90px;
+      /* posição padrão para desktop */
+      right: 20px;
+      background: linear-gradient(135deg, #ff6600, #ff9500);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      cursor: pointer;
+      font-size: 21px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+      z-index: 1000;
+    }
 
 
-#scrollToTop i {
-  animation: floatArrow 1.5s infinite ease-in-out;
-}
+    #scrollToTop i {
+      animation: floatArrow 1.5s infinite ease-in-out;
+    }
 
-@keyframes floatArrow {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-3px); }
-}
+    @keyframes floatArrow {
 
-/* Responsividade */
-@media (max-width: 1024px) {
-  #scrollToTop {
-    top: 85px;
-    right: 18px;
-    width: 40px;
-    height: 40px;
-    font-size: 20px;
-  }
-}
+      0%,
+      100% {
+        transform: translateY(0);
+      }
 
-@media (max-width: 768px) {
-  #scrollToTop {
-    top: 95px; /* 👈 abaixado um pouco no tablet */
-    right: 15px;
-    width: 38px;
-    height: 38px;
-    font-size: 19px;
-  }
-}
+      50% {
+        transform: translateY(-3px);
+      }
+    }
 
-@media (max-width: 480px) {
-  #scrollToTop {
-    top: 105px; /* 👈 abaixado um pouco mais no celular */
-    right: 12px;
-    width: 35px;
-    height: 35px;
-    font-size: 18px;
-  }
-}
+    /* Responsividade */
+    @media (max-width: 1024px) {
+      #scrollToTop {
+        top: 85px;
+        right: 18px;
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+      }
+    }
 
-/* animação leve na setinha */
+    @media (max-width: 768px) {
+      #scrollToTop {
+        top: 95px;
+        /* 👈 abaixado um pouco no tablet */
+        right: 15px;
+        width: 38px;
+        height: 38px;
+        font-size: 19px;
+      }
+    }
 
-  #scrollToBottom {
-  position: fixed;
-  bottom: 85px;
-  right: 20px;
-  background: #ff7b00;
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 58px;
-  height: 58px;
-  cursor: pointer;
-  font-size: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: 0.3s;
-  z-index: 1000;
-}
-#scrollToBottom i { pointer-events: none; }
-#cart-count {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  background: #ff1515;
-  color: white;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  font-size: 12px;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  box-shadow: 0 0 6px rgba(0,0,0,0.3);
-}
+    @media (max-width: 480px) {
+      #scrollToTop {
+        top: 105px;
+        /* 👈 abaixado um pouco mais no celular */
+        right: 12px;
+        width: 35px;
+        height: 35px;
+        font-size: 18px;
+      }
+    }
 
-</style>
+    /* animação leve na setinha */
 
-<!-- Link do ícone (adiciona no <head> do seu HTML caso ainda não tenha) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    #scrollToBottom {
+      position: fixed;
+      bottom: 85px;
+      right: 20px;
+      background: #ff7b00;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 58px;
+      height: 58px;
+      cursor: pointer;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
+      z-index: 1000;
+    }
+
+    #scrollToBottom i {
+      pointer-events: none;
+    }
+
+    #cart-count {
+      position: absolute;
+      top: 5px;
+      right: 5px;
+      background: #ff1515;
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      box-shadow: 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+  </style>
+
+  <!-- Link do ícone (adiciona no <head> do seu HTML caso ainda não tenha) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 
   <style>
@@ -1455,7 +1575,8 @@ if (scrollToTopBtn) {
       text-align: center;
       /* texto centralizado dentro do toast */
     }
-/* Para celulares pequenos */
+
+    /* Para celulares pequenos */
 
     /* Quando aparecer */
     .toast.show {
@@ -1498,99 +1619,97 @@ if (scrollToTopBtn) {
     }
 
     /* Layout principal */
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; /* ocupa toda altura da tela */
-  margin: 0;
-}
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      /* ocupa toda altura da tela */
+      margin: 0;
+    }
 
-/* Main ocupa o espaço disponível */
-main {
-  flex: 1;
-}
+    /* Main ocupa o espaço disponível */
+    main {
+      flex: 1;
+    }
 
-/* Footer fixo no final */
-footer {
-  flex-shrink: 0; /* garante que não encolha */
-  background-color: #222;
-  color: white;
-  padding: 12px 16px;
-  text-align: center;
-}
-
+    /* Footer fixo no final */
+    footer {
+      flex-shrink: 0;
+      /* garante que não encolha */
+      background-color: #222;
+      color: white;
+      padding: 12px 16px;
+      text-align: center;
+    }
   </style>
 
-<div id="toast" class="toast">Produto adicionado ao carrinho com sucesso!</div>
+  <div id="toast" class="toast">Produto adicionado ao carrinho com sucesso!</div>
 
-<script>
-  // Função para exibir mensagem na tela
-  function showToast(message) {
-    const toast = document.getElementById('toast');
-    toast.textContent = message;
-    toast.classList.add('show');
+  <script>
+    // Função para exibir mensagem na tela
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
 
-    setTimeout(() => {
-      toast.classList.remove('show');
-    }, 3000);
-  }
-
-const toggleBtn = document.getElementById('toggle-categories');
-const categories = document.getElementById('categories');
-
-// Exibe automaticamente ao carregar
-if (categories) {
-  categories.classList.add('show');
-}
-
-// Continua permitindo abrir/fechar manualmente
-if (toggleBtn) {
-  toggleBtn.addEventListener('click', () => {
-    categories.classList.toggle('show');
-  });
-}
-
-
-
-  // Função que verifica se a loja está aberta
-  function isStoreOpen() {
-    const agora = new Date();
-    const diaSemana = agora.getDay(); // 0 = Domingo, 6 = Sábado
-    const hora = agora.getHours();
-    const minuto = agora.getMinutes();
-    const minutosTotais = hora * 60 + minuto;
-
-    const abertura = 18 * 60 + 30; // 18:30
-    const fechamento = 22 * 60 + 20; // 22:20
-
-    // Aberto de segunda (1) a sábado (6)
-    const diaValido = diaSemana >= 1 && diaSemana <= 6;
-    const horarioValido = minutosTotais >= abertura && minutosTotais <= fechamento;
-
-    return diaValido && horarioValido;
-  }
-
-  
-
-  // Verifica clique nos botões de adicionar ao carrinho
-  document.addEventListener('click', (e) => {
-    const button = e.target.closest('.add-to-cart');
-    if (!button) return;
-
-    if (isStoreOpen()) {
-      showToast(" Produto adicionado ao carrinho com sucesso!");
-      // aqui vai o código para adicionar ao carrinho...
-    } else {
-      showToast("Estamos fechados. Tente novamente dentro do horário de funcionamento.");
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
     }
-  });
-</script>
 
-<style>
+    const toggleBtn = document.getElementById('toggle-categories');
+    const categories = document.getElementById('categories');
 
- 
+    // Exibe automaticamente ao carregar
+    if (categories) {
+      categories.classList.add('show');
+    }
 
-/* Toast responsivo e centralizado */
+    // Continua permitindo abrir/fechar manualmente
+    if (toggleBtn) {
+      toggleBtn.addEventListener('click', () => {
+        categories.classList.toggle('show');
+      });
+    }
+
+
+
+    // Função que verifica se a loja está aberta
+    function isStoreOpen() {
+      const agora = new Date();
+      const diaSemana = agora.getDay(); // 0 = Domingo, 6 = Sábado
+      const hora = agora.getHours();
+      const minuto = agora.getMinutes();
+      const minutosTotais = hora * 60 + minuto;
+
+      const abertura = 18 * 60 + 30; // 18:30
+      const fechamento = 22 * 60 + 20; // 22:20
+
+      // Aberto de segunda (1) a sábado (6)
+      const diaValido = diaSemana >= 1 && diaSemana <= 6;
+      const horarioValido = minutosTotais >= abertura && minutosTotais <= fechamento;
+
+      return diaValido && horarioValido;
+    }
+
+
+
+    // Verifica clique nos botões de adicionar ao carrinho
+    document.addEventListener('click', (e) => {
+      const button = e.target.closest('.add-to-cart');
+      if (!button) return;
+
+      if (isStoreOpen()) {
+        showToast(" Produto adicionado ao carrinho com sucesso!");
+        // aqui vai o código para adicionar ao carrinho...
+      } else {
+        showToast("Estamos fechados. Tente novamente dentro do horário de funcionamento.");
+      }
+    });
+  </script>
+
+  <style>
+    /* Toast responsivo e centralizado */
     .toast {
       position: fixed;
       bottom: 70px;
@@ -1618,7 +1737,8 @@ if (toggleBtn) {
       text-align: center;
       /* texto centralizado dentro do toast */
     }
-/* Para celulares pequenos */
+
+    /* Para celulares pequenos */
 
     /* Quando aparecer */
     .toast.show {
@@ -1643,7 +1763,7 @@ if (toggleBtn) {
         padding: 12px 18px;
       }
     }
-</style>
+  </style>
 
 
   <script>
@@ -1664,36 +1784,41 @@ if (toggleBtn) {
 
     // --- MENU (itens) ---
     const menuItems = [
-      { id: 1, name: 'Víveres Burguer', desc: 'Pão artesanal, burguer 150g, queijo mussarela, maionese da casa', price: 20.00, img: 'Víveres Burguer.jpg', badge: '', category: 'Lanches' },
-       { id: 6, name: 'G B I', desc: 'Pão artesanal, burguer 150g, bacon, queijo cheddar, maionese da casa', price: 24.90, img: 'GBI.jpg', badge: 'Mais pedido', category: 'Lanches' },
-      { id: 2, name: 'Víveres Salada', desc: 'Pão artesanal, burguer 150g, queijo mussarela, alface americana, tomate, cebola roxa, maionese da casa', price: 25.00, img: 'Víveres Salada.jpg', badge: '', category: 'Lanches' },
-     
-      { id: 3, name: 'Víveres Bacon', desc: 'Pão artesanal, burguer 150g, bacon, queijo mussarela, alface americana, tomate, cebola roxa, maionese da casa', price: 27.90, img: 'Víveres Salada.jpg', badge: '', category: 'Lanches' },
-      { id: 8, name: 'Supreme', desc: 'Pão artesanal, burguer 150g, queijo cheddar, onion rings, molho BBQ', price: 29.00, img: 'Supreme.jpg', badge: 'Novo', category: 'Lanches' },
-     
+      { id: 1, name: 'Víveres Burguer', desc: 'Pão artesanal, burguer 150g, queijo mussarela, maionese da casa', price: 20.00, img: 'Víveres Burguer.jpg', badge: '', category: 'Lanches', ativo: true },
+      { id: 6, name: 'G B I', desc: 'Pão artesanal, burguer 150g, bacon, queijo cheddar, maionese da casa', price: 24.90, img: 'GBI.jpg', badge: 'Mais pedido', category: 'Lanches', ativo: true },
+      { id: 10, name: 'Víveres Chicken', desc: 'Pão artesanal, burguer de frango, queijo mussarela, tomate, picles, alface americana, molho especial', price: 26.90, img: 'Víveres Chicken.jpg', badge: '', category: 'Lanches', ativo: true },
+      { id: 7, name: 'Cheddar Melt', desc: 'Pão artesanal, burguer 150g, cheddar cremoso, picles, farofa de bacon', price: 30.00, img: 'Cheddar Melt.jpg', badge: '', category: 'Lanches', ativo: true },
+      { id: 2, name: 'Víveres Salada', desc: 'Pão artesanal, burguer 150g, queijo mussarela, alface americana, tomate, cebola roxa, maionese da casa', price: 25.00, img: 'Víveres Salada.jpg', badge: '', category: 'Lanches', ativo: true },
 
-      { id: 9, name: 'Víveres Crispy', desc: 'Pão artesanal, burguer 150g, queijo mussarela, cebola crispy, alface americana, mel, maionese da casa', price: 32.00, img: 'Víveres Crispy.jpg', badge: '', category: 'Lanches' },
-      { id: 5, name: 'Preferido', desc: 'Pão artesanal, burguer 150g (2x), bacon, queijo cheddar, cebola roxa, maionese da casa', price: 37.00, img: 'Preferido.jpg', badge: 'Preferido', category: 'Lanches' },
-  
-      { id: 11, name: 'Víveres Kids', desc: 'Víveres Burguer + 1 mini porção de batata smile + 1 Coca-Cola 200ml ou Suco Kapô + brinde', price: 29.90, img: 'kids.jpg', badge: '', category: 'Lanches' },
-     
-      { id: 22, name: 'Batata Crinkle (ondulada)', desc: 'Porção individual de batata crinkle ondulada', price: 9.00, img: 'batataon.jpg', badge: '', category: 'Porções' },
-    
-      { id: 24, name: 'Batata Smile (carinha)', desc: '8 unidades, acompanha molho especial', price: 10.90, img: 'Batata Smile.jpg', badge: '', category: 'Porções' },
-      { id: 25, name: 'Anéis de Cebola', desc: '8 unidades, acompanha molho barbecue', price: 9.90, img: 'Anéis de Cebola.jpg', badge: '', category: 'Porções' },
-      { id: 26, name: 'Nuggets Chicken Supreme', desc: '6 unidades, acompanha molho especial', price: 11.90, img: 'Nuggets Supreme.jpg', badge: '', category: 'Porções' },
-      { id: 31, name: 'Mini Churros', desc: 'Porção individual com 10 unidades', price: 13.90, img: 'churros.jpg', badge: '', category: 'Sobremesa' },
-      { id: 41, name: 'Água', desc: 'Garrafa de água mineral', price: 4.00, img: 'agua.png', badge: '', category: 'Bebidas' },
-      { id: 42, name: 'Água com Gás', desc: 'Garrafa de água com gás', price: 4.50, img: 'aguagas.png', badge: '', category: 'Bebidas' },
-      { id: 43, name: 'Refrigerante Lata 350ml', desc: 'Coca-Cola, Fanta, Sprite e outros sabores', price: 6.00, img: 'guaranas.png', badge: '', category: 'Bebidas' },
-      { id: 44, name: 'Refrigerante Vencetex 2L ', desc: 'Refrigerante Vencetex 2 litros', price: 8.00, img: 'vece.png', badge: '', category: 'Bebidas' },
-      { id: 44, name: 'Refrigerante Sprite 2L', desc: 'Refrigerante Sprite 2 litros', price: 12.00, img: 'sprite.png', badge: '', category: 'Bebidas' },
-      { id: 45, name: 'Coca-Cola 2L', desc: 'Refrigerante Coca-Cola 2 litros', price: 15.00, img: 'coca.png', badge: '', category: 'Bebidas' },
-      { id: 46, name: 'Fanta Laranja 2L', desc: 'Refrigerante Fanta Laranja 2 litros', price: 12.00, img: 'fantal.png', badge: '', category: 'Bebidas' },
-      { id: 47, name: 'Fanta Uva 2L', desc: 'Refrigerante Uva Laranja 2 litros', price: 12.00, img: 'fantau.png', badge: '', category: 'Bebidas' },
-      { id: 48, name: 'Coca-Cola Zero 2L', desc: 'Refrigerante Coca-Cola Zero 2 litros', price: 15.00, img: 'cocazero.png', badge: '', category: 'Bebidas' },
-      { id: 49, name: 'Cerveja Long Neck 330ml', desc: 'Heineken, Budweiser, Bud, Eisenbahn', price: 10.00, img: 'cerveja.png', badge: '', category: 'Bebidas' },
-      { id: 50, name: 'Suco 500ml', desc: 'Sabores: abacaxi com hortelã, acerola com laranja, maracujá, morango e tamarido', price: 10.00, img: 'suco.png', badge: '', category: 'Bebidas' },
+      { id: 3, name: 'Víveres Bacon', desc: 'Pão artesanal, burguer 150g, bacon, queijo mussarela, alface americana, tomate, cebola roxa, maionese da casa', price: 27.90, img: 'Víveres Salada.jpg', badge: '', category: 'Lanches', ativo: true },
+      { id: 8, name: 'Supreme', desc: 'Pão artesanal, burguer 150g, queijo cheddar, onion rings, molho BBQ', price: 29.00, img: 'Supreme.jpg', badge: 'Novo', category: 'Lanches', ativo: true },
+
+
+      { id: 9, name: 'Víveres Crispy', desc: 'Pão artesanal, burguer 150g, queijo mussarela, cebola crispy, alface americana, mel, maionese da casa', price: 32.00, img: 'Víveres Crispy.jpg', badge: '', category: 'Lanches', ativo: true },
+      { id: 5, name: 'Preferido', desc: 'Pão artesanal, burguer 150g (2x), bacon, queijo cheddar, cebola roxa, maionese da casa', price: 37.00, img: 'Preferido.jpg', badge: 'Preferido', category: 'Lanches', ativo: true },
+
+      { id: 11, name: 'Víveres Kids', desc: 'Víveres Burguer + 1 mini porção de batata smile + 1 Coca-Cola 200ml ou Suco Kapô + brinde', price: 29.90, img: 'kids.jpg', badge: '', category: 'Lanches', ativo: true },
+
+      { id: 21, name: 'Batata Frita', desc: 'Porção individual de batata frita crocante', price: 8.00, img: 'Batata frita.jpg', badge: '', category: 'Porções', ativo: true },
+      { id: 23, name: 'Batata Frita c/ Cheddar e Farofa de Bacon', desc: 'Porção individual de batata frita com cheddar e farofa de bacon', price: 13.90, img: 'batata.jpg', badge: '', category: 'Porções', ativo: true },
+
+      { id: 22, name: 'Batata Crinkle (ondulada)', desc: 'Porção individual de batata crinkle ondulada', price: 9.00, img: 'batataon.jpg', badge: '', category: 'Porções', ativo: true },
+
+      { id: 24, name: 'Batata Smile (carinha)', desc: '8 unidades, acompanha molho especial', price: 10.90, img: 'Batata Smile.jpg', badge: '', category: 'Porções', ativo: true },
+      { id: 25, name: 'Anéis de Cebola', desc: '8 unidades, acompanha molho barbecue', price: 9.90, img: 'Anéis de Cebola.jpg', badge: '', category: 'Porções', ativo: true },
+      { id: 26, name: 'Nuggets Chicken Supreme', desc: '6 unidades, acompanha molho especial', price: 11.90, img: 'Nuggets Supreme.jpg', badge: '', category: 'Porções', ativo: true },
+      { id: 31, name: 'Mini Churros', desc: 'Porção individual com 10 unidades', price: 13.90, img: 'churros.jpg', badge: '', category: 'Sobremesa', ativo: true },
+      { id: 41, name: 'Água', desc: 'Garrafa de água mineral', price: 4.00, img: 'agua.png', badge: '', category: 'Bebidas', ativo: true },
+      { id: 42, name: 'Água com Gás', desc: 'Garrafa de água com gás', price: 4.50, img: 'aguagas.png', badge: '', category: 'Bebidas', ativo: true },
+      { id: 43, name: 'Refrigerante Lata 350ml', desc: 'Coca-Cola, Fanta, Sprite e outros sabores', price: 6.00, img: 'guaranas.png', badge: '', category: 'Bebidas', ativo: true },
+      { id: 44, name: 'Refrigerante Vencetex 2L ', desc: 'Refrigerante Vencetex 2 litros', price: 8.00, img: 'vece.png', badge: '', category: 'Bebidas', ativo: true },
+      { id: 44, name: 'Refrigerante Sprite 2L', desc: 'Refrigerante Sprite 2 litros', price: 12.00, img: 'sprite.png', badge: '', category: 'Bebidas', ativo: true },
+      { id: 45, name: 'Coca-Cola 2L', desc: 'Refrigerante Coca-Cola 2 litros', price: 15.00, img: 'coca.png', badge: '', category: 'Bebidas', ativo: true },
+      { id: 46, name: 'Fanta Laranja 2L', desc: 'Refrigerante Fanta Laranja 2 litros', price: 12.00, img: 'fantal.png', badge: '', category: 'Bebidas', ativo: true },
+      { id: 47, name: 'Fanta Uva 2L', desc: 'Refrigerante Uva Laranja 2 litros', price: 12.00, img: 'fantau.png', badge: '', category: 'Bebidas', ativo: true },
+      { id: 48, name: 'Coca-Cola Zero 2L', desc: 'Refrigerante Coca-Cola Zero 2 litros', price: 15.00, img: 'cocazero.png', badge: '', category: 'Bebidas', ativo: true },
+      { id: 49, name: 'Cerveja Long Neck 330ml', desc: 'Heineken, Budweiser, Bud, Eisenbahn', price: 10.00, img: 'cerveja.png', badge: '', category: 'Bebidas', ativo: true },
+      { id: 50, name: 'Suco 500ml', desc: 'Sabores: abacaxi com hortelã, acerola com laranja, maracujá, morango e tamarido', price: 10.00, img: 'suco.png', badge: '', category: 'Bebidas', ativo: true },
     ];
     // Referências DOM
     const menuEl = document.getElementById('menu');
@@ -1771,7 +1896,8 @@ if (toggleBtn) {
       const filtered = menuItems.filter(i => {
         const matchCat = (currentCategory === 'Todos') || (i.category === currentCategory);
         const matchQuery = !q || i.name.toLowerCase().includes(q) || i.desc.toLowerCase().includes(q);
-        return matchCat && matchQuery;
+        const ativo = i.ativo !== false;
+        return matchCat && matchQuery && ativo;
       });
       if (filtered.length === 0) {
         menuEl.innerHTML = '<div style="color:#ccc">Nenhum item encontrado.</div>';
@@ -1967,35 +2093,30 @@ if (toggleBtn) {
     });
 
     // --- Atualizar carrinho na UI ---
-   function updateCart() {
-  const cartCountBtn = document.getElementById('cart-floating-count');
-  const cartTotalBtn = document.getElementById('cart-floating-total');
+    function updateCart() {
+      const cartCountBtn = document.getElementById('cart-floating-count');
+      const cartTotalBtn = document.getElementById('cart-floating-total');
+      const floatingCount = document.getElementById('cart-count');
 
-  let total = 0;
-  let totalQty = 0;
+      let total = 0;
+      let totalQty = 0;
 
+      cartList.innerHTML = '';
 
+      cart.forEach((item, idx) => {
+        const lineTotal = (item.unitPrice || item.basePrice) * item.qty;
+        total += lineTotal;
+        totalQty += item.qty;
 
-  // Mostra itens do carrinho
-  cartEmpty.style.display = 'none';
-  cartList.style.display = 'flex';
-  cartTotals.style.display = 'flex';
-  cartList.innerHTML = '';
+        const div = document.createElement('div');
+        div.className = 'cart-item';
 
-  cart.forEach((item, idx) => {
-    const lineTotal = (item.unitPrice || item.basePrice) * item.qty;
-    total += lineTotal;
-    totalQty += item.qty;
+        let extrasHtml = '';
+        if (item.extras && item.extras.length) {
+          extrasHtml = `<div class="ci-observation">Adicionais: ${item.extras.map(e => escapeHtml(e.qtd + 'x ' + e.nome)).join(', ')}</div>`;
+        }
 
-    const div = document.createElement('div');
-    div.className = 'cart-item';
-
-    let extrasHtml = '';
-    if (item.extras && item.extras.length) {
-      extrasHtml = `<div class="ci-observation">Adicionais: ${item.extras.map(e => escapeHtml(e.qtd + 'x ' + e.nome)).join(', ')}</div>`;
-    }
-
-    div.innerHTML = `
+        div.innerHTML = `
       <div class="ci-thumb">${item.img ? `<img src="${item.img}" alt="${item.name}">` : '<span style="color:#ccc">Sem imagem</span>'}</div>
       <div class="ci-meta">
         <div class="ci-name">${escapeHtml(item.name)}</div>
@@ -2013,110 +2134,125 @@ if (toggleBtn) {
         <button class="btn remove remove-item" data-idx="${idx}" style="margin-top:8px">Remover</button>
       </div>
     `;
-    cartList.appendChild(div);
-  });
+        cartList.appendChild(div);
+      });
 
-  totalEl.textContent = 'R$ ' + total.toFixed(2);
+      totalEl.textContent = 'R$ ' + total.toFixed(2);
 
-  // Atualiza botão flutuante
-  if (cartCountBtn) {
-    cartCountBtn.textContent = totalQty;
-    cartCountBtn.style.display = totalQty > 0 ? 'flex' : 'none';
-  }
-  if (cartTotalBtn) cartTotalBtn.textContent = 'R$ ' + total.toFixed(2);
+      // Se não houver itens, mostrar carrinho vazio
+      if (cart.length === 0) {
+        cartEmpty.style.display = 'block';
+        cartList.style.display = 'none';
+        cartTotals.style.display = 'none';
+      } else {
+        cartEmpty.style.display = 'none';
+        cartList.style.display = 'flex';
+        cartTotals.style.display = 'flex';
+      }
 
-  // Listeners para +, - e remover
-  document.querySelectorAll('.minus').forEach(b => {
-    b.addEventListener('click', (e) => {
-      const i = parseInt(e.currentTarget.dataset.idx);
-      if (cart[i].qty > 1) cart[i].qty--;
-      else cart.splice(i, 1);
-      updateCart();
-    });
-  });
+      // Atualiza contadores visíveis (ícone flutuante e possíveis contadores adicionais)
+      if (floatingCount) {
+        floatingCount.textContent = totalQty;
+        floatingCount.style.display = totalQty > 0 ? 'flex' : 'none';
+      }
+      if (cartCountBtn) {
+        cartCountBtn.textContent = totalQty;
+        cartCountBtn.style.display = totalQty > 0 ? 'flex' : 'none';
+      }
+      if (cartTotalBtn) cartTotalBtn.textContent = 'R$ ' + total.toFixed(2);
 
-  document.querySelectorAll('.plus').forEach(b => {
-    b.addEventListener('click', (e) => {
-      const i = parseInt(e.currentTarget.dataset.idx);
-      cart[i].qty++;
-      updateCart();
-    });
-  });
+      // Listeners para +, - e remover
+      document.querySelectorAll('.minus').forEach(b => {
+        b.addEventListener('click', (e) => {
+          const i = parseInt(e.currentTarget.dataset.idx);
+          if (cart[i].qty > 1) cart[i].qty--;
+          else cart.splice(i, 1);
+          updateCart();
+        });
+      });
 
-  document.querySelectorAll('.remove-item').forEach(b => {
-    b.addEventListener('click', (e) => {
-      const i = parseInt(e.currentTarget.dataset.idx);
-      cart.splice(i, 1);
-      updateCart();
-    });
-  });
-}
+      document.querySelectorAll('.plus').forEach(b => {
+        b.addEventListener('click', (e) => {
+          const i = parseInt(e.currentTarget.dataset.idx);
+          cart[i].qty++;
+          updateCart();
+        });
+      });
 
-
-function gerarMensagemWhatsApp() {
-  if (!cart.length) return '';
-
-  let total = 0;
-  let message = '';
-
-  // Nome do cliente
-  let client = prompt('Digite seu nome:') || 'Cliente';
-  message += `Olá, sou ${client}\n\nPedido:\n`;
-
-  // Itens do carrinho
-  cart.forEach(item => {
-    const itemTotal = (item.unitPrice || item.basePrice) * item.qty;
-    total += itemTotal;
-    message += `- ${item.name} x${item.qty} - R$ ${itemTotal.toFixed(2)}\n`;
-
-    // Extras
-    if (item.extras?.length) {
-      message += `  Adicionais: ${item.extras.map(e => `${e.qtd}x ${e.nome}`).join(', ')}\n`;
+      document.querySelectorAll('.remove-item').forEach(b => {
+        b.addEventListener('click', (e) => {
+          const i = parseInt(e.currentTarget.dataset.idx);
+          cart.splice(i, 1);
+          updateCart();
+        });
+      });
     }
 
-    // Observações
-    if (item.obs) {
-      message += `  Obs: ${item.obs}\n`;
+
+    function gerarMensagemWhatsApp() {
+      if (!cart.length) return '';
+
+      let total = 0;
+      let message = '';
+
+      // Nome do cliente
+      let client = prompt('Digite seu nome:') || 'Cliente';
+      message += `Olá, sou ${client}\n\nPedido:\n`;
+
+      // Itens do carrinho
+      cart.forEach(item => {
+        const itemTotal = (item.unitPrice || item.basePrice) * item.qty;
+        total += itemTotal;
+        message += `- ${item.name} x${item.qty} - R$ ${itemTotal.toFixed(2)}\n`;
+
+        // Extras
+        if (item.extras?.length) {
+          message += `  Adicionais: ${item.extras.map(e => `${e.qtd}x ${e.nome}`).join(', ')}\n`;
+        }
+
+        // Observações
+        if (item.obs) {
+          message += `  Obs: ${item.obs}\n`;
+        }
+      });
+
+      // Endereço (se for delivery)
+      if (deliveryEl.value === 'Delivery') {
+        let addr = `Bairro: ${deliveryBairro.value}\nRua: ${deliveryRua.value}\nNúmero: ${deliveryNum.value}`;
+        if (deliveryPon.value) addr += `\nPonto de referência: ${deliveryPon.value}`;
+        message += `\nEndereço:\n${addr}\n`;
+        total += 5; // taxa de delivery
+        message += `Taxa de delivery: R$ 5,00\n`;
+      }
+
+      message += `Total: R$ ${total.toFixed(2)}\n`;
+
+      // Forma de pagamento
+      const payment = paymentEl.value;
+      if (payment === 'Cartão') {
+        const cardType = document.getElementById('card-type').value;
+        message += `Forma de pagamento: ${payment} (${cardType})\n`;
+      } else if (payment === 'Dinheiro') {
+        message += `Forma de pagamento: Dinheiro\n`;
+        const precisaTroco = confirm('Você precisa de troco?');
+        if (precisaTroco) {
+          const troco = prompt('Para quanto?');
+          if (troco) message += `Troco para: R$ ${troco}\n`;
+        }
+      } else if (payment === 'Pix') {
+        const pixKey = "18991616645";
+        message += `Pagamento via Pix\nChave: ${pixKey}\nValor: R$ ${total.toFixed(2)}\n`;
+      }
+
+      return message;
     }
-  });
-
-  // Endereço (se for delivery)
-  if (deliveryEl.value === 'Delivery') {
-    let addr = `Bairro: ${deliveryBairro.value}\nRua: ${deliveryRua.value}\nNúmero: ${deliveryNum.value}`;
-    if (deliveryPon.value) addr += `\nPonto de referência: ${deliveryPon.value}`;
-    message += `\nEndereço:\n${addr}\n`;
-    total += 5; // taxa de delivery
-    message += `Taxa de delivery: R$ 5,00\n`;
-  }
-
-  message += `Total: R$ ${total.toFixed(2)}\n`;
-
-  // Forma de pagamento
-  const payment = paymentEl.value;
-  if (payment === 'Cartão') {
-    const cardType = document.getElementById('card-type').value;
-    message += `Forma de pagamento: ${payment} (${cardType})\n`;
-  } else if (payment === 'Dinheiro') {
-    message += `Forma de pagamento: Dinheiro\n`;
-    const precisaTroco = confirm('Você precisa de troco?');
-    if (precisaTroco) {
-      const troco = prompt('Para quanto?');
-      if (troco) message += `Troco para: R$ ${troco}\n`;
-    }
-  } else if (payment === 'Pix') {
-    const pixKey = "18991616645";
-    message += `Pagamento via Pix\nChave: ${pixKey}\nValor: R$ ${total.toFixed(2)}\n`;
-  }
-
-  return message;
-}
 
 
-// Zerar carrinho
-btnClear.addEventListener('click', () => {
-  cart = [];
-  updateCart(); // garante que botão flutuante e totais zerem
-});
+    // Zerar carrinho
+    btnClear.addEventListener('click', () => {
+      cart = [];
+      updateCart(); // garante que botão flutuante e totais zerem
+    });
 
     // --- Limpar carrinho ---
     btnClear.addEventListener('click', () => { cart = []; updateCart(); });
@@ -2154,75 +2290,75 @@ btnClear.addEventListener('click', () => {
       cardTypeContainer.style.display = paymentEl.value === 'Cartão' ? 'block' : 'none';
     });
 
-    
 
-document.getElementById('confirm-order').addEventListener('click', () => {
-  if (!cart.length) return alert('');
 
-  let total = cart.reduce((acc, i) => acc + ((i.unitPrice||i.basePrice) * i.qty), 0);
+    document.getElementById('confirm-order').addEventListener('click', () => {
+      if (!cart.length) return alert('');
 
-  const payment = paymentEl.value;
-  const cardType = (payment === 'Cartão') ? document.getElementById('card-type').value : '';
-  const deliveryOption = deliveryEl.value;
+      let total = cart.reduce((acc, i) => acc + ((i.unitPrice || i.basePrice) * i.qty), 0);
 
-  let deliveryAddress = '';
-  if (deliveryOption === 'Delivery') {
-    if (!deliveryBairro.value || !deliveryRua.value || !deliveryNum.value) {
-      return alert('Preencha endereço completo');
-    }
-    deliveryAddress = `Bairro: ${deliveryBairro.value}\nRua: ${deliveryRua.value}\nNúmero: ${deliveryNum.value}`;
-    if (deliveryPon.value) deliveryAddress += `\nPonto de Referência: ${deliveryPon.value}`;
-    total += 5; // taxa de delivery
-  }
+      const payment = paymentEl.value;
+      const cardType = (payment === 'Cartão') ? document.getElementById('card-type').value : '';
+      const deliveryOption = deliveryEl.value;
 
-  let client = prompt('Digite seu nome:') || 'Cliente';
-  let message = `Olá, sou ${client}\n\nPedido:\n`;
-  cart.forEach(i => {
-    message += `- ${i.name} x${i.qty} - R$ ${(i.unitPrice||i.basePrice).toFixed(2)}\n`;
-    if (i.extras?.length) message += `  Adicionais: ${i.extras.map(e=>e.qtd+'x '+e.nome).join(', ')}\n`;
-    if (i.obs) message += `  Obs: ${i.obs}\n`;
-  });
-  if (deliveryOption === 'Delivery') message += `Taxa de delivery: R$ 5,00\n`;
-  message += `Total: R$ ${total.toFixed(2)}\nForma de pagamento: ${payment}${cardType ? ` (${cardType})` : ''}\n`;
+      let deliveryAddress = '';
+      if (deliveryOption === 'Delivery') {
+        if (!deliveryBairro.value || !deliveryRua.value || !deliveryNum.value) {
+          return alert('Preencha endereço completo');
+        }
+        deliveryAddress = `Bairro: ${deliveryBairro.value}\nRua: ${deliveryRua.value}\nNúmero: ${deliveryNum.value}`;
+        if (deliveryPon.value) deliveryAddress += `\nPonto de Referência: ${deliveryPon.value}`;
+        total += 5; // taxa de delivery
+      }
 
-  const enviarWhats = () => {
-    if (deliveryOption === 'Delivery') {
-  message += `Endereço:\n${deliveryAddress}\n`;
-} else if (deliveryOption === 'Retirar') {
-  message += `Retirada no local\n`;
-}
-    const url = `https://wa.me/5518991616645?text=${encodeURIComponent(message)}`;
-    window.open(url, '_blank');
-    cart = [];
-    updateCart();
-    modal.classList.remove('open');
-  };
+      let client = prompt('Digite seu nome:') || 'Cliente';
+      let message = `Olá, sou ${client}\n\nPedido:\n`;
+      cart.forEach(i => {
+        message += `- ${i.name} x${i.qty} - R$ ${(i.unitPrice || i.basePrice).toFixed(2)}\n`;
+        if (i.extras?.length) message += `  Adicionais: ${i.extras.map(e => e.qtd + 'x ' + e.nome).join(', ')}\n`;
+        if (i.obs) message += `  Obs: ${i.obs}\n`;
+      });
+      if (deliveryOption === 'Delivery') message += `Taxa de delivery: R$ 5,00\n`;
+      message += `Total: R$ ${total.toFixed(2)}\nForma de pagamento: ${payment}${cardType ? ` (${cardType})` : ''}\n`;
 
-  if (payment === 'Dinheiro') {
-    const precisaTroco = confirm('Você precisa de troco?');
-    if (precisaTroco) {
-      const troco = prompt('Para quanto?');
-      if (troco) message += `Troco para: R$ ${troco}\n`;
-    }
-    enviarWhats();
-  } else if (payment === 'Pix') {
-  const pixKey = "5518991616645";
-  const totalValue = total.toFixed(2);
-  const pixText = `Chave Pix: ${pixKey}\nValor: R$ ${totalValue}`;
+      const enviarWhats = () => {
+        if (deliveryOption === 'Delivery') {
+          message += `Endereço:\n${deliveryAddress}\n`;
+        } else if (deliveryOption === 'Retirar') {
+          message += `Retirada no local\n`;
+        }
+        const url = `https://wa.me/5518991616645?text=${encodeURIComponent(message)}`;
+        window.open(url, '_blank');
+        cart = [];
+        updateCart();
+        modal.classList.remove('open');
+      };
 
-  // Criar modal
-  const pixModal = document.createElement('div');
-  pixModal.style = `
+      if (payment === 'Dinheiro') {
+        const precisaTroco = confirm('Você precisa de troco?');
+        if (precisaTroco) {
+          const troco = prompt('Para quanto?');
+          if (troco) message += `Troco para: R$ ${troco}\n`;
+        }
+        enviarWhats();
+      } else if (payment === 'Pix') {
+        const pixKey = "5518991616645";
+        const totalValue = total.toFixed(2);
+        const pixText = `Chave Pix: ${pixKey}\nValor: R$ ${totalValue}`;
+
+        // Criar modal
+        const pixModal = document.createElement('div');
+        pixModal.style = `
     position: fixed; top:0; left:0; width:100%; height:100%;
     background: rgba(0,0,0,0.6); display:flex; justify-content:center; align-items:center;
     z-index: 9999;
     font-family: Arial, sans-serif;
   `;
 
-  // Gerar QR Code usando API gratuita
-  const qrURL = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(pixKey)}`;
+        // Gerar QR Code usando API gratuita
+        const qrURL = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(pixKey)}`;
 
-  pixModal.innerHTML = `
+        pixModal.innerHTML = `
     <div style="
       background:#fff; padding:25px; border-radius:12px; max-width:360px;
       width:90%; text-align:center; box-shadow: 0 10px 25px rgba(0,0,0,0.3);
@@ -2251,73 +2387,73 @@ document.getElementById('confirm-order').addEventListener('click', () => {
       </p>
     </div>
   `;
-  document.body.appendChild(pixModal);
+        document.body.appendChild(pixModal);
 
-  const copyBtn = document.getElementById('copyPix');
-  const continueBtn = document.getElementById('continuePix');
-  const pixTextarea = document.getElementById('pixTextarea');
-  const pixNote = document.getElementById('pixNote');
+        const copyBtn = document.getElementById('copyPix');
+        const continueBtn = document.getElementById('continuePix');
+        const pixTextarea = document.getElementById('pixTextarea');
+        const pixNote = document.getElementById('pixNote');
 
-  let copied = false;
+        let copied = false;
 
-  async function copyPixFunction() {
-    try {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        await navigator.clipboard.writeText(pixKey);
+        async function copyPixFunction() {
+          try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+              await navigator.clipboard.writeText(pixKey);
+            } else {
+              pixTextarea.select();
+              pixTextarea.setSelectionRange(0, 99999);
+              document.execCommand('copy');
+            }
+            copied = true;
+            pixNote.textContent = 'Chave copiada! Agora clique em Continuar.';
+            continueBtn.disabled = false;
+            continueBtn.style.cursor = 'pointer';
+            continueBtn.style.backgroundColor = '#43a047';
+            alert('Pix copiado com sucesso!');
+          } catch (err) {
+            alert('Não foi possível copiar automaticamente. Copie manualmente a chave Pix antes de continuar.');
+          }
+        }
+
+        copyBtn.addEventListener('click', copyPixFunction);
+
+        continueBtn.addEventListener('click', async () => {
+          if (!copied) {
+            alert('Você precisa copiar a chave Pix antes de continuar.');
+            return;
+          }
+          // Atualiza a mensagem do pedido
+          message += `Pagamento via Pix\nChave: ${pixKey}\nValor: R$ ${totalValue}\n`;
+          document.body.removeChild(pixModal);
+          enviarWhats();
+        });
+
+        // Impede fechar clicando fora do modal
+        pixModal.addEventListener('click', (e) => {
+          if (e.target === pixModal) {
+            pixNote.style.color = '#d32f2f';
+            pixNote.textContent = 'Copie a chave Pix antes de continuar!';
+            setTimeout(() => {
+              pixNote.style.color = '#888';
+              pixNote.textContent = 'Você precisa copiar a chave antes de continuar.';
+            }, 2000);
+          }
+
+        });
       } else {
-        pixTextarea.select();
-        pixTextarea.setSelectionRange(0, 99999);
-        document.execCommand('copy');
+        // Cartão ou outros
+        enviarWhats();
       }
-      copied = true;
-      pixNote.textContent = 'Chave copiada! Agora clique em Continuar.';
-      continueBtn.disabled = false;
-      continueBtn.style.cursor = 'pointer';
-      continueBtn.style.backgroundColor = '#43a047';
-      alert('Pix copiado com sucesso!');
-    } catch (err) {
-      alert('Não foi possível copiar automaticamente. Copie manualmente a chave Pix antes de continuar.');
-    }
-  }
-
-  copyBtn.addEventListener('click', copyPixFunction);
-
-  continueBtn.addEventListener('click', async () => {
-    if (!copied) {
-      alert('Você precisa copiar a chave Pix antes de continuar.');
-      return;
-    }
-    // Atualiza a mensagem do pedido
-    message += `Pagamento via Pix\nChave: ${pixKey}\nValor: R$ ${totalValue}\n`;
-    document.body.removeChild(pixModal);
-    enviarWhats();
-  });
-
-  // Impede fechar clicando fora do modal
-  pixModal.addEventListener('click', (e) => {
-    if (e.target === pixModal) {
-      pixNote.style.color = '#d32f2f';
-      pixNote.textContent = 'Copie a chave Pix antes de continuar!';
-      setTimeout(() => {
-        pixNote.style.color = '#888';
-        pixNote.textContent = 'Você precisa copiar a chave antes de continuar.';
-      }, 2000);
-    }
-  
     });
-  } else {
-    // Cartão ou outros
-    enviarWhats();
-  }
-});
-  
+
     // Se o pagamento for em dinheiro, adicionar troco
-if (payment === 'Dinheiro') {
-  const troco = document.getElementById('troco').value.trim();
-  if (troco) {
-    message += `Troco para: R$ ${troco}\n`;
-  }
-}
+    if (payment === 'Dinheiro') {
+      const troco = document.getElementById('troco').value.trim();
+      if (troco) {
+        message += `Troco para: R$ ${troco}\n`;
+      }
+    }
     // Botão WhatsApp flutuante (abre conversa)
     whatsappBtn.addEventListener('click', () => {
       const whatsappNumber = "5518991616645";
@@ -2363,6 +2499,154 @@ if (payment === 'Dinheiro') {
     addObsModal.addEventListener('click', (e) => { if (e.target === addObsModal) closeAddObsModal(); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { if (addObsModal.classList.contains('open')) closeAddObsModal(); if (modal.classList.contains('open')) modal.classList.remove('open'); } });
   </script>
+
+  <!-- LOGIN ADMIN -->
+  <div class="modal" id="adminLoginModal">
+    <div class="modal-card">
+      <h2>Área Administrativa</h2>
+      <input type="password" id="adminPassword" placeholder="Digite a senha">
+      <button class="btn confirm" id="adminLoginConfirm">Entrar</button>
+    </div>
+  </div>
+
+  <!-- PAINEL ADMIN -->
+  <div class="modal" id="adminPanel">
+    <div class="modal-card">
+      <h2>Painel Admin</h2>
+
+      <button class="btn" id="toggleStoreBtn">
+        Abrir / Fechar Loja
+      </button>
+
+      <hr>
+
+      <h3>Controle de Produtos</h3>
+      <div id="adminProducts"></div>
+
+      <br>
+      <button class="btn remove" id="adminLogout">
+        Sair
+      </button>
+    </div>
+  </div>
+
+  <script>
+  // ================= ADMIN =================
+
+  const adminBtn = document.getElementById("adminBtn");
+  const loginModal = document.getElementById("adminLoginModal");
+  const adminPanel = document.getElementById("adminPanel");
+  const loginConfirm = document.getElementById("adminLoginConfirm");
+  const logoutBtn = document.getElementById("adminLogout");
+  const toggleStoreBtn = document.getElementById("toggleStoreBtn");
+
+  let lojaManual = null;
+
+  // Carregar estado salvo
+  function carregarEstadoAdmin() {
+    const dados = localStorage.getItem("menuEstado");
+    const lojaSalva = localStorage.getItem("lojaManual");
+
+    if (dados) {
+      const salvos = JSON.parse(dados);
+      salvos.forEach(saved => {
+        const original = menuItems.find(i => i.id === saved.id);
+        if (original) original.ativo = saved.ativo;
+      });
+    }
+
+    if (lojaSalva !== null) {
+      lojaManual = lojaSalva === "true";
+      lojaAberta = lojaManual;
+    }
+  }
+
+  function salvarEstadoAdmin() {
+    localStorage.setItem("menuEstado", JSON.stringify(menuItems));
+    if (lojaManual !== null) {
+      localStorage.setItem("lojaManual", lojaManual);
+    }
+  }
+
+  // Login
+  if (adminBtn) {
+    adminBtn.addEventListener("click", () => {
+      loginModal.classList.add("open");
+    });
+  }
+
+  // Acesso "escondido": duplo-clique no logo abre o login admin
+  const siteLogo = document.querySelector('header .logo');
+  if (siteLogo) {
+    siteLogo.addEventListener('dblclick', () => {
+      loginModal.classList.add('open');
+    });
+  }
+
+  loginConfirm.addEventListener("click", () => {
+    const senha = document.getElementById("adminPassword").value;
+
+    if (senha === "20262026") {
+      loginModal.classList.remove("open");
+      adminPanel.classList.add("open");
+      renderAdminProducts();
+    } else {
+      alert("Senha incorreta");
+    }
+  });
+
+  logoutBtn.addEventListener("click", () => {
+    adminPanel.classList.remove("open");
+  });
+
+  // Abrir / fechar loja manual
+  toggleStoreBtn.addEventListener("click", () => {
+    lojaManual = !lojaAberta;
+    lojaAberta = lojaManual;
+    salvarEstadoAdmin();
+    renderMenu();
+    alert(lojaAberta ? "Loja Aberta" : "Loja Fechada");
+  });
+
+  // Render painel produtos
+  function renderAdminProducts() {
+    const container = document.getElementById("adminProducts");
+    container.innerHTML = "";
+
+    menuItems.forEach(item => {
+      const div = document.createElement("div");
+      div.style.marginBottom = "8px";
+
+      div.innerHTML = `
+      ${item.name}
+      <button class="btn ${item.ativo === false ? '' : 'remove'}"
+        data-id="${item.id}">
+        ${item.ativo === false ? "Ativar" : "Desativar"}
+      </button>
+    `;
+
+      container.appendChild(div);
+    });
+
+    container.querySelectorAll("button").forEach(btn => {
+      btn.addEventListener("click", (e) => {
+        const id = parseInt(e.target.dataset.id);
+        const item = menuItems.find(i => i.id === id);
+
+        item.ativo = item.ativo === false ? true : false;
+
+        salvarEstadoAdmin();
+        renderMenu();
+        renderAdminProducts();
+      });
+    });
+  }
+
+  // Inicializar
+  carregarEstadoAdmin();
+  renderMenu();
+  </script>
+
 </body>
 
 <div id="meu-modal"
@@ -2380,9 +2664,9 @@ if (payment === 'Dinheiro') {
   const btnSim = document.getElementById('modal-sim');
   const btnCancelar = document.getElementById('modal-cancelar');
 
-document.querySelector('meta[name=viewport]').setAttribute(
-  'content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
-);
+  document.querySelector('meta[name=viewport]').setAttribute(
+    'content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
+  );
 
   document.querySelectorAll('.btn-add-lanche').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -2400,15 +2684,3 @@ document.querySelector('meta[name=viewport]').setAttribute(
 </script>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
