@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -565,8 +566,6 @@
     /* Ensure admin modals appear above other UI */
     #adminLoginModal,
     #adminPanel { z-index: 9999; }
-    /* Hide visible admin button by default (access via secret action) */
-    #adminBtn { display: none; }
 
     .order-list {
       max-height: 260px;
@@ -1016,6 +1015,7 @@
     <button class="cat-btn" data-cat="Bebidas">Bebidas</button>
     <button class="cat-btn" data-cat="Porções">Porções</button>
     <button class="cat-btn" data-cat="Sobremesa">Sobremesa</button>
+    <button class="cat-btn" id="adminCatBtn" data-cat="Admin" style="background:transparent;color:#ffcc99;border:1px dashed rgba(255,204,153,0.12);">Admin</button>
   </div>
 
   <main class="container">
@@ -1660,12 +1660,7 @@
     const toggleBtn = document.getElementById('toggle-categories');
     const categories = document.getElementById('categories');
 
-    // Exibe automaticamente ao carregar
-    if (categories) {
-      categories.classList.add('show');
-    }
-
-    // Continua permitindo abrir/fechar manualmente
+    // Mostrar/ocultar categorias somente ao clicar no botão
     if (toggleBtn) {
       toggleBtn.addEventListener('click', () => {
         categories.classList.toggle('show');
@@ -2474,6 +2469,8 @@
     categoriesEl.addEventListener('click', (e) => {
       const btn = e.target.closest('.cat-btn');
       if (!btn) return;
+      // Ignore Admin category button here (it has its own handler)
+      if (btn.id === 'adminCatBtn' || btn.dataset.cat === 'Admin') return;
       document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       currentCategory = btn.dataset.cat;
@@ -2501,15 +2498,9 @@
   </script>
 
   <!-- LOGIN ADMIN -->
-  <div class="modal" id="adminLoginModal">
-    <div class="modal-card">
-      <h2>Área Administrativa</h2>
-      <input type="password" id="adminPassword" placeholder="Digite a senha">
-      <button class="btn confirm" id="adminLoginConfirm">Entrar</button>
-    </div>
-  </div>
+  <!-- Painel administrativo: integrado no index (acesso via botão Admin nas categorias) -->
 
-  <!-- PAINEL ADMIN -->
+  <!-- PAINEL ADMIN (modal embutido) -->
   <div class="modal" id="adminPanel">
     <div class="modal-card">
       <h2>Painel Admin</h2>
@@ -2525,126 +2516,140 @@
 
       <br>
       <button class="btn remove" id="adminLogout">
-        Sair
+        Fechar
       </button>
     </div>
   </div>
 
   <script>
-  // ================= ADMIN =================
+    // ======= ADMIN integrado =======
+    const adminCatBtn = document.getElementById('adminCatBtn');
+    const adminPanel = document.getElementById('adminPanel');
+    const adminProducts = document.getElementById('adminProducts');
+    const adminLogout = document.getElementById('adminLogout');
+    const toggleStoreBtn = document.getElementById('toggleStoreBtn');
 
-  const adminBtn = document.getElementById("adminBtn");
-  const loginModal = document.getElementById("adminLoginModal");
-  const adminPanel = document.getElementById("adminPanel");
-  const loginConfirm = document.getElementById("adminLoginConfirm");
-  const logoutBtn = document.getElementById("adminLogout");
-  const toggleStoreBtn = document.getElementById("toggleStoreBtn");
+    let lojaManual = null;
 
-  let lojaManual = null;
+    function carregarEstadoAdmin() {
+      const dados = localStorage.getItem('menuEstado');
+      const lojaSalva = localStorage.getItem('lojaManual');
 
-  // Carregar estado salvo
-  function carregarEstadoAdmin() {
-    const dados = localStorage.getItem("menuEstado");
-    const lojaSalva = localStorage.getItem("lojaManual");
+      if (dados) {
+        try {
+          const salvos = JSON.parse(dados);
+          salvos.forEach(saved => {
+            const original = menuItems.find(i => i.id === saved.id);
+            if (original) original.ativo = saved.ativo;
+          });
+        } catch (e) { /* ignore parse errors */ }
+      }
 
-    if (dados) {
-      const salvos = JSON.parse(dados);
-      salvos.forEach(saved => {
-        const original = menuItems.find(i => i.id === saved.id);
-        if (original) original.ativo = saved.ativo;
+      if (lojaSalva !== null) {
+        lojaManual = lojaSalva === 'true';
+        lojaAberta = lojaManual;
+      }
+    }
+
+    function salvarEstadoAdmin() {
+      try {
+        localStorage.setItem('menuEstado', JSON.stringify(menuItems));
+      } catch (e) { console.error(e); }
+      if (lojaManual !== null) {
+        localStorage.setItem('lojaManual', lojaManual);
+      }
+    }
+
+    function renderAdminProducts() {
+      adminProducts.innerHTML = '';
+      menuItems.forEach(item => {
+        const div = document.createElement('div');
+        div.style.marginBottom = '8px';
+        div.style.display = 'flex';
+        div.style.justifyContent = 'space-between';
+        div.style.alignItems = 'center';
+        div.style.padding = '6px 8px';
+        div.style.borderRadius = '6px';
+        div.style.background = 'linear-gradient(90deg,#0f0f0f,#151515)';
+
+        const left = document.createElement('div');
+        left.innerHTML = `<strong style="color:#ffcc99">${escapeHtml(item.name)}</strong><div style="color:#aaa;font-size:0.9rem">${escapeHtml(item.category || '')} · R$ ${(item.price||0).toFixed(2)}</div>`;
+
+        const btn = document.createElement('button');
+        btn.className = item.ativo === false ? 'btn' : 'btn remove';
+        btn.textContent = item.ativo === false ? 'Ativar' : 'Desativar';
+        btn.dataset.id = item.id;
+        btn.addEventListener('click', (e) => {
+          const id = parseInt(e.currentTarget.dataset.id);
+          const it = menuItems.find(m => m.id === id);
+          if (!it) return;
+          it.ativo = it.ativo === false ? true : false;
+          salvarEstadoAdmin();
+          renderAdminProducts();
+          renderMenu();
+        });
+
+        div.appendChild(left);
+        div.appendChild(btn);
+        adminProducts.appendChild(div);
       });
     }
 
-    if (lojaSalva !== null) {
-      lojaManual = lojaSalva === "true";
-      lojaAberta = lojaManual;
-    }
-  }
-
-  function salvarEstadoAdmin() {
-    localStorage.setItem("menuEstado", JSON.stringify(menuItems));
-    if (lojaManual !== null) {
-      localStorage.setItem("lojaManual", lojaManual);
-    }
-  }
-
-  // Login
-  if (adminBtn) {
-    adminBtn.addEventListener("click", () => {
-      loginModal.classList.add("open");
-    });
-  }
-
-  // Acesso "escondido": duplo-clique no logo abre o login admin
-  const siteLogo = document.querySelector('header .logo');
-  if (siteLogo) {
-    siteLogo.addEventListener('dblclick', () => {
-      loginModal.classList.add('open');
-    });
-  }
-
-  loginConfirm.addEventListener("click", () => {
-    const senha = document.getElementById("adminPassword").value;
-
-    if (senha === "20262026") {
-      loginModal.classList.remove("open");
-      adminPanel.classList.add("open");
+    function openAdmin() {
+      carregarEstadoAdmin();
       renderAdminProducts();
-    } else {
-      alert("Senha incorreta");
+      adminPanel.classList.add('open');
     }
-  });
 
-  logoutBtn.addEventListener("click", () => {
-    adminPanel.classList.remove("open");
-  });
-
-  // Abrir / fechar loja manual
-  toggleStoreBtn.addEventListener("click", () => {
-    lojaManual = !lojaAberta;
-    lojaAberta = lojaManual;
-    salvarEstadoAdmin();
-    renderMenu();
-    alert(lojaAberta ? "Loja Aberta" : "Loja Fechada");
-  });
-
-  // Render painel produtos
-  function renderAdminProducts() {
-    const container = document.getElementById("adminProducts");
-    container.innerHTML = "";
-
-    menuItems.forEach(item => {
-      const div = document.createElement("div");
-      div.style.marginBottom = "8px";
-
-      div.innerHTML = `
-      ${item.name}
-      <button class="btn ${item.ativo === false ? '' : 'remove'}"
-        data-id="${item.id}">
-        ${item.ativo === false ? "Ativar" : "Desativar"}
-      </button>
-    `;
-
-      container.appendChild(div);
-    });
-
-    container.querySelectorAll("button").forEach(btn => {
-      btn.addEventListener("click", (e) => {
-        const id = parseInt(e.target.dataset.id);
-        const item = menuItems.find(i => i.id === id);
-
-        item.ativo = item.ativo === false ? true : false;
-
-        salvarEstadoAdmin();
-        renderMenu();
-        renderAdminProducts();
+    // Acesso via botão Admin nas categorias
+    if (adminCatBtn) {
+      adminCatBtn.addEventListener('click', () => {
+        const senha = prompt('Senha administrativa:');
+        if (senha === '20262026') {
+          openAdmin();
+        } else {
+          alert('Senha incorreta');
+        }
       });
-    });
-  }
+    }
 
-  // Inicializar
-  carregarEstadoAdmin();
-  renderMenu();
+    // Duplo clique no logo também abre admin (com senha)
+    const siteLogo = document.querySelector('header .logo');
+    if (siteLogo) {
+      siteLogo.addEventListener('dblclick', () => {
+        const senha = prompt('Senha administrativa:');
+        if (senha === '20262026') openAdmin();
+        else alert('Senha incorreta');
+      });
+    }
+
+    // Também expõe o botão Admin no cabeçalho e adiciona listener
+    const headerAdminBtn = document.getElementById('adminBtn');
+    if (headerAdminBtn) {
+      headerAdminBtn.style.display = 'inline-block';
+      headerAdminBtn.addEventListener('click', () => {
+        const senha = prompt('Senha administrativa:');
+        if (senha === '20262026') openAdmin();
+        else alert('Senha incorreta');
+      });
+    }
+
+    adminLogout.addEventListener('click', () => {
+      adminPanel.classList.remove('open');
+      // reset category filter so menu volta a mostrar todos os produtos
+      currentCategory = 'Todos';
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      renderMenu();
+    });
+
+    toggleStoreBtn.addEventListener('click', () => {
+      lojaManual = !lojaAberta;
+      lojaAberta = lojaManual;
+      salvarEstadoAdmin();
+      renderMenu();
+      alert(lojaAberta ? 'Loja Aberta' : 'Loja Fechada');
+    });
+
   </script>
 
 </body>
